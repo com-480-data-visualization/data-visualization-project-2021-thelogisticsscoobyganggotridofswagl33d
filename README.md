@@ -23,6 +23,10 @@ Please, fill the following sections about your project.
 >
 > Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
 
+https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks?select=tracks.csv
+https://www.kaggle.com/yamaerenay/spotify-tracks-dataset-19222021?select=FR.csv
+https://www.kaggle.com/yamaerenay/spotify-artists-dataset-19222021
+
 ### Problematic
 
 > Frame the general topic of your visualization and the main axis that you want to develop.
