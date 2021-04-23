@@ -50,11 +50,10 @@ The data set contains a lot of interesting information.
 In our jupyter notebook, we have:
 * extracted the most common opening names, and the frequency of their different variations
 * built heatmaps of positions in order to get a feel of where some pieces end the game
-
-![image](https://user-images.githubusercontent.com/16099301/115859561-a7785a00-a430-11eb-976d-e5f6f83eee80.png)
-![image](https://user-images.githubusercontent.com/16099301/115859572-aa734a80-a430-11eb-85a0-f57d36d4f279.png)
-![image](https://user-images.githubusercontent.com/16099301/115859587-acd5a480-a430-11eb-8372-f551fc01597a.png)
-
+* 
+![image](https://user-images.githubusercontent.com/16099301/115878311-b2d77f80-a448-11eb-965b-cab1b65e27bb.png)
+![image](https://user-images.githubusercontent.com/16099301/115878327-b834ca00-a448-11eb-990b-6980fafb2efd.png)
+![image](https://user-images.githubusercontent.com/16099301/115878341-ba972400-a448-11eb-9fa3-a828ad1a9f97.png)
 
 
 ### Related work
