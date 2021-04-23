@@ -45,8 +45,10 @@ We want the user to be able to explore different facets of a chess game and see 
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+The data set contains a lot of interesting information.
+
+We have extracted the most common opening names, and the frequency of their different variations.
+We have also built heatmaps of positions in order to get a feel of where some pieces end the game.
 
 ### Related work
 
