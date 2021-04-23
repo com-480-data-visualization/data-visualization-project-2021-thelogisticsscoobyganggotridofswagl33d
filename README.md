@@ -47,13 +47,14 @@ We want the user to be able to explore different facets of a chess game and see 
 
 The data set contains a lot of interesting information.
 
-In our notebook, we have:
+In our jupyter notebook, we have:
 * extracted the most common opening names, and the frequency of their different variations
 * built heatmaps of positions in order to get a feel of where some pieces end the game
 
-![image](https://user-images.githubusercontent.com/16099301/115858358-22407580-a42f-11eb-984c-e33b67a2d622.png)
-![image](https://user-images.githubusercontent.com/16099301/115858334-16ed4a00-a42f-11eb-9ff8-03506a74d66e.png)
-![image](https://user-images.githubusercontent.com/16099301/115858352-1eacee80-a42f-11eb-8a4d-07e8fd1978c1.png)
+![image](https://user-images.githubusercontent.com/16099301/115859561-a7785a00-a430-11eb-976d-e5f6f83eee80.png)
+![image](https://user-images.githubusercontent.com/16099301/115859572-aa734a80-a430-11eb-85a0-f57d36d4f279.png)
+![image](https://user-images.githubusercontent.com/16099301/115859587-acd5a480-a430-11eb-8372-f551fc01597a.png)
+
 
 
 ### Related work
