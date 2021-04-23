@@ -50,6 +50,11 @@ The data set contains a lot of interesting information.
 We have extracted the most common opening names, and the frequency of their different variations.
 We have also built heatmaps of positions in order to get a feel of where some pieces end the game.
 
+![image](https://user-images.githubusercontent.com/16099301/115858358-22407580-a42f-11eb-984c-e33b67a2d622.png)
+![image](https://user-images.githubusercontent.com/16099301/115858334-16ed4a00-a42f-11eb-9ff8-03506a74d66e.png)
+![image](https://user-images.githubusercontent.com/16099301/115858352-1eacee80-a42f-11eb-8a4d-07e8fd1978c1.png)
+
+
 ### Related work
 
 * The websites chess.com and Lichess provide some visualizations for openings that inspire us to do our own. For example: https://www.chess.com/openings/Ruy-Lopez-Opening
