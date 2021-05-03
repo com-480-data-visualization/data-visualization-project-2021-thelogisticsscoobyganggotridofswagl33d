@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Chess visualization
 
 You can use the [editor on GitHub](https://github.com/com-480-data-visualization/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
