@@ -304,8 +304,8 @@
 	};
 
 
-	var servicesAnimate = function() {
-		var services = $('#fh5co-services');
+	var servicesAnimate = function(str) {
+		var services = $('#fh5co-'+str);
 		if ( services.length > 0 ) {	
 
 			services.waypoint( function( direction ) {
@@ -326,7 +326,7 @@
 							
 						});
 					}, 200);
-
+					console.log("YAAA")
 					setTimeout(function() {
 						services.find('.to-animate-2').each(function( k ) {
 							var el = $(this);
@@ -454,7 +454,9 @@
 		exploreAnimate();
 		gettingStartedAnimate();
 		pricingAnimate();
-		servicesAnimate();
+		servicesAnimate("tuto");
+		servicesAnimate("openings");
+		servicesAnimate("flow");
 		teamAnimate();
 		footerAnimate();
 		counter();

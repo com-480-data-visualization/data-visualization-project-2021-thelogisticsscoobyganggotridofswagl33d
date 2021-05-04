@@ -4753,7 +4753,11 @@ tbody.collapse.in {
     border-radius: 0;
   }
 }
-
+.navbar-fixed-right {
+  position: fixed;
+  right: 0;
+  z-index: 1030;
+}
 .navbar-fixed-top,
 .navbar-fixed-bottom {
   position: fixed;
