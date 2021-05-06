@@ -16,10 +16,10 @@ class Chessboard {
 
   constructor(size, blackColor, whiteColor) {
     this.initial_state = {
-      'R-L': 'a1', 'N-L': 'b1', 'B-L': 'c1', 'Q':   'd1', 'K':   'e1', 'B-R': 'f1', 'N-R': 'g1', 'R-R': 'h1',
-      'P-a': 'a2', 'P-b': 'b2', 'P-c': 'c2', 'P-d': 'd2', 'P-e': 'e2', 'P-f': 'f2', 'P-g': 'g2', 'P-h': 'h2',
-      'p-a': 'a7', 'p-b': 'b7', 'p-c': 'c7', 'p-d': 'd7', 'p-e': 'e7', 'p-f': 'f7', 'p-g': 'g7', 'p-h': 'h7',
-      'r-L': 'a8', 'n-L': 'b8', 'b-L': 'c8', 'q':   'd8', 'k':   'e8', 'b-R': 'f8', 'n-R': 'g8', 'r-R': 'h8'
+      'wr-L': 'a1', 'wn-L': 'b1', 'wb-L': 'c1', 'wq':   'd1', 'wk':   'e1', 'wb-R': 'f1', 'wn-R': 'g1', 'wr-R': 'h1',
+      'wp-a': 'a2', 'wp-b': 'b2', 'wp-c': 'c2', 'wp-d': 'd2', 'wp-e': 'e2', 'wp-f': 'f2', 'wp-g': 'g2', 'wp-h': 'h2',
+      'bp-a': 'a7', 'bp-b': 'b7', 'bp-c': 'c7', 'bp-d': 'd7', 'bp-e': 'e7', 'bp-f': 'f7', 'bp-g': 'g7', 'bp-h': 'h7',
+      'br-L': 'a8', 'bn-L': 'b8', 'bb-L': 'c8', 'bq':   'd8', 'bk':   'e8', 'bb-R': 'f8', 'bn-R': 'g8', 'br-R': 'h8'
     }
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
