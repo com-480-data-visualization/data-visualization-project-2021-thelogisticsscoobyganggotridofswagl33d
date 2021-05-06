@@ -330,7 +330,7 @@ h1, h2, h3, h4, h5, h6 {
 /* svg_trials */
 
 .svg-container {
-  display:grid;
+  /*display:grid;*/
   position: relative;
   /*width: 100%;*/
   /*padding-bottom: 100%;  aspect ratio */
@@ -340,7 +340,7 @@ h1, h2, h3, h4, h5, h6 {
 .svg-content-responsive {
   display: inline-block;
   position: absolute;
-  top: 00px;
+  top: 0px;
   left: 0;
 }
 
@@ -354,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
 #fh5co-work,
 #fh5co-counters,
 #fh5co-pricing {
-  padding: 8em 0;
+  padding: 0em 0;
   height: 100vh;
   scroll-snap-align: center;
 }

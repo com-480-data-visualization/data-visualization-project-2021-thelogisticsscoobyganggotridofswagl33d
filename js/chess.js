@@ -44,7 +44,7 @@ class Chessboard {
           .attr("width", size)
           .attr("height", size)
           //.attr("display", "block")
-          //.attr("margin", "auto");
+          .attr("margin", "auto");
 
     this.tilesGroup = this.svg.append("g").attr("id", "tiles");
     this.cols.forEach(l => {
@@ -185,7 +185,7 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
   let size = 400;
-  let board = new Chessboard(size, "#FFFFFF", "#AAAAAA");
+  let board = new Chessboard(size, "#545454", "#AAAAAA");
 
   let opening = {
     'moves': [['wp-e', 'e4'], ['bp-d', 'd5'], ['wp-e', 'd5'], ['bq', 'd5'], ['wn-L', 'c3']],
