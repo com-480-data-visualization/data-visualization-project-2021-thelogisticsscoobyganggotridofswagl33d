@@ -6,7 +6,7 @@
 | Marie Reignier-Tayar| 274122 |
 | Damien Gengler | 272798 |
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+[Milestone 1](#milestone-1) • [Milestone 2](https://github.com/com-480-data-visualization/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/blob/master/milestone2/Milestone2_dataViz.pdf) • [Milestone 3](#milestone-3)
 
 ## Milestone 1 (23rd April, 5pm)
 
