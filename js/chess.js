@@ -35,10 +35,16 @@ class Chessboard {
     this.scale = d3.scaleLinear().domain([0, 8]).range([0, size]);
 
     this.svg = d3.select("#chess-container").append("svg")
+          .classed("svg-container", true) 
+          // Responsive SVG needs these 2 attributes and no width and height attr.
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", `0 0 ${size} ${size}`)
+          // Class to make it responsive.
+          //.classed("svg-content-responsive", true)
           .attr("width", size)
           .attr("height", size)
-          .attr("display", "block")
-          .attr("margin", "auto");
+          //.attr("display", "block")
+          //.attr("margin", "auto");
 
     this.tilesGroup = this.svg.append("g").attr("id", "tiles");
     this.cols.forEach(l => {
@@ -178,7 +184,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-  let size = 10;
+  let size = 400;
   let board = new Chessboard(size, "#FFFFFF", "#AAAAAA");
 
   let opening = {

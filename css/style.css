@@ -327,6 +327,23 @@ h1, h2, h3, h4, h5, h6 {
   scroll-snap-type: y mandatory;
 }
 
+/* svg_trials */
+
+.svg-container {
+  display:grid;
+  position: relative;
+  /*width: 100%;*/
+  /*padding-bottom: 100%;  aspect ratio */
+  vertical-align: top;
+  overflow: auto;
+}
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 00px;
+  left: 0;
+}
+
 
 #fh5co-tuto,
 #fh5co-flow,
