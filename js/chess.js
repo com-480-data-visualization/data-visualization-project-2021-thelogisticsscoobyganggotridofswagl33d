@@ -24,7 +24,7 @@ class Chessboard {
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
 
-    this.mapping = (piece) => 'sprites/' + piece[0] + piece[1] +'.png'
+    this.mapping = (piece) => 'url(sprites/' + piece[0] + piece[1] +'.png)'
 
     this.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     this.rows = [1, 2, 3, 4, 5, 6, 7, 8];
