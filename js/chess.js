@@ -14,7 +14,7 @@ function xy_to_chess(x, y) {
 
 class Chessboard {
 
-  constructor(size, blackColor, whiteColor) {
+  constructor(divId, size, blackColor, whiteColor) {
     this.initial_state = {
       'wr-L': 'a1', 'wn-L': 'b1', 'wb-L': 'c1', 'wq':   'd1', 'wk':   'e1', 'wb-R': 'f1', 'wn-R': 'g1', 'wr-R': 'h1',
       'wp-a': 'a2', 'wp-b': 'b2', 'wp-c': 'c2', 'wp-d': 'd2', 'wp-e': 'e2', 'wp-f': 'f2', 'wp-g': 'g2', 'wp-h': 'h2',
@@ -34,8 +34,8 @@ class Chessboard {
 
     this.scale = d3.scaleLinear().domain([0, 8]).range([0, size]);
 
-    this.svg = d3.select("#chess-container").append("svg")
-          .classed("svg-container", true) 
+    this.svg = d3.select(divId).append("svg")
+          .classed("svg-container", true)
           // Responsive SVG needs these 2 attributes and no width and height attr.
           .attr("preserveAspectRatio", "xMinYMin meet")
           .attr("viewBox", `0 0 ${size} ${size}`)
@@ -70,7 +70,7 @@ class Chessboard {
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
         .attr("font-weight", "bold")
         .attr("pointer-events", "none")
-        .attr("font-size", 20)
+        .attr("font-size", size / 40)
         .text(l);
     });
 
@@ -83,7 +83,7 @@ class Chessboard {
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
         .attr("font-weight", "bold")
         .attr("pointer-events", "none")
-        .attr("font-size", 20)
+        .attr("font-size", size / 40)
         .text(String(n));
     });
 
@@ -184,8 +184,10 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-  let size = 400;
-  let board = new Chessboard(size, "#545454", "#AAAAAA");
+  let size = 600;
+  let boardOpening = new Chessboard("#chess-container-opening", size, "#545454", "#AAAAAA");
+  let boardTutorial = new Chessboard("#chess-container-tutorial", size, "#545454", "#AAAAAA");
+  let boardFlow = new Chessboard("#chess-container-flow", size, "#545454", "#AAAAAA");
 
   let opening = {
     'moves': [['wp-e', 'e4'], ['bp-d', 'd5'], ['wp-e', 'd5'], ['bq', 'd5'], ['wn-L', 'c3']],
@@ -211,5 +213,5 @@ whenDocumentLoaded(() => {
       .attr("class", "button")
       .style("color", "white")
       .text("Show me this opening!")
-      .on("click", () => board.showOpening(opening.moves));
+      .on("click", () => boardOpening.showOpening(opening.moves));
 });
