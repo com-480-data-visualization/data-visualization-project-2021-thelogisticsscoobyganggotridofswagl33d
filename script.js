@@ -24,7 +24,7 @@ class Chessboard {
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
 
-    this.mapping = (piece) => '/sprites/' + piece[0] + '.png'
+    this.mapping = (piece) => '/sprites/' + piece[0] + piece[1] +'.png'
 
     this.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     this.rows = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -182,7 +182,7 @@ whenDocumentLoaded(() => {
   let board = new Chessboard(size, "#545454", "#AAAAAA");
 
   let opening = {
-    'moves': [['P-e', 'e4'], ['p-d', 'd5'], ['P-e', 'd5'], ['q', 'd5'], ['N-L', 'c3']],
+    'moves': [['wp-e', 'e4'], ['bp-d', 'd5'], ['wp-e', 'd5'], ['bq', 'd5'], ['wn-L', 'c3']],
     'description': "e4 d52. exd5 Qxd53. Nc3",
     'name': "Scandinavian Defense: Mieses-Kotrč Variation, 3.Nc3"
   };
