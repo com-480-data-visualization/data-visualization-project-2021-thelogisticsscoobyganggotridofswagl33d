@@ -326,7 +326,7 @@
 							
 						});
 					}, 200);
-					console.log("YAAA")
+					
 					setTimeout(function() {
 						services.find('.to-animate-2').each(function( k ) {
 							var el = $(this);
