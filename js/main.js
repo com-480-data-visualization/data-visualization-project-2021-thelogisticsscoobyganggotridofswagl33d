@@ -440,6 +440,8 @@
 			} , { offset: '90%' } );
 		}
 	};
+	
+
 
 	// Document on load.
 	$(function(){
@@ -448,7 +450,7 @@
 		clickMenu();
 		windowScroll();
 		navigationSection();
-		
+
 		// Animations
 		homeAnimate();
 		exploreAnimate();
