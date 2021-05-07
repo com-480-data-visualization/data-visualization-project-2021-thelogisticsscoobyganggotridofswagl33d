@@ -206,12 +206,10 @@ whenDocumentLoaded(() => {
       .data([opening.name, opening.description])
       .enter()
       .append("p")
-      .style("color", "white")
       .text(d => d);
 
   text.append("button")
       .attr("class", "button")
-      .style("color", "white")
       .text("Show me this opening!")
       .on("click", () => boardOpening.showOpening(opening.moves));
 });
