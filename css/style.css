@@ -7,7 +7,7 @@
 }
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *	Edit this section
 *
 * ======================================================= */
@@ -280,7 +280,7 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(0, 0, 0, 0.3);
 }
 #fh5co-home, #fh5co-home .text-wrap {
-  height: 900px;
+  height: 2000px;
 }
 @media screen and (max-width: 768px) {
   #fh5co-home, #fh5co-home .text-wrap {
@@ -296,7 +296,7 @@ h1, h2, h3, h4, h5, h6 {
 #fh5co-home .text-inner {
   display: table-cell;
   vertical-align: middle;
-  
+
 }
 #fh5co-home .text-inner h1 {
   font-size: 60px;
