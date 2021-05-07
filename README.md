@@ -66,6 +66,10 @@ In our jupyter notebook, we have:
 
 **10% of the final grade**
 
+The report is in the folder `milestone2`.
+
+Our first prototype can be found [here](https://com-480-data-visualization.github.io/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/). For now, we have implemented a chess board and allowed the pieces to move in order to show openings, so we still have many things to do.
+
 
 ## Milestone 3 (4th June, 5pm)
 
