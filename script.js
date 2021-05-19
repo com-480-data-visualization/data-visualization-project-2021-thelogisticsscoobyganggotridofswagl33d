@@ -12,6 +12,10 @@ function xy_to_chess(x, y) {
   return String.fromCharCode(x + 'a'.charCodeAt(0)) + String(8 - y);
 }
 
+function clamp(x, m, M) {
+  return Math.min(Math.max(x, m), M);
+}
+
 class Chessboard {
 
   constructor(size, blackColor, whiteColor) {
@@ -33,6 +37,7 @@ class Chessboard {
     this.tileSize = size / 8;
 
     this.scale = d3.scaleLinear().domain([0, 8]).range([0, size]);
+    this.scale.clamp(true);
 
     this.svg = d3.select("#chess-container").append("svg")
           .attr("width", size)
@@ -81,7 +86,6 @@ class Chessboard {
         .text(String(n));
     });
 
-
     this.piecesGroup = this.svg.append("g").attr("id", "pieces");
     this.drawPieces();
   }
@@ -91,9 +95,18 @@ class Chessboard {
       return;
     }
     this.ongoing = true;
-    this.reset();
+
+
 
     let i = 0;
+    if (JSON.stringify(this.state) == JSON.stringify(this.initial_state)) {
+      this.movePiece(moves[i][0], moves[i][1]);
+      this.drawPieces();
+      i += 1;
+    }
+    else {
+      this.reset();
+    }
     let interval = d3.interval(() => {
       if (i < moves.length) {
         this.movePiece(moves[i][0], moves[i][1]);
@@ -129,21 +142,94 @@ class Chessboard {
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
-    u.enter()
+    let pieces = u.enter()
       .append("image")
-        .classed("piece", true)
+        .attr("class", "piece")
         .attr("id", (piece) => piece)
         .attr("href", (piece) => this.mapping(piece))
         .attr("height", 0.7 * this.tileSize)
         .attr("width", 0.7 * this.tileSize)
         .attr("x", this.size / 2)
-        .attr("y", this.size / 2)
-        .transition()
-        .duration(250)
-        .ease(d3.easeLinear)
-          .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
-          .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
+        .attr("y", this.size / 2);
 
+    pieces.transition()
+      .duration(250)
+      .ease(d3.easeLinear)
+        .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
+        .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
+
+    pieces.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", (d) => this.tutorial(d));
+
+
+    let self_ = this;
+
+    function dragged(piece) {
+      d3.select(this)
+        .raise()
+        .attr("x", clamp(d3.event.x, 0, self_.size) - 0.35 * self_.tileSize)
+        .attr("y", clamp(d3.event.y, 0, self_.size) - 0.35 * self_.tileSize);
+    }
+
+    function dragended(piece) {
+      let position = self_.xy_screen_to_colrow(d3.event.x, d3.event.y);
+      let [x, y] = self_.centerPiece(position);
+
+      if (position != self_.state[piece]) {
+        let victim = self_.capture(position);
+        if (victim != null) {
+          d3.select("#" + victim).remove();
+        }
+      }
+
+      d3.select(this)
+        .attr("x", x)
+        .attr("y", y)
+        .style("z-index", null);
+
+      self_.movePiece(piece, position);
+    }
+
+    pieces.call(
+      d3.drag()
+        .on("drag", dragged)
+        .on("end", dragended)
+    )
+  }
+
+  tutorial(piece) {
+    let pos = this.state[piece];
+    this.state = {};
+    this.state[piece] = pos;
+    this.drawPieces();
+  }
+
+  xy_screen_to_colrow(x, y) {
+    x = x - this.tileSize / 2;
+    y = y + this.tileSize / 2;
+
+    x = this.scale.invert(x);
+    y = this.scale.invert(y);
+
+    x = Math.round(x);
+    y = 8 - Math.round(y);
+
+    x = clamp(x, 0, 7);
+    y = clamp(y, 0, 7);
+
+    return String(this.cols[x]) + String(this.rows[y])
+  }
+
+  capture(position) {
+    let res = null;
+    Object.keys(this.state).forEach(k => {
+      if (this.state[k] == position) {
+        delete this.state[k];
+        res = k;
+      }
+    })
+    return res;
   }
 
   movePiece(piece, position) {
@@ -151,11 +237,7 @@ class Chessboard {
       delete this.state[piece];
     }
     else {
-      Object.keys(this.state).forEach(k => {
-        if (this.state[k] == position) {
-          delete this.state[k];
-        }
-      })
+      this.capture(position);
       this.state[piece] = position;
     }
     this.drawPieces();
