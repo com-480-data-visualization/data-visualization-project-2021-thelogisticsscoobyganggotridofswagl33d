@@ -91,7 +91,7 @@ class Chessboard {
   }
 
   showOpening(moves) {
-    if (this.ongoing) {
+    if (this.ongoing || moves.length == 0) {
       return;
     }
     this.ongoing = true;
@@ -232,7 +232,7 @@ class Chessboard {
     return res;
   }
 
-  movePiece(piece, position) {
+  movePiece(piece, position, draw=true) {
     if (position == null) {
       delete this.state[piece];
     }
@@ -240,12 +240,16 @@ class Chessboard {
       this.capture(position);
       this.state[piece] = position;
     }
-    this.drawPieces();
+    if (draw) {
+      this.drawPieces();
+    }
   }
 
-  reset() {
+  reset(draw=true) {
     this.state = JSON.parse(JSON.stringify(this.initial_state));
-    this.drawPieces();
+    if (draw) {
+      this.drawPieces();
+    }
   }
 }
 
@@ -263,29 +267,70 @@ whenDocumentLoaded(() => {
   let size = 800;
   let board = new Chessboard(size, "#545454", "#AAAAAA");
 
-  let opening = {
-    'moves': [['wp-e', 'e4'], ['bp-d', 'd5'], ['wp-e', 'd5'], ['bq', 'd5'], ['wn-L', 'c3']],
-    'description': "e4 d52. exd5 Qxd53. Nc3",
-    'name': "Scandinavian Defense: Mieses-Kotrč Variation, 3.Nc3"
-  };
 
-  let text = d3.select("#text-container")
-    .append("div")
-    .attr("display", "block")
-    .attr("margin", "auto")
-    .attr("width", "auto");
+  d3.json("data/openings.json", function (error, data) {
+    let selector = d3.select("#opening-selector")
 
+    selector.append("option")
+      .attr("selected", "")
+      .text("Choose an opening!");
 
-  text.selectAll("p")
-      .data([opening.name, opening.description])
+    selector.selectAll(".opening")
+      .data(Object.keys(data), d => d)
       .enter()
-      .append("p")
-      .style("color", "white")
-      .text(d => d);
+      .append("option")
+      .attr("value", d => d)
+      .text(d => d)
 
-  text.append("button")
-      .attr("class", "button")
-      .style("color", "white")
-      .text("Show me this opening!")
-      .on("click", () => board.showOpening(opening.moves));
+
+    let curr = 0;
+    let states = [];
+    let moves = [];
+
+    selector.on("change", () => {
+      moves = data[selector.property("value")].sequence
+      states = [JSON.parse(JSON.stringify(board.initial_state))].concat(moves.map(m => {
+        board.movePiece(m[0], m[1], false);
+        return JSON.parse(JSON.stringify(board.state))
+      }))
+      board.reset(false)
+    })
+
+
+    let buttons = d3.select("#opening-buttons")
+
+    buttons.append("button")
+      .attr("id", "button-back")
+      .text("back")
+      .on("click", () => {
+        if (curr > 0) {
+          curr -= 1;
+          board.state = JSON.parse(JSON.stringify(states[curr]));
+          board.drawPieces();
+        }
+      })
+
+    buttons.append("button")
+      .attr("id", "button-play")
+      .text("play")
+      .on("click", () => {
+        board.showOpening(moves);
+        curr = moves.length;
+      })
+
+    buttons.append("button")
+      .attr("id", "button-next")
+      .text("next")
+      .on("click", () => {
+        if (curr < moves.length) {
+          curr += 1;
+          board.state = JSON.parse(JSON.stringify(states[curr]));
+          board.drawPieces();
+        }
+      })
+
+
+  })
+
+
 });
