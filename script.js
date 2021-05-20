@@ -287,54 +287,65 @@ whenDocumentLoaded(() => {
 
     let curr = 0;
     let states = [];
-    let moves = [];
 
     selector.on("change", () => {
       curr = 0;
-      moves = data[selector.property("value")].sequence
-      board.reset(true)
-      states = [JSON.parse(JSON.stringify(board.initial_state))].concat(moves.map(m => {
-        board.movePiece(m[0], m[1], false);
-        return JSON.parse(JSON.stringify(board.state))
-      }))
+      states = data[selector.property("value")].states
       board.reset(false)
     })
 
+
+    function back() {
+      if (!board.ongoing && curr > 0) {
+        curr -= 1;
+        board.state = JSON.parse(JSON.stringify(states[curr]));
+        board.drawPieces();
+      }
+    }
+
+    function next(skip=false) {
+      if (!board.ongoing && curr < states.length - 1) {
+        curr += 1;
+        board.state = JSON.parse(JSON.stringify(states[curr]));
+        board.drawPieces();
+      }
+    }
 
     let buttons = d3.select("#opening-buttons")
 
     buttons.append("button")
       .attr("id", "button-back")
       .text("back")
-      .on("click", () => {
-        if (!board.ongoing && curr > 0) {
-          curr -= 1;
-          board.state = JSON.parse(JSON.stringify(states[curr]));
-          board.drawPieces();
-        }
-      })
+      .on("click", back)
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
 
     buttons.append("button")
       .attr("id", "button-play")
       .text("play")
       .on("click", () => {
-        board.showOpening(moves);
-        curr = moves.length;
+        if (curr < states.length - 1) {
+          next()
+        }
+        let interval = d3.interval(() => {
+          if (curr < states.length - 1) {
+            next()
+          } else {
+            interval.stop();
+            this.ongoing = false;
+            return;
+          }
+        }, 750);
       })
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
 
     buttons.append("button")
       .attr("id", "button-next")
       .text("next")
-      .on("click", () => {
-        if (!board.ongoing && curr < moves.length) {
-          curr += 1;
-          board.state = JSON.parse(JSON.stringify(states[curr]));
-          board.drawPieces();
-        }
-      })
-
+      .on("click", next)
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
 
   })
-
-
 });
