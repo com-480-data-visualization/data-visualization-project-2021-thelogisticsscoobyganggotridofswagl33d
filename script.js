@@ -127,30 +127,14 @@ class Chessboard {
   }
 
   drawPieces() {
-    let u = this.piecesGroup
+    let pieces = this.piecesGroup
       .selectAll(".piece")
       .data(Object.keys(this.state), d => d);
 
-    u.exit()
+    pieces.exit()
       .transition()
       .duration(200)
       .remove();
-
-    u.transition()
-      .duration(250)
-      .ease(d3.easeLinear)
-        .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
-        .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
-
-    let pieces = u.enter()
-      .append("image")
-        .attr("class", "piece")
-        .attr("id", (piece) => piece)
-        .attr("href", (piece) => this.mapping(piece))
-        .attr("height", 0.7 * this.tileSize)
-        .attr("width", 0.7 * this.tileSize)
-        .attr("x", this.size / 2)
-        .attr("y", this.size / 2);
 
     pieces.transition()
       .duration(250)
@@ -158,7 +142,25 @@ class Chessboard {
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
-    pieces.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+    let e = pieces.enter()
+      .append("image")
+        .attr("class", "piece")
+        .attr("id", (piece) => piece)
+        .attr("href", (piece) => this.mapping(piece))
+        .attr("height", 0)
+        .attr("width", 0)
+        .attr("x", (piece) => this.centerPiece(this.state[piece])[0] + 0.35 * this.tileSize)
+        .attr("y", (piece) => this.centerPiece(this.state[piece])[1] + 0.35 * this.tileSize);
+
+    e.transition()
+      .duration(250)
+      .ease(d3.easeLinear)
+        .attr("height", 0.7 * this.tileSize)
+        .attr("width", 0.7 * this.tileSize)
+        .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
+        .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
+
+    e.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
         .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
         .on("click", (d) => this.tutorial(d));
 
@@ -288,7 +290,9 @@ whenDocumentLoaded(() => {
     let moves = [];
 
     selector.on("change", () => {
+      curr = 0;
       moves = data[selector.property("value")].sequence
+      board.reset(true)
       states = [JSON.parse(JSON.stringify(board.initial_state))].concat(moves.map(m => {
         board.movePiece(m[0], m[1], false);
         return JSON.parse(JSON.stringify(board.state))
@@ -303,7 +307,7 @@ whenDocumentLoaded(() => {
       .attr("id", "button-back")
       .text("back")
       .on("click", () => {
-        if (curr > 0) {
+        if (!board.ongoing && curr > 0) {
           curr -= 1;
           board.state = JSON.parse(JSON.stringify(states[curr]));
           board.drawPieces();
@@ -322,7 +326,7 @@ whenDocumentLoaded(() => {
       .attr("id", "button-next")
       .text("next")
       .on("click", () => {
-        if (curr < moves.length) {
+        if (!board.ongoing && curr < moves.length) {
           curr += 1;
           board.state = JSON.parse(JSON.stringify(states[curr]));
           board.drawPieces();
