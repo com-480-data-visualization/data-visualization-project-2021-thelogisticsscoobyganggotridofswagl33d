@@ -193,7 +193,7 @@ class Chessboard {
       self_.movePiece(piece, position);
     }
 
-    pieces.call(
+    e.call(
       d3.drag()
         .on("drag", dragged)
         .on("end", dragended)
@@ -291,7 +291,7 @@ whenDocumentLoaded(() => {
     selector.on("change", () => {
       curr = 0;
       states = data[selector.property("value")].states
-      board.reset(false)
+      board.reset()
     })
 
 
