@@ -266,6 +266,7 @@ whenDocumentLoaded(() => {
 
 
   d3.json("data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/data/openings.json", function (error, data) {
+    console.log(data)
     let selector = d3.select("#opening-selector")
 
     selector.selectAll(".opening")
