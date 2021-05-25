@@ -1,8 +1,3 @@
-margin = {top: 20, bottom: 20, left: 30, right: 30}
-
-let width = window.innerWidth * 0.95 - margin.left - margin.right;
-let height = window.innerHeight * 0.95 - margin.top - margin.bottom;
-
 function chess_to_xy(pos) {
   let letter = pos[0];
   let number = pos[1];
@@ -273,12 +268,8 @@ whenDocumentLoaded(() => {
   d3.json("data/openings.json", function (error, data) {
     let selector = d3.select("#opening-selector")
 
-    selector.append("option")
-      .attr("selected", "")
-      .text("Choose an opening!");
-
     selector.selectAll(".opening")
-      .data(Object.keys(data), d => d)
+      .data(Object.keys(data).sort(), d => d)
       .enter()
       .append("option")
       .attr("value", d => d)
