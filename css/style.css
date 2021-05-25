@@ -280,7 +280,7 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(0, 0, 0, 0.3);
 }
 #fh5co-home, #fh5co-home .text-wrap {
-  height: 900px;
+  height: 100vh;
 }
 @media screen and (max-width: 768px) {
   #fh5co-home, #fh5co-home .text-wrap {
@@ -323,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #scroll-container {
   height: 100hv;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
   scroll-snap-type: y mandatory;
 }
 
@@ -358,7 +358,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   scroll-snap-align: center;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   #fh5co-tuto,
   #fh5co-flow,
   #fh5co-openings,
