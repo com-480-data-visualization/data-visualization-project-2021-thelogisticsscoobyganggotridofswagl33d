@@ -1,8 +1,3 @@
-margin = {top: 20, bottom: 20, left: 30, right: 30}
-
-let width = window.innerWidth * 0.95 - margin.left - margin.right;
-let height = window.innerHeight * 0.95 - margin.top - margin.bottom;
-
 function chess_to_xy(pos) {
   let letter = pos[0];
   let number = pos[1];
@@ -12,9 +7,13 @@ function xy_to_chess(x, y) {
   return String.fromCharCode(x + 'a'.charCodeAt(0)) + String(8 - y);
 }
 
+function clamp(x, m, M) {
+  return Math.min(Math.max(x, m), M);
+}
+
 class Chessboard {
 
-  constructor(divId, size, blackColor, whiteColor) {
+  constructor(size, blackColor, whiteColor) {
     this.initial_state = {
       'wr-L': 'a1', 'wn-L': 'b1', 'wb-L': 'c1', 'wq':   'd1', 'wk':   'e1', 'wb-R': 'f1', 'wn-R': 'g1', 'wr-R': 'h1',
       'wp-a': 'a2', 'wp-b': 'b2', 'wp-c': 'c2', 'wp-d': 'd2', 'wp-e': 'e2', 'wp-f': 'f2', 'wp-g': 'g2', 'wp-h': 'h2',
@@ -24,7 +23,7 @@ class Chessboard {
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
 
-    this.mapping = (piece) => 'https://com-480-data-visualization.github.io/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/sprites/' + piece[0] + piece[1] +'.png'
+    this.mapping = (piece) => '/sprites/' + piece[0] + piece[1] +'.png'
 
     this.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     this.rows = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -33,17 +32,12 @@ class Chessboard {
     this.tileSize = size / 8;
 
     this.scale = d3.scaleLinear().domain([0, 8]).range([0, size]);
+    this.scale.clamp(true);
 
-    this.svg = d3.select(divId).append("svg")
-          .classed("svg-container", true)
-          // Responsive SVG needs these 2 attributes and no width and height attr.
-          .attr("preserveAspectRatio", "xMinYMin meet")
-          .attr("viewBox", `0 0 ${size} ${size}`)
-          // Class to make it responsive.
-          //.classed("svg-content-responsive", true)
+    this.svg = d3.select("#chess-container").append("svg")
           .attr("width", size)
           .attr("height", size)
-          //.attr("display", "block")
+          .attr("display", "block")
           .attr("margin", "auto");
 
     this.tilesGroup = this.svg.append("g").attr("id", "tiles");
@@ -70,7 +64,7 @@ class Chessboard {
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
         .attr("font-weight", "bold")
         .attr("pointer-events", "none")
-        .attr("font-size", size / 40)
+        .attr("font-size", 20)
         .text(l);
     });
 
@@ -83,23 +77,31 @@ class Chessboard {
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
         .attr("font-weight", "bold")
         .attr("pointer-events", "none")
-        .attr("font-size", size / 40)
+        .attr("font-size", 20)
         .text(String(n));
     });
-
 
     this.piecesGroup = this.svg.append("g").attr("id", "pieces");
     this.drawPieces();
   }
 
   showOpening(moves) {
-    if (this.ongoing) {
+    if (this.ongoing || moves.length == 0) {
       return;
     }
     this.ongoing = true;
-    this.reset();
+
+
 
     let i = 0;
+    if (JSON.stringify(this.state) == JSON.stringify(this.initial_state)) {
+      this.movePiece(moves[i][0], moves[i][1]);
+      this.drawPieces();
+      i += 1;
+    }
+    else {
+      this.reset();
+    }
     let interval = d3.interval(() => {
       if (i < moves.length) {
         this.movePiece(moves[i][0], moves[i][1]);
@@ -120,56 +122,131 @@ class Chessboard {
   }
 
   drawPieces() {
-    let u = this.piecesGroup
+    let pieces = this.piecesGroup
       .selectAll(".piece")
       .data(Object.keys(this.state), d => d);
 
-    u.exit()
+    pieces.exit()
       .transition()
       .duration(200)
       .remove();
 
-    u.transition()
+    pieces.transition()
       .duration(250)
       .ease(d3.easeLinear)
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
-    u.enter()
+    let e = pieces.enter()
       .append("image")
-        .classed("piece", true)
+        .attr("class", "piece")
         .attr("id", (piece) => piece)
         .attr("href", (piece) => this.mapping(piece))
+        .attr("height", 0)
+        .attr("width", 0)
+        .attr("x", (piece) => this.centerPiece(this.state[piece])[0] + 0.35 * this.tileSize)
+        .attr("y", (piece) => this.centerPiece(this.state[piece])[1] + 0.35 * this.tileSize);
+
+    e.transition()
+      .duration(250)
+      .ease(d3.easeLinear)
         .attr("height", 0.7 * this.tileSize)
         .attr("width", 0.7 * this.tileSize)
-        .attr("x", this.size / 2)
-        .attr("y", this.size / 2)
-        .transition()
-        .duration(250)
-        .ease(d3.easeLinear)
-          .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
-          .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
+        .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
+        .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
+    e.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", (d) => this.tutorial(d));
+
+
+    let self_ = this;
+
+    function dragged(piece) {
+      d3.select(this)
+        .raise()
+        .attr("x", clamp(d3.event.x, 0, self_.size) - 0.35 * self_.tileSize)
+        .attr("y", clamp(d3.event.y, 0, self_.size) - 0.35 * self_.tileSize);
+    }
+
+    function dragended(piece) {
+      let position = self_.xy_screen_to_colrow(d3.event.x, d3.event.y);
+      let [x, y] = self_.centerPiece(position);
+
+      if (position != self_.state[piece]) {
+        let victim = self_.capture(position);
+        if (victim != null) {
+          d3.select("#" + victim).remove();
+        }
+      }
+
+      d3.select(this)
+        .attr("x", x)
+        .attr("y", y)
+        .style("z-index", null);
+
+      self_.movePiece(piece, position);
+    }
+
+    e.call(
+      d3.drag()
+        .on("drag", dragged)
+        .on("end", dragended)
+    )
   }
 
-  movePiece(piece, position) {
+  tutorial(piece) {
+    let pos = this.state[piece];
+    this.state = {};
+    this.state[piece] = pos;
+    this.drawPieces();
+  }
+
+  xy_screen_to_colrow(x, y) {
+    x = x - this.tileSize / 2;
+    y = y + this.tileSize / 2;
+
+    x = this.scale.invert(x);
+    y = this.scale.invert(y);
+
+    x = Math.round(x);
+    y = 8 - Math.round(y);
+
+    x = clamp(x, 0, 7);
+    y = clamp(y, 0, 7);
+
+    return String(this.cols[x]) + String(this.rows[y])
+  }
+
+  capture(position) {
+    let res = null;
+    Object.keys(this.state).forEach(k => {
+      if (this.state[k] == position) {
+        delete this.state[k];
+        res = k;
+      }
+    })
+    return res;
+  }
+
+  movePiece(piece, position, draw=true) {
     if (position == null) {
       delete this.state[piece];
     }
     else {
-      Object.keys(this.state).forEach(k => {
-        if (this.state[k] == position) {
-          delete this.state[k];
-        }
-      })
+      this.capture(position);
       this.state[piece] = position;
     }
-    this.drawPieces();
+    if (draw) {
+      this.drawPieces();
+    }
   }
 
-  reset() {
+  reset(draw=true) {
     this.state = JSON.parse(JSON.stringify(this.initial_state));
-    this.drawPieces();
+    if (draw) {
+      this.drawPieces();
+    }
   }
 }
 
@@ -189,27 +266,78 @@ whenDocumentLoaded(() => {
   let boardTutorial = new Chessboard("#chess-container-tutorial", size, "#545454", "#AAAAAA");
   let boardFlow = new Chessboard("#chess-container-flow", size, "#545454", "#AAAAAA");
 
-  let opening = {
-    'moves': [['wp-e', 'e4'], ['bp-d', 'd5'], ['wp-e', 'd5'], ['bq', 'd5'], ['wn-L', 'c3']],
-    'description': "e4 d52. exd5 Qxd53. Nc3",
-    'name': "Scandinavian Defense: Mieses-Kotrč Variation, 3.Nc3"
-  };
+  d3.json("data/openings.json", function (error, data) {
+    let selector = d3.select("#opening-selector")
 
-  let text = d3.select("#text-container")
-    .append("div")
-    .attr("display", "block")
-    .attr("margin", "auto")
-    .attr("width", "auto");
-
-
-  text.selectAll("p")
-      .data([opening.name, opening.description])
+    selector.selectAll(".opening")
+      .data(Object.keys(data).sort(), d => d)
       .enter()
-      .append("p")
-      .text(d => d);
+      .append("option")
+      .attr("value", d => d)
+      .text(d => d)
 
-  text.append("button")
-      .attr("class", "button")
-      .text("Show me this opening!")
-      .on("click", () => boardOpening.showOpening(opening.moves));
+
+    let curr = 0;
+    let states = [];
+
+    selector.on("change", () => {
+      curr = 0;
+      states = data[selector.property("value")].states
+      boardOpening.reset()
+    })
+
+
+    function back() {
+      if (!boardOpening.ongoing && curr > 0) {
+        curr -= 1;
+        boardOpening.state = JSON.parse(JSON.stringify(states[curr]));
+        boardOpening.drawPieces();
+      }
+    }
+
+    function next(skip=false) {
+      if (!board.ongoing && curr < states.length - 1) {
+        curr += 1;
+        boardOpening.state = JSON.parse(JSON.stringify(states[curr]));
+        boardOpening.drawPieces();
+      }
+    }
+
+    let buttons = d3.select("#opening-buttons")
+
+    buttons.append("button")
+      .attr("id", "button-back")
+      .text("back")
+      .on("click", back)
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+
+    buttons.append("button")
+      .attr("id", "button-play")
+      .text("play")
+      .on("click", () => {
+        if (curr < states.length - 1) {
+          next()
+        }
+        let interval = d3.interval(() => {
+          if (curr < states.length - 1) {
+            next()
+          } else {
+            interval.stop();
+            this.ongoing = false;
+            return;
+          }
+        }, 750);
+      })
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+
+    buttons.append("button")
+      .attr("id", "button-next")
+      .text("next")
+      .on("click", next)
+      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+
+  })
 });
