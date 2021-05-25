@@ -277,7 +277,7 @@ whenDocumentLoaded(() => {
 
 
     let curr = 0;
-    let states = [];
+    let states = data[selector.property("value")].states;
 
     selector.on("change", () => {
       curr = 0;
@@ -316,7 +316,11 @@ whenDocumentLoaded(() => {
       .text("play")
       .on("click", () => {
         if (curr < states.length - 1) {
-          next()
+          next();
+        }
+        else {
+          board.reset();
+          curr = 0;
         }
         let interval = d3.interval(() => {
           if (curr < states.length - 1) {
