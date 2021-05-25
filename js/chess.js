@@ -266,6 +266,7 @@ whenDocumentLoaded(() => {
   let boardTutorial = new Chessboard("#chess-container-tutorial", size, "#545454", "#AAAAAA");
   let boardFlow = new Chessboard("#chess-container-flow", size, "#545454", "#AAAAAA");
 
+
   d3.json("data/openings.json", function (error, data) {
     let selector = d3.select("#opening-selector")
 
@@ -296,7 +297,7 @@ whenDocumentLoaded(() => {
     }
 
     function next(skip=false) {
-      if (!board.ongoing && curr < states.length - 1) {
+      if (!boardOpening.ongoing && curr < states.length - 1) {
         curr += 1;
         boardOpening.state = JSON.parse(JSON.stringify(states[curr]));
         boardOpening.drawPieces();
