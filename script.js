@@ -162,10 +162,8 @@ class Chessboard {
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
-    this.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-        .on("mouseout",  function(d){d3.select(this).style("cursor", null)});
-
-
+    /*
+    THIS PART ALLOWS TO DRAG A PIECE, MAYBE UNNECESSARY
     let self_ = this;
 
     function dragged(piece) {
@@ -198,16 +196,20 @@ class Chessboard {
         .on("drag", dragged)
         .on("end", dragended)
     )
+    */
   }
-
+  /*
   tutorial(piece) {
     let pos = this.state[piece];
     this.state = {};
     this.state[piece] = pos;
     this.drawPieces();
   }
+  */
+
 
   xy_screen_to_colrow(x, y) {
+    // Retrieve the chess coordinates closest to the given x-y screen coordinates
     x = x - this.tileSize / 2;
     y = y + this.tileSize / 2;
 
@@ -255,6 +257,7 @@ class Chessboard {
   }
 
   showFlow(piece, flows, progressbar) {
+    let sampleSize = 2000;
     // Removing anything created previously
     if (this.flowInterval) {
       this.flowInterval.stop();
@@ -271,15 +274,15 @@ class Chessboard {
         .curve(d3.curveCardinal.tension(0.4));
 
     // Taking a set of sub-samples (for performance)
-    flows = _.sampleSize(flows, Math.min(1000, flows.length));
+    flows = _.sampleSize(flows, Math.min(sampleSize, flows.length));
 
     // A function to create random jitter to the x-y positions of the flows
     let jitter = () => this.tileSize / 6 * (Math.random() - 0.5)
 
     let T = d3.max(flows, d => d3.max(d.positions.map(([t, l]) => t)));
-    progressbar.text('0 / ' + String(T))
     let paths = {};
     let t = 0;
+    progressbar.text(`move ${t} / ${T}`)
     let [rx, ry] = [0, 0]
     this.flowInterval = d3.interval(() => {
       if (t <= T) {
@@ -317,7 +320,7 @@ class Chessboard {
                 .append('path')
                   .attr('class', 'flow')
                   .attr('stroke', 'cyan')
-                  .attr('stroke-width', 2 * 1000 / flows.length)
+                  .attr('stroke-width', 2 * sampleSize / flows.length)
                   .attr('opacity', 0.2)
                   .attr('fill', 'none')
                   .attr('z-index', 2)
@@ -325,7 +328,7 @@ class Chessboard {
             }
           }
         })
-        progressbar.text(String(t) + ' / ' + String(T))
+        progressbar.text(`move ${t} / ${T}`)
         t ++;
       }
       else {
@@ -347,7 +350,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-  let size = 800;
+  let size = 750;
 
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
@@ -436,49 +439,85 @@ whenDocumentLoaded(() => {
 
   })
 
+
   // FLOWS
-  let progressbar = d3.select('#flow-info')
-  let elobar = d3.select('#flow-controller')
-      .append('svg')
-      .attr('width', 0.9 * size + 2)
-      .attr('height', 40)
-
-  let minELO = 816;
-  let maxELO = 2475;
-
-  let selectedElo = [minELO, maxELO];
-
-  let eloscale = d3.scaleLinear()
-      .domain([minELO, maxELO])
-      .range([0, 0.9 * size])
-
-  let brush = d3.brushX()
-      .extent([[0, 0], [0.9 * size, 35]])
-      .on('brush', function() {
-        let [x1, x2] = d3.event.selection;
-        selectedElo = [eloscale.invert(x1), eloscale.invert(x2)]
-      })
-
-  let eloAxis = d3.axisBottom()
-      .scale(eloscale)
-
-  elobar
-      .append('g')
-      .attr('id', 'eloAxis')
-      .attr('class', 'axisWhite')
-      .call(eloAxis)
-
-  elobar.append('g')
-      .attr('id', 'eloBrush')
-      .call(brush)
-      .call(brush.move, [0, 0.9*size])
-
-
   let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA");
-  flowBoard.enter.on("click", d => {
-    d3.json("data/flows/" + d + '.json', function (error, data) {
-      let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1]) ? [game] : [])
-      flowBoard.showFlow(d, filtered, progressbar)
+
+  flowBoard.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+      .on("mouseout",  function(d){d3.select(this).style("cursor", null)});
+
+  d3.json('data/elo.json', function (error, data) {
+    let progressbar = d3.select('#flow-info')
+
+    let brushHeight = 50;
+    let elobar = d3.select('#flow-controller')
+        .append('svg')
+        .attr('width', 0.9 * size + 2)
+        .attr('height', brushHeight + 20)
+
+    let minELO = 816;
+    let maxELO = 2475;
+
+    let selectedElo = [minELO, maxELO];
+
+    let eloscale = d3.scaleLinear()
+        .domain([minELO, maxELO])
+        .range([0, 0.9 * size])
+
+    let brush = d3.brushX()
+        .extent([[0, 0], [0.9 * size, brushHeight]])
+        .on('brush', function() {
+          let [x1, x2] = d3.event.selection;
+          selectedElo = [eloscale.invert(x1), eloscale.invert(x2)]
+        })
+
+    let eloAxis = d3.axisBottom()
+        .scale(eloscale)
+
+    // Drawing the axis
+    elobar.append('g')
+        .attr('transform', `translate(0, ${brushHeight})`)
+        .attr('id', 'eloAxis')
+        .attr('class', 'axisWhite')
+        .call(eloAxis)
+
+    console.log(data)
+
+    // Drawing the histogram
+    let maxY = d3.max(data, d => d.y)
+    elobar.append('g')
+        .attr('id', 'eloHistogram')
+        .selectAll('.bar')
+        .data(data)
+        .enter()
+          .append('rect')
+            .attr('x', d => eloscale(d.x))
+            .attr('width', 0.9 * size / data.length - 1)
+            .attr('y', d => brushHeight - d.y / maxY * brushHeight)
+            .attr('height', d => d.y / maxY * brushHeight)
+            .attr('fill', 'steelblue')
+
+    elobar.append('g')
+        .append('text')
+        .attr('class', 'eloLabel')
+        .attr('fill', 'white')
+        .attr('font-size', 12)
+        .attr('x', 0.01 * size)
+        .attr('y', brushHeight + 15)
+        .text('ELO')
+
+    // Drawing the brush
+    elobar.append('g')
+        .attr('id', 'eloBrush')
+        .call(brush)
+        .call(brush.move, [0, 0.9*size])
+
+
+    flowBoard.enter.on("click", d => {
+      d3.json("data/flows/" + d + '.json', function (error, data) {
+        let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1]) ? [game] : [])
+        flowBoard.showFlow(d, filtered, progressbar)
+      })
     })
   })
 
