@@ -1,11 +1,23 @@
-#chess-container {
+
+#flow * {
+  display: flex;
+  justify-content: center;
+}
+#opening * {
   display: flex;
   justify-content: center;
 }
 
-#opening-controller {
-  display: flex;
-  justify-content: center;
+axisWhite line{
+  stroke: white;
+}
+
+.axisWhite path{
+  stroke: white;
+}
+
+.axisWhite text{
+  fill: white;
 }
 
 .button {
