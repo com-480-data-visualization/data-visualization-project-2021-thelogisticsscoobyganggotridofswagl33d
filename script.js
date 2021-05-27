@@ -11,6 +11,8 @@ function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
 
+let folder = 'data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
+
 class Chessboard {
 
   constructor(div, size, blackColor, whiteColor) {
@@ -23,7 +25,7 @@ class Chessboard {
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
 
-    this.mapping = (piece) => '/sprites/' + piece[0] + piece[1] +'.png'
+    this.mapping = (piece) => folder + 'sprites/' + piece[0] + piece[1] +'.png'
 
     this.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     this.rows = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -430,7 +432,7 @@ whenDocumentLoaded(() => {
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
 
-  d3.json("data/openings.json", function (error, data) {
+  d3.json(folder + 'data/openings.json', function (error, data) {
     let selector = d3.select("#opening-selector")
 
     selector.selectAll(".opening")
@@ -526,7 +528,7 @@ whenDocumentLoaded(() => {
   flowBoard.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)});
 
-  d3.json('data/elo.json', function (error, data) {
+  d3.json(folder + 'data/elo.json', function (error, data) {
     let progressbar = d3.select('#flow-info')
 
     let brushHeight = 50;
@@ -593,7 +595,7 @@ whenDocumentLoaded(() => {
         .call(brush.move, [0, 0.9*size]);
 
     flowBoard.enter.on("click", piece => {
-      d3.json("data/flows/" + piece + '.json', function (error, data) {
+      d3.json(folder + "data/flows/" + piece + '.json', function (error, data) {
         let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1]) ? [game] : [])
         flowBoard.showFlow(piece, filtered, progressbar)
         d3.select('#heatmap-controller')
@@ -601,7 +603,7 @@ whenDocumentLoaded(() => {
 
         d3.select('#heatmap-button')
               .on('click', () => {
-                d3.json('data/endposition/' + piece + '.json', function (error, data) {
+                d3.json(folder + 'data/endposition/' + piece + '.json', function (error, data) {
                   let winner = d3.select('input[name="winner"]:checked').node().value;
                   let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
                   flowBoard.showHeatmap(piece, filtered);
