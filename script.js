@@ -373,11 +373,16 @@ class Chessboard {
     data.forEach(d => {
       heatmap[d.pos] += 1
     })
-    let m = d3.max(Object.values(heatmap))
-    Object.keys(heatmap).forEach(pos => {
-      heatmap[pos] = heatmap[pos] / m;
-    })
 
+    let m = d3.min(Object.values(heatmap))
+    let M = d3.max(Object.values(heatmap))
+    let scale = d3.scaleLog()
+        .domain([Math.max(m, 1e-6), M])
+        .range([0.5, 1])
+
+    Object.keys(heatmap).forEach(pos => {
+      heatmap[pos] = scale(heatmap[pos] == 0 ? 1e-6 : heatmap[pos]);
+    })
     /*this.heatmapGroup
         .selectAll('.heat')
         .data(Object.keys(heatmap))
@@ -403,7 +408,7 @@ class Chessboard {
               .attr('height', pos =>  this.tileSize)
               .attr("x", pos => this.centerPosition(pos, 1)[0])
               .attr("y", pos => this.centerPosition(pos, 1)[1])
-              .attr('fill', pos => d3.interpolateViridis(0.7 + 0.3*heatmap[pos]))
+              .attr('fill', pos => d3.interpolateViridis(heatmap[pos]))
               .attr('stroke', 'black')
               .attr('stroke-width', 1)
   }
