@@ -271,7 +271,7 @@ class Chessboard {
     let line = d3.line()
         .x(d => d.x)
         .y(d => d.y)
-        .curve(d3.curveCardinal.tension(0.4));
+        //.curve(d3.curveCardinal.tension(0.4));
 
     // Taking a set of sub-samples (for performance)
     flows = _.sampleSize(flows, Math.min(sampleSize, flows.length));
@@ -304,7 +304,7 @@ class Chessboard {
             else {
               f.positions.slice(1).forEach(([tp, l], j) => {
                 if (tp == Ts[t]) {
-                  if (l.length == 1 || j == f.positions.length - 2) {
+                  if (l.length == 1) {
                     delete paths[i]
                   }
                   else {
@@ -328,6 +328,10 @@ class Chessboard {
                   .attr('fill', 'none')
                   .attr('z-index', 2)
                   .attr('d', line(paths[i].data));
+
+              if (paths[i].data.length == f.positions.length + 1) {
+                delete paths[i]
+              }
             }
           }
         })
