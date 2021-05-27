@@ -133,11 +133,11 @@ class Chessboard {
       .data(Object.keys(this.state), d => d);
 
     pieces.exit()
-      .transition()
+      .transition("fading")
       .duration(200)
       .remove();
 
-    pieces.transition()
+    pieces.transition("moving")
       .duration(250)
       .ease(d3.easeLinear)
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
@@ -154,7 +154,7 @@ class Chessboard {
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0] + 0.35 * this.tileSize)
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1] + 0.35 * this.tileSize);
 
-    this.enter.transition()
+    this.enter.transition("arriving")
       .duration(250)
       .ease(d3.easeLinear)
         .attr("height", 0.7 * this.tileSize)
@@ -372,8 +372,9 @@ whenDocumentLoaded(() => {
     selector.on("change", () => {
       curr = 0;
       states = data[selector.property("value")].states
-      if (openingInterval) {
+      if (openingInterval != null) {
         openingInterval.stop();
+        openingInterval = undefined;
       }
       openingBoard.reset()
     })
@@ -381,18 +382,40 @@ whenDocumentLoaded(() => {
     let openingInterval = undefined;
 
     function back() {
-      if (openingInterval != null && curr > 0) {
+      if (openingInterval == null && curr > 0) {
         curr -= 1;
         openingBoard.state = JSON.parse(JSON.stringify(states[curr]));
         openingBoard.drawPieces();
       }
     }
 
-    function next(skip=false) {
-      if (openingInterval != null && curr < states.length - 1) {
+    function next() {
+      if (openingInterval == null && curr < states.length - 1) {
         curr += 1;
         openingBoard.state = JSON.parse(JSON.stringify(states[curr]));
         openingBoard.drawPieces();
+      }
+    }
+
+    function play() {
+      if (openingInterval == null) {
+        if (curr < states.length - 1) {
+          next();
+        } else {
+          openingBoard.reset();
+          curr = 0;
+        }
+        openingInterval = d3.interval(() => {
+          if (curr < states.length - 1) {
+            curr += 1;
+            openingBoard.state = JSON.parse(JSON.stringify(states[curr]));
+            openingBoard.drawPieces();
+          } else {
+            openingInterval.stop();
+            openingInterval = undefined;
+            return;
+          }
+        }, 750);
       }
     }
 
@@ -401,41 +424,23 @@ whenDocumentLoaded(() => {
     buttons.append("button")
       .attr("id", "button-back")
       .text("back")
-      .on("click", back)
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+      .on("click", back)
 
     buttons.append("button")
       .attr("id", "button-play")
       .text("play")
-      .on("click", () => {
-        if (openingInterval != null) {return;}
-        if (curr < states.length - 1) {
-          next();
-        }
-        else {
-          openingBoard.reset();
-          curr = 0;
-        }
-        openingInterval = d3.interval(() => {
-          if (curr < states.length - 1) {
-            next()
-          } else {
-            openingInterval.stop();
-            openingInterval = undefined;
-            return;
-          }
-        }, 750);
-      })
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+      .on("click", play)
 
     buttons.append("button")
       .attr("id", "button-next")
       .text("next")
-      .on("click", next)
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+      .on("click", next)
 
   })
 
@@ -480,8 +485,6 @@ whenDocumentLoaded(() => {
         .attr('id', 'eloAxis')
         .attr('class', 'axisWhite')
         .call(eloAxis)
-
-    console.log(data)
 
     // Drawing the histogram
     let maxY = d3.max(data, d => d.y)
