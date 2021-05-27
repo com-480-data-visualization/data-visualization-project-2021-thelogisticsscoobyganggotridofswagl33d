@@ -377,11 +377,11 @@ class Chessboard {
     let m = d3.min(Object.values(heatmap))
     let M = d3.max(Object.values(heatmap))
     let scale = d3.scaleLog()
-        .domain([Math.max(m, 1e-6), M])
+        .domain([0.5, M])
         .range([0.5, 1])
 
     Object.keys(heatmap).forEach(pos => {
-      heatmap[pos] = scale(heatmap[pos] == 0 ? 1e-6 : heatmap[pos]);
+      heatmap[pos] = scale(heatmap[pos] == 0 ? 0.5 : heatmap[pos]);
     })
     /*this.heatmapGroup
         .selectAll('.heat')
