@@ -4,8 +4,8 @@
     <meta charset='utf-8'>
     <title>Chess visualization</title>
     <link rel='stylesheet' href='style.css'>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js' charset='utf-8'></script>
-    <script src='http://d3js.org/d3.v4.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='lib/lodash.4.17.20.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='lib/d3.v4.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='script.js'></script>
   </head>
 
@@ -27,6 +27,20 @@
       <p>Sit back and relax as you watch up to 20K games unfold in parallel in front of your eyes!</p>
       <div id='flow-info' style='margin-bottom:10px;'>Select an ELO range and a chess piece!</div>
       <div id='flow-controller'></div>
+      <div id='heatmap-controller' style='display: none; height:auto;'>
+        <button id='heatmap-button'>Show me the heatmap</button>
+        <p>for winner:</p>
+        <div id='heatmap-options'>
+          <input type='radio' name='winner' id='radio-black' value='black'></option>
+          <label for='radio-black'>black</label>
+          <input type='radio' name='winner' id='radio-white' value='white'></option>
+          <label for='radio-white'>white</label>
+          <input type='radio' name='winner' id='radio-draw' value='draw'></option>
+          <label for='radio-draw'>draw</label>
+          <input type='radio' name='winner' id='radio-all' value="all" checked></option>
+          <label for='radio-all'>all</label>
+        </div>
+      </div>
       <div id='flow-chess-container' style='margin-top: 10px;'></div>
     </div>
 

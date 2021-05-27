@@ -30,6 +30,7 @@ class Chessboard {
 
     this.size = size;
     this.tileSize = size / 8;
+    this.pieceProportion = 0.7;
 
     this.scale = d3.scaleLinear().domain([0, 8]).range([0, size]);
     this.scale.clamp(true);
@@ -45,13 +46,13 @@ class Chessboard {
       this.rows.forEach(n => {
         let [x, y] = chess_to_xy(l + String(n));
         this.tilesGroup.append("rect")
+            .attr('class', 'tile')
             .attr("width", this.tileSize)
             .attr("height", this.tileSize)
             .attr("x", this.scale(x))
             .attr("y", this.scale(y))
             .attr("fill", (x + y) % 2 == 1 ? blackColor : whiteColor)
             .attr("stroke-width", 0)
-            .attr("stroke", "rgb(0,0,0)")
       })
     });
 
@@ -59,6 +60,7 @@ class Chessboard {
     this.cols.forEach(l => {
       let [x, y] = chess_to_xy(l + '1');
       this.colsGroup.append("text")
+        .attr('class', 'col')
         .attr("x", this.scale(x) + 0.825 * this.tileSize)
         .attr("y", this.scale(y) + 0.95 * this.tileSize)
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
@@ -72,6 +74,7 @@ class Chessboard {
     this.rows.forEach(n => {
       let [x, y] = chess_to_xy('a' + String(n));
       this.rowsGroup.append("text")
+        .attr('class', 'row')
         .attr("x", this.scale(x) + 5)
         .attr("y", this.scale(y) + 0.225 * this.tileSize)
         .attr("fill", (x + y) % 2 == 0 ? blackColor : whiteColor)
@@ -80,6 +83,10 @@ class Chessboard {
         .attr("font-size", 20)
         .text(String(n));
     });
+
+    this.heatmapGroup = this.svg
+        .append('g')
+        .attr('id', 'heatmap')
 
     this.flowGroup = this.svg
         .append('g')
@@ -115,16 +122,15 @@ class Chessboard {
     }, 750);
   }
 
-  centerPiece(pos) {
-    let x = this.scale(chess_to_xy(pos)[0]) + 0.15 * this.tileSize;
-    let y = this.scale(chess_to_xy(pos)[1]) + 0.15 * this.tileSize;
+  centerPosition(pos, d=0) {
+    let [x, y] = chess_to_xy(pos)
+    x = this.scale(x) + (1-d)/2 * this.tileSize;
+    y = this.scale(y) + (1-d)/2 * this.tileSize;
     return [x, y]
   }
 
-  centerPosition(pos) {
-    let x = this.scale(chess_to_xy(pos)[0]) + 0.5 * this.tileSize;
-    let y = this.scale(chess_to_xy(pos)[1]) + 0.5 * this.tileSize;
-    return [x, y]
+  centerPiece(pos) {
+    return this.centerPosition(pos, this.pieceProportion)
   }
 
   drawPieces() {
@@ -151,14 +157,14 @@ class Chessboard {
         .attr("height", 0)
         .attr("width", 0)
         .attr("z-index", 1)
-        .attr("x", (piece) => this.centerPiece(this.state[piece])[0] + 0.35 * this.tileSize)
-        .attr("y", (piece) => this.centerPiece(this.state[piece])[1] + 0.35 * this.tileSize);
+        .attr("x", (piece) => this.centerPosition(this.state[piece])[0])
+        .attr("y", (piece) => this.centerPosition(this.state[piece])[1]);
 
     this.enter.transition("arriving")
       .duration(250)
       .ease(d3.easeLinear)
-        .attr("height", 0.7 * this.tileSize)
-        .attr("width", 0.7 * this.tileSize)
+        .attr("height", this.pieceProportion * this.tileSize)
+        .attr("width", this.pieceProportion * this.tileSize)
         .attr("x", (piece) => this.centerPiece(this.state[piece])[0])
         .attr("y", (piece) => this.centerPiece(this.state[piece])[1]);
 
@@ -259,13 +265,14 @@ class Chessboard {
   showFlow(piece, flows, progressbar) {
     let sampleSize = 2000;
     // Removing anything created previously
-    if (this.flowInterval) {
+    if (this.flowInterval != null) {
       this.flowInterval.stop();
     }
     this.svg.selectAll('.flow').remove();
+    this.svg.selectAll('.heat').remove();
 
     // Hiding all pieces except the selected one
-    this.svg.selectAll('.piece').attr('opacity', 0.15);
+    this.svg.selectAll('.piece').attr('opacity', 0.1);
     this.svg.select('#' + piece).attr('opacity', 1);
 
     let line = d3.line()
@@ -277,7 +284,7 @@ class Chessboard {
     flows = _.sampleSize(flows, Math.min(sampleSize, flows.length));
 
     // A function to create random jitter to the x-y positions of the flows
-    let jitter = () => this.tileSize / 6 * (Math.random() - 0.5)
+    let jitter = () => this.tileSize / 3 * (Math.random() - 0.5)
 
     // A list with all time steps where there is a change for this piece
     let Ts = Array.from(flows.map(f => new Set(f.positions.map(([t, l]) => t))).reduce((a, b) => new Set([...a, ...b]))).sort((a, b) => a-b);
@@ -287,6 +294,9 @@ class Chessboard {
     let t = 0;
     progressbar.text(`move ${0} / ${T}`)
     let [rx, ry] = [0, 0]
+    let [minStroke, maxStroke] = [2, this.tileSize / 6]
+    let scale = d3.scalePow().exponent(-0.05).domain([1, sampleSize]).range([maxStroke, minStroke])
+    let strokeWidth = scale(flows.length)
     this.flowInterval = d3.interval(() => {
       if (t < Ts.length) {
         flows.forEach((f, i) => {
@@ -323,10 +333,10 @@ class Chessboard {
                 .append('path')
                   .attr('class', 'flow')
                   .attr('stroke', 'cyan')
-                  .attr('stroke-width', 2 * sampleSize / flows.length)
-                  .attr('opacity', 0.2)
+                  .attr('stroke-width', strokeWidth)
+                  .attr('opacity', 0.1)
                   .attr('fill', 'none')
-                  .attr('z-index', 2)
+                  .attr('z-index', 0)
                   .attr('d', line(paths[i].data));
 
               if (paths[i].data.length == f.positions.length + 1) {
@@ -343,6 +353,59 @@ class Chessboard {
         return;
       }
     }, 100);
+  }
+
+  showHeatmap(piece, data) {
+    // Removing anything created previously
+    if (this.flowInterval != null) {
+      this.flowInterval.stop()
+    }
+    this.svg.selectAll('.flow').remove();
+    this.svg.selectAll('.heat').remove();
+
+    // Computing the heatmap
+    let heatmap = {}
+    this.cols.forEach(c => {
+      this.rows.forEach(r => {
+          heatmap[`${c}${r}`] = 0;
+      })
+    })
+    data.forEach(d => {
+      heatmap[d.pos] += 1
+    })
+    let m = d3.max(Object.values(heatmap))
+    Object.keys(heatmap).forEach(pos => {
+      heatmap[pos] = heatmap[pos] / m;
+    })
+
+    /*this.heatmapGroup
+        .selectAll('.heat')
+        .data(Object.keys(heatmap))
+        .enter()
+        .append('rect')
+            .lower()
+            .attr('class', 'heat')
+            .attr('width', pos => Math.sqrt(heatmap[pos]) * this.tileSize)
+            .attr('height', pos => Math.sqrt(heatmap[pos]) * this.tileSize)
+            .attr("x", pos => this.centerPosition(pos, Math.sqrt(heatmap[pos]))[0])
+            .attr("y", pos => this.centerPosition(pos, Math.sqrt(heatmap[pos]))[1])
+            .attr('fill', 'red')//pos => heatmap[pos] < 0.1 ? 'none' : d3.interpolateViridis(heatmap[pos]))
+            .attr("stroke-width", 0)
+            */
+      this.heatmapGroup
+          .selectAll('.heat')
+          .data(Object.keys(heatmap))
+          .enter()
+          .append('rect')
+              .lower()
+              .attr('class', 'heat')
+              .attr('width', pos => this.tileSize)
+              .attr('height', pos =>  this.tileSize)
+              .attr("x", pos => this.centerPosition(pos, 1)[0])
+              .attr("y", pos => this.centerPosition(pos, 1)[1])
+              .attr('fill', pos => d3.interpolateViridis(0.7 + 0.3*heatmap[pos]))
+              .attr('stroke', 'black')
+              .attr('stroke-width', 1)
   }
 }
 
@@ -463,6 +526,8 @@ whenDocumentLoaded(() => {
 
     let brushHeight = 50;
     let elobar = d3.select('#flow-controller')
+        .append('div')
+        .attr('clear', 'both')
         .append('svg')
         .attr('width', 0.9 * size + 2)
         .attr('height', brushHeight + 20)
@@ -514,19 +579,31 @@ whenDocumentLoaded(() => {
         .attr('font-size', 12)
         .attr('x', 0.01 * size)
         .attr('y', brushHeight + 15)
-        .text('ELO')
+        .text('ELO');
 
     // Drawing the brush
     elobar.append('g')
         .attr('id', 'eloBrush')
         .call(brush)
-        .call(brush.move, [0, 0.9*size])
+        .call(brush.move, [0, 0.9*size]);
 
-
-    flowBoard.enter.on("click", d => {
-      d3.json("data/flows/" + d + '.json', function (error, data) {
+    flowBoard.enter.on("click", piece => {
+      d3.json("data/flows/" + piece + '.json', function (error, data) {
         let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1]) ? [game] : [])
-        flowBoard.showFlow(d, filtered, progressbar)
+        flowBoard.showFlow(piece, filtered, progressbar)
+        d3.select('#heatmap-controller')
+            .style('display', null)
+
+        d3.select('#heatmap-button')
+              .on('click', () => {
+                d3.json('data/endposition/' + piece + '.json', function (error, data) {
+                  let winner = d3.select('input[name="winner"]:checked').node().value;
+                  let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
+                  flowBoard.showHeatmap(piece, filtered);
+                })
+              })
+              .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+              .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
       })
     })
   })
