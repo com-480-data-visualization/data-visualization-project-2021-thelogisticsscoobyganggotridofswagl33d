@@ -279,16 +279,19 @@ class Chessboard {
     // A function to create random jitter to the x-y positions of the flows
     let jitter = () => this.tileSize / 6 * (Math.random() - 0.5)
 
-    let T = d3.max(flows, d => d3.max(d.positions.map(([t, l]) => t)));
+    // A list with all time steps where there is a change for this piece
+    let Ts = Array.from(flows.map(f => new Set(f.positions.map(([t, l]) => t))).reduce((a, b) => new Set([...a, ...b]))).sort((a, b) => a-b);
+    let T = Ts[Ts.length - 1];
+
     let paths = {};
     let t = 0;
-    progressbar.text(`move ${t} / ${T}`)
+    progressbar.text(`move ${0} / ${T}`)
     let [rx, ry] = [0, 0]
     this.flowInterval = d3.interval(() => {
-      if (t <= T) {
+      if (t < Ts.length) {
         flows.forEach((f, i) => {
           if (f.positions.length > 0) {
-            if (f.positions[0][0] == t) {
+            if (f.positions[0][0] == Ts[t]) {
               [rx, ry] = [jitter(), jitter()]
               paths[i] = {
                 random: [rx, ry],
@@ -300,7 +303,7 @@ class Chessboard {
             }
             else {
               f.positions.slice(1).forEach(([tp, l], j) => {
-                if (tp == t) {
+                if (tp == Ts[t]) {
                   if (l.length == 1 || j == f.positions.length - 2) {
                     delete paths[i]
                   }
@@ -328,7 +331,7 @@ class Chessboard {
             }
           }
         })
-        progressbar.text(`move ${t} / ${T}`)
+        progressbar.text(`move ${Ts[t]} / ${T}`)
         t ++;
       }
       else {
