@@ -353,7 +353,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-  let size = 750;
+  let size = 0.38 * window.innerWidth;
 
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
