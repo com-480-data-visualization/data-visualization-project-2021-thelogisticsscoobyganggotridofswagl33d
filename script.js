@@ -278,8 +278,8 @@ class Chessboard {
     this.svg.select('#' + piece).attr('opacity', 1);
 
     let line = d3.line()
-        .x(d => d.x)
-        .y(d => d.y)
+        .x(d => d[0])
+        .y(d => d[1])
         //.curve(d3.curveCardinal.tension(0.4));
 
     // Taking a set of sub-samples (for performance)
@@ -292,10 +292,8 @@ class Chessboard {
     let Ts = Array.from(flows.map(f => new Set(f.positions.map(([t, l]) => t))).reduce((a, b) => new Set([...a, ...b]))).sort((a, b) => a-b);
     let T = Ts[Ts.length - 1];
 
-    let paths = {};
     let t = 0;
     progressbar.text(`move ${0} / ${T}`)
-    let [rx, ry] = [0, 0]
     let [minStroke, maxStroke] = [2, this.tileSize / 6]
     let scale = d3.scalePow().exponent(-0.05).domain([1, sampleSize]).range([maxStroke, minStroke])
     let strokeWidth = scale(flows.length)
@@ -303,48 +301,19 @@ class Chessboard {
       if (t < Ts.length) {
         flows.forEach((f, i) => {
           if (f.positions.length > 0) {
-            if (f.positions[0][0] == Ts[t]) {
-              [rx, ry] = [jitter(), jitter()]
-              paths[i] = {
-                random: [rx, ry],
-                data: f.positions[0][1].map(d => {
-                  let [x, y] = this.centerPosition(d);
-                  return {x: x + jitter(), y: y + jitter()}
-                })
+            f.positions.forEach(([tp, l], j) => {
+              if (tp == Ts[t] && l.length > 1) {
+                this.flowGroup
+                  .append('path')
+                    .attr('class', 'flow')
+                    .attr('stroke', 'cyan')
+                    .attr('stroke-width', strokeWidth)
+                    .attr('opacity', 0.1)
+                    .attr('fill', 'none')
+                    .attr('z-index', 0)
+                    .attr('d', line(l.map(e => this.centerPosition(e).map(c => c + jitter()))));
               }
-            }
-            else {
-              f.positions.slice(1).forEach(([tp, l], j) => {
-                if (tp == Ts[t]) {
-                  if (l.length == 1) {
-                    delete paths[i]
-                  }
-                  else {
-                    let [x, y] = this.centerPosition(l[1]);
-                    [rx, ry] = paths[i].random;
-                    paths[i].data = paths[i].data.concat({x: x + jitter(), y: y + jitter()})
-                  }
-                }
-              })
-            }
-            if (i in paths) {
-              if ('svg' in paths[i]) {
-                paths[i].svg.remove()
-              }
-              paths[i].svg = this.flowGroup
-                .append('path')
-                  .attr('class', 'flow')
-                  .attr('stroke', 'cyan')
-                  .attr('stroke-width', strokeWidth)
-                  .attr('opacity', 0.1)
-                  .attr('fill', 'none')
-                  .attr('z-index', 0)
-                  .attr('d', line(paths[i].data));
-
-              if (paths[i].data.length == f.positions.length + 1) {
-                delete paths[i]
-              }
-            }
+            })
           }
         })
         progressbar.text(`move ${Ts[t]} / ${T}`)
@@ -354,7 +323,7 @@ class Chessboard {
         this.flowInterval.stop();
         return;
       }
-    }, 100);
+    }, 50);
   }
 
   showHeatmap(piece, data, colorbar) {
