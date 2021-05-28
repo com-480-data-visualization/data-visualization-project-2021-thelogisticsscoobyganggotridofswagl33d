@@ -425,7 +425,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-  let size = 0.38 * window.innerWidth;
+  let size = 0.4 * window.innerWidth;
 
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
@@ -529,13 +529,14 @@ whenDocumentLoaded(() => {
   d3.json('data/elo.json', function (error, data) {
     let progressbar = d3.select('#flow-info')
 
-    let brushHeight = 50;
+    let brushWidth = 50;
+    let brushHeight = 0.97 * size;
     let elobar = d3.select('#flow-controller')
         .append('div')
         .attr('clear', 'both')
         .append('svg')
-        .attr('width', 0.9 * size + 2)
-        .attr('height', brushHeight + 20)
+        .attr('width', brushWidth + 40)
+        .attr('height', size)
 
     let minELO = 816;
     let maxELO = 2475;
@@ -544,21 +545,21 @@ whenDocumentLoaded(() => {
 
     let eloscale = d3.scaleLinear()
         .domain([minELO, maxELO])
-        .range([0, 0.9 * size])
+        .range([0, brushHeight])
 
-    let brush = d3.brushX()
-        .extent([[0, 0], [0.9 * size, brushHeight]])
+    let brush = d3.brushY()
+        .extent([[0, 0], [brushWidth, brushHeight]])
         .on('brush', function() {
-          let [x1, x2] = d3.event.selection;
-          selectedElo = [eloscale.invert(x1), eloscale.invert(x2)]
+          let [y1, y2] = d3.event.selection;
+          selectedElo = [eloscale.invert(y1), eloscale.invert(y2)]
         })
 
-    let eloAxis = d3.axisBottom()
+    let eloAxis = d3.axisRight()
         .scale(eloscale)
 
     // Drawing the axis
     elobar.append('g')
-        .attr('transform', `translate(0, ${brushHeight})`)
+        .attr('transform', `translate(${brushWidth}, ${size - brushHeight - 1})`)
         .attr('id', 'eloAxis')
         .attr('class', 'axisWhite')
         .call(eloAxis)
@@ -571,10 +572,10 @@ whenDocumentLoaded(() => {
         .data(data)
         .enter()
           .append('rect')
-            .attr('x', d => eloscale(d.x))
-            .attr('width', 0.9 * size / data.length - 1)
-            .attr('y', d => brushHeight - d.y / maxY * brushHeight)
-            .attr('height', d => d.y / maxY * brushHeight)
+            .attr('x', 0)
+            .attr('y', d => eloscale(d.x))
+            .attr('width', d => d.y / maxY * brushWidth)
+            .attr('height', d => brushHeight / data.length - 1)
             .attr('fill', 'steelblue')
 
     elobar.append('g')
@@ -582,15 +583,16 @@ whenDocumentLoaded(() => {
         .attr('class', 'eloLabel')
         .attr('fill', 'white')
         .attr('font-size', 12)
-        .attr('x', 0.01 * size)
-        .attr('y', brushHeight + 15)
+        .attr('x', 10)
+        .attr('y', 15)
         .text('ELO');
 
     // Drawing the brush
     elobar.append('g')
+        .attr('transform', `translate(0, ${size - brushHeight - 1})`)
         .attr('id', 'eloBrush')
         .call(brush)
-        .call(brush.move, [0, 0.9*size]);
+        .call(brush.move, [0, brushHeight]);
 
     flowBoard.enter.on("click", piece => {
       d3.json("data/flows/" + piece + '.json', function (error, data) {
