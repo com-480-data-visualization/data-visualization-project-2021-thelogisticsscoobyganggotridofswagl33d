@@ -11,6 +11,8 @@ function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
 
+let folder = '/'
+
 class Chessboard {
 
   constructor(div, size, blackColor, whiteColor) {
@@ -23,7 +25,7 @@ class Chessboard {
 
     this.state = JSON.parse(JSON.stringify(this.initial_state));
 
-    this.mapping = (piece) => '/sprites/' + piece[0] + piece[1] +'.png'
+    this.mapping = (piece) => folder + 'sprites/' + piece[0] + piece[1] +'.png'
 
     this.cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     this.rows = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -355,13 +357,15 @@ class Chessboard {
     }, 100);
   }
 
-  showHeatmap(piece, data) {
+  showHeatmap(piece, data, colorbar) {
     // Removing anything created previously
     if (this.flowInterval != null) {
       this.flowInterval.stop()
     }
     this.svg.selectAll('.flow').remove();
     this.svg.selectAll('.heat').remove();
+    colorbar.selectAll('#color-axis').remove();
+    colorbar.selectAll('#color-gradient').remove();
 
     // Computing the heatmap
     let heatmap = {}
@@ -376,12 +380,12 @@ class Chessboard {
 
     let m = d3.min(Object.values(heatmap))
     let M = d3.max(Object.values(heatmap))
-    let scale = d3.scaleLog()
+    let colorScale = d3.scaleLog()
         .domain([0.5, M])
-        .range([0.5, 1])
+        .range([0, 1])
 
     Object.keys(heatmap).forEach(pos => {
-      heatmap[pos] = scale(heatmap[pos] == 0 ? 0.5 : heatmap[pos]);
+      heatmap[pos] = colorScale(heatmap[pos] == 0 ? 0.5 : heatmap[pos]);
     })
     /*this.heatmapGroup
         .selectAll('.heat')
@@ -397,6 +401,36 @@ class Chessboard {
             .attr('fill', 'red')//pos => heatmap[pos] < 0.1 ? 'none' : d3.interpolateViridis(heatmap[pos]))
             .attr("stroke-width", 0)
             */
+
+      let barHeight = this.size - 10;
+      let yScale = d3.scaleLog()
+          .domain([1, M])
+          .range([barHeight, 0])
+
+      colorbar.append('g')
+          .attr('transform', `translate(${40}, 5)`)
+          .attr('id', 'color-axis')
+          .attr('class', 'axisWhite')
+          .call(d3.axisLeft(yScale).tickFormat(d3.format(".1s")))
+
+      let lines = [];
+      for (let i = 0.0; i < barHeight; i++) {
+        lines.push(i / barHeight);
+      }
+      colorbar.append('g')
+          .attr('id', 'color-gradient')
+          .attr('transform', `translate(${40}, 5)`)
+          .selectAll('rect')
+          .data(lines)
+          .enter()
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', d => d * barHeight)
+            .attr('width', 50)
+            .attr('height', 1)
+            .attr('stroke', 'none')
+            .attr('fill', d => d3.interpolateViridis(1 - d))
+
       this.heatmapGroup
           .selectAll('.heat')
           .data(Object.keys(heatmap))
@@ -430,7 +464,7 @@ whenDocumentLoaded(() => {
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
 
-  d3.json("data/openings.json", function (error, data) {
+  d3.json(folder + "data/openings.json", function (error, data) {
     let selector = d3.select("#opening-selector")
 
     selector.selectAll(".opening")
@@ -526,7 +560,11 @@ whenDocumentLoaded(() => {
   flowBoard.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout", function(d){d3.select(this).style("cursor", null)});
 
-  d3.json('data/elo.json', function (error, data) {
+  d3.json(folder + 'data/elo.json', function (error, data) {
+    let colorbar = d3.select('#heatmap-colorbar')
+        .append('svg')
+        .attr('height', size)
+        .attr('width', 50 + 40)
     let progressbar = d3.select('#flow-info')
 
     let brushWidth = 50;
@@ -595,9 +633,12 @@ whenDocumentLoaded(() => {
         .call(brush.move, [0, brushHeight]);
 
     flowBoard.enter.on("click", piece => {
-      d3.json("data/flows/" + piece + '.json', function (error, data) {
+
+      colorbar.selectAll('#color-axis').remove();
+      colorbar.selectAll('#color-gradient').remove();
+
+      d3.json(folder + "data/flows/" + piece + '.json', function (error, data) {
         let winner = d3.select('input[name="winner"]:checked').node().value;
-        console.log(winner, selectedElo)
         d3.select('#heatmap-button')
             .text('Show me the end position heatmap')
         let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
@@ -605,10 +646,10 @@ whenDocumentLoaded(() => {
 
         d3.select('#heatmap-button')
               .on('click', () => {
-                d3.json('data/endposition/' + piece + '.json', function (error, data) {
+                d3.json(folder + 'data/endposition/' + piece + '.json', function (error, data) {
                   winner = d3.select('input[name="winner"]:checked').node().value;
                   filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
-                  flowBoard.showHeatmap(piece, filtered);
+                  flowBoard.showHeatmap(piece, filtered, colorbar);
                 })
               })
               .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
