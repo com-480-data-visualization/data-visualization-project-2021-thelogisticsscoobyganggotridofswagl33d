@@ -524,14 +524,14 @@ whenDocumentLoaded(() => {
   let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA");
 
   flowBoard.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-      .on("mouseout",  function(d){d3.select(this).style("cursor", null)});
+      .on("mouseout", function(d){d3.select(this).style("cursor", null)});
 
   d3.json('data/elo.json', function (error, data) {
     let progressbar = d3.select('#flow-info')
 
     let brushWidth = 50;
     let brushHeight = 0.97 * size;
-    let elobar = d3.select('#flow-controller')
+    let elobar = d3.select('#elo-bar')
         .append('div')
         .attr('clear', 'both')
         .append('svg')
@@ -596,16 +596,18 @@ whenDocumentLoaded(() => {
 
     flowBoard.enter.on("click", piece => {
       d3.json("data/flows/" + piece + '.json', function (error, data) {
-        let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1]) ? [game] : [])
+        let winner = d3.select('input[name="winner"]:checked').node().value;
+        console.log(winner, selectedElo)
+        d3.select('#heatmap-button')
+            .text('Show me the end position heatmap')
+        let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
         flowBoard.showFlow(piece, filtered, progressbar)
-        d3.select('#heatmap-controller')
-            .style('display', null)
 
         d3.select('#heatmap-button')
               .on('click', () => {
                 d3.json('data/endposition/' + piece + '.json', function (error, data) {
-                  let winner = d3.select('input[name="winner"]:checked').node().value;
-                  let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
+                  winner = d3.select('input[name="winner"]:checked').node().value;
+                  filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
                   flowBoard.showHeatmap(piece, filtered);
                 })
               })

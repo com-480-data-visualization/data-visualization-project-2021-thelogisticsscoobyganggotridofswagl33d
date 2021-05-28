@@ -38,11 +38,11 @@
       </div>
       <div class='grid'>
         <div id='flow-chess-container' class='container'></div>
-        <div class='grid' style='margin-right: auto;'>
-          <div id='flow-controller'></div>
-          <div id='heatmap-controller' style='display: none;'>
-            <button id='heatmap-button' style='justify-content: center;'>Show me the end position heatmap</button>
-            <div id='heatmap-options' style='justify-content: center;'>
+        <div id='flow-controller' class='grid' style='margin-left: 0; padding-left: 10px;'>
+          <div id='elo-bar'></div>
+          <div>
+            <button id='heatmap-button' style='width:250px;'>Select a piece</button>
+            <div id='flow-options' style='justify-content: center; padding-top:10px;'>
               Game result:
               <label class='block'><input type='radio' name='winner' value='all' checked></option>all</label>
               <label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
