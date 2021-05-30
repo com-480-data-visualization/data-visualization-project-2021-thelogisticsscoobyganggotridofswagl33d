@@ -348,8 +348,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #scroll-container {
-  height: 100hv;
-  /*overflow-y: scroll;*/
+  height: 100vh;
+  /*overflow-y: scroll;
+  scroll-snap-points-y: repeat(100vh);*/
   scroll-snap-type: y mandatory;
 }
 
@@ -382,7 +383,7 @@ h1, h2, h3, h4, h5, h6 {
 #fh5co-pricing {
   padding: 0em 0;
   height: 100vh;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }
 @media screen and (max-width: 900px) {
   #fh5co-tuto,

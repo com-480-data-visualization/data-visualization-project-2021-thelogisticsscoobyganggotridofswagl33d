@@ -445,6 +445,9 @@
 
 	// Document on load.
 	$(function(){
+		$( '.snap' ).scrollSnap({
+			speed: 300
+		  });
 		parallax();
 		fullHeight();
 		clickMenu();
