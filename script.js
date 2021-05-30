@@ -11,6 +11,7 @@ function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
 
+
 let folder = '/'
 
 class Chessboard {
@@ -265,7 +266,6 @@ class Chessboard {
   }
 
   showFlow(piece, flows, progressbar) {
-    let sampleSize = 2000;
     // Removing anything created previously
     if (this.flowInterval != null) {
       this.flowInterval.stop();
@@ -277,53 +277,58 @@ class Chessboard {
     this.svg.selectAll('.piece').attr('opacity', 0.1);
     this.svg.select('#' + piece).attr('opacity', 1);
 
-    let line = d3.line()
+    let lineGenerator = d3.line()
         .x(d => d[0])
         .y(d => d[1])
         //.curve(d3.curveCardinal.tension(0.4));
 
     // Taking a set of sub-samples (for performance)
+    let sampleSize = 2000;
     flows = _.sampleSize(flows, Math.min(sampleSize, flows.length));
 
     // A function to create random jitter to the x-y positions of the flows
     let jitter = () => this.tileSize / 3 * (Math.random() - 0.5)
 
+    // An object with entries: time -> [[from, to], [from, to], ...]
+    let timeIndexedFlows = _.groupBy(flows.flatMap(f => f.positions), x => x[0])
+    for (const key in timeIndexedFlows) {
+      timeIndexedFlows[key] = timeIndexedFlows[key].flatMap(([tp, l]) => l.length == 2 ? [l] : [])
+      if (timeIndexedFlows[key].length == 0) {
+        delete timeIndexedFlows[key]
+      }
+    }
     // A list with all time steps where there is a change for this piece
-    let Ts = Array.from(flows.map(f => new Set(f.positions.map(([t, l]) => t))).reduce((a, b) => new Set([...a, ...b]))).sort((a, b) => a-b);
+    let Ts = Object.keys(timeIndexedFlows);
     let T = Ts[Ts.length - 1];
 
-    let t = 0;
-    progressbar.text(`move ${0} / ${T}`)
     let [minStroke, maxStroke] = [2, this.tileSize / 6]
     let scale = d3.scalePow().exponent(-0.05).domain([1, sampleSize]).range([maxStroke, minStroke])
     let strokeWidth = scale(flows.length)
-    this.flowInterval = d3.interval(() => {
-      if (t < Ts.length) {
-        flows.forEach((f, i) => {
-          if (f.positions.length > 0) {
-            f.positions.forEach(([tp, l], j) => {
-              if (tp == Ts[t] && l.length > 1) {
-                this.flowGroup
-                  .append('path')
-                    .attr('class', 'flow')
-                    .attr('stroke', 'cyan')
-                    .attr('stroke-width', strokeWidth)
-                    .attr('opacity', 0.1)
-                    .attr('fill', 'none')
-                    .attr('z-index', 0)
-                    .attr('d', line(l.map(e => this.centerPosition(e).map(c => c + jitter()))));
-              }
-            })
-          }
+
+    let i = 0;
+    let callback = () => {
+      if (i < Ts.length) {
+        console.time(`t = ${Ts[i]}`)
+        timeIndexedFlows[Ts[i]].forEach(l => {
+          this.flowGroup
+            .append('path')
+              .attr('class', 'flow')
+              .attr('stroke', 'cyan')
+              .attr('stroke-width', strokeWidth)
+              .attr('opacity', 0.1)
+              .attr('fill', 'none')
+              .attr('z-index', 0)
+              .attr('d', lineGenerator(l.map(e => this.centerPosition(e).map(c => c + jitter()))))
         })
-        progressbar.text(`move ${Ts[t]} / ${T}`)
-        t ++;
+
+        progressbar.text(`move ${Ts[i]} / ${T}`)
+        console.timeEnd(`t = ${Ts[i]}`)
+        this.flowInterval = d3.timeout(callback, 200 / Math.sqrt(Ts[i]+1));
+        i ++;
       }
-      else {
-        this.flowInterval.stop();
-        return;
-      }
-    }, 50);
+    }
+
+    this.flowInterval = d3.timeout(callback, 100);
   }
 
   showHeatmap(piece, data, colorbar) {
@@ -335,6 +340,7 @@ class Chessboard {
     this.svg.selectAll('.heat').remove();
     colorbar.selectAll('#color-axis').remove();
     colorbar.selectAll('#color-gradient').remove();
+    colorbar.selectAll('#colorbar-label').remove();
 
     // Computing the heatmap
     let heatmap = {}
@@ -371,13 +377,20 @@ class Chessboard {
             .attr("stroke-width", 0)
             */
 
-      let barHeight = this.size - 10;
+      let barHeight = 0.97 * this.size;
       let yScale = d3.scaleLog()
           .domain([1, M])
-          .range([barHeight, 0])
+          .range([barHeight-5, 0])
 
+      colorbar.append('text')
+          .attr('id', 'colorbar-label')
+          .attr('fill', 'white')
+          .attr('font-size', 12)
+          .attr('x', 20)
+          .attr('y', 15)
+          .text('# of games');
       colorbar.append('g')
-          .attr('transform', `translate(${40}, 5)`)
+          .attr('transform', `translate(40, ${this.size - barHeight})`)
           .attr('id', 'color-axis')
           .attr('class', 'axisWhite')
           .call(d3.axisLeft(yScale).tickFormat(d3.format(".1s")))
@@ -388,7 +401,7 @@ class Chessboard {
       }
       colorbar.append('g')
           .attr('id', 'color-gradient')
-          .attr('transform', `translate(${40}, 5)`)
+          .attr('transform', `translate(40, ${this.size - barHeight})`)
           .selectAll('rect')
           .data(lines)
           .enter()
@@ -429,6 +442,10 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
   let size = 0.4 * window.innerWidth;
+
+
+  // OPENINGS
+  let tutorial = new Chessboard('#tutorial-chess-container', size, "#0090bb", "#b2edff");
 
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
@@ -605,6 +622,7 @@ whenDocumentLoaded(() => {
 
       colorbar.selectAll('#color-axis').remove();
       colorbar.selectAll('#color-gradient').remove();
+      colorbar.selectAll('#colorbar-label').remove();
 
       d3.json(folder + "data/flows/" + piece + '.json', function (error, data) {
         let winner = d3.select('input[name="winner"]:checked').node().value;
