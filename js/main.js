@@ -446,7 +446,7 @@
 	// Document on load.
 	$(function(){
 		$( '.snap' ).scrollSnap({
-			speed: 300
+			speed: 200
 		  });
 		parallax();
 		fullHeight();
