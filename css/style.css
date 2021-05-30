@@ -11,6 +11,32 @@
 *	Edit this section
 *
 * ======================================================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  justify-items: center;
+}
+.mid {
+  grid-column-start: 2;
+}
+.block {
+  display: block;
+}
+
+.axisWhite line{
+  stroke: white;
+}
+
+.axisWhite path{
+  stroke: white;
+}
+
+.axisWhite text{
+  fill: white;
+}
+
+
 body {
   font-family: "Inconsolata", Arial, sans-serif;
   font-weight: 300;
