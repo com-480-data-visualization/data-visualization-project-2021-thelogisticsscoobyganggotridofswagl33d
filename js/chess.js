@@ -12,7 +12,7 @@ function clamp(x, m, M) {
 }
 
 
-let folder = '/'//'/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
+let folder = '/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
 
 class Chessboard {
 
