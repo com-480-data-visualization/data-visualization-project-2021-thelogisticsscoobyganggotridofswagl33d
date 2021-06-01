@@ -451,10 +451,9 @@ whenDocumentLoaded(() => {
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
 
   d3.json(folder + "data/openings.json", function (error, data) {
-    let selector = d3.select("#opening-selector")
+    let selector = d3.select("#opening-selector").attr("class", "btn btn-primary opening")
 
     selector.selectAll(".opening")
-      .attr("class", "btn btn-primary opening")
       .data(Object.keys(data).sort(), d => d)
       .enter()
       .append("option")
