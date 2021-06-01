@@ -12,6 +12,7 @@ function clamp(x, m, M) {
 }
 let deploy = true
 let folder 
+
 if(deploy){
   folder = '/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
 }else{
