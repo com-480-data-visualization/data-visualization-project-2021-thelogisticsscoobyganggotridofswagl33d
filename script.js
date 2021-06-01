@@ -720,7 +720,7 @@ whenDocumentLoaded(() => {
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA")
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#cc9200", "#ffda7f")
 
   d3.json(folder + 'data/elo.json', function (error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
