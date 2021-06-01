@@ -528,6 +528,8 @@ whenDocumentLoaded(() => {
     buttons.append("button")
       .attr("id", "button-play")
       .attr("class", "btn btn-primary opening")
+      .style("margin-left", "10%")
+      .style("margin-right", "10%")
       .text("play")
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
