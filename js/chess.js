@@ -454,6 +454,7 @@ whenDocumentLoaded(() => {
     let selector = d3.select("#opening-selector")
 
     selector.selectAll(".opening")
+      .attr("class", "btn btn-primary opening")
       .data(Object.keys(data).sort(), d => d)
       .enter()
       .append("option")
