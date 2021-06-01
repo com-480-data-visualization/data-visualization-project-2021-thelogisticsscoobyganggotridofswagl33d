@@ -518,6 +518,7 @@ whenDocumentLoaded(() => {
 
     buttons.append("button")
       .attr("id", "button-back")
+      .attr("class", "btn btn-primary opening")
       .text("back")
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
@@ -525,6 +526,7 @@ whenDocumentLoaded(() => {
 
     buttons.append("button")
       .attr("id", "button-play")
+      .attr("class", "btn btn-primary opening")
       .text("play")
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
@@ -532,6 +534,7 @@ whenDocumentLoaded(() => {
 
     buttons.append("button")
       .attr("id", "button-next")
+      .attr("class", "btn btn-primary opening")
       .text("next")
       .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
       .on("mouseout",  function(d){d3.select(this).style("cursor", null)})

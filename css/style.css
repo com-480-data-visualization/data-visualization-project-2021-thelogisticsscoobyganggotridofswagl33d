@@ -863,10 +863,24 @@ h1, h2, h3, h4, h5, h6 {
   border: none !important;
   border: 2px solid transparent !important;
 }
+
 .btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
   box-shadow: none;
   background: #8C7676;
 }
+
+.btn.btn-primary.opening {
+  background:#ab5555;
+  color: #fff;
+  border: none !important;
+  border: 2px solid transparent !important;
+}
+
+.btn.btn-primary.opening:hover, .btn.btn-primary.opening:active, .btn.btn-primary.opening:focus {
+  box-shadow: none;
+  background: #eeabaa;
+}
+
 .btn:hover, .btn:active, .btn:focus {
   background: #393e46 !important;
   color: #fff;
@@ -875,6 +889,8 @@ h1, h2, h3, h4, h5, h6 {
 .btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:active {
   border-color: transparent;
 }
+
+
 
 .social {
   padding: 0;
