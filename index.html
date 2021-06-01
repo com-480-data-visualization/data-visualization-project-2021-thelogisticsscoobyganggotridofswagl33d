@@ -35,11 +35,20 @@
         <div id='opening-chess-container' class='container'></div>
         <div style='padding: 10px;'>
           <div id='opening-info'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div id='opening-stats'>
+              <div id='opening-games'></div>
+              ELO histogram for this opening:
+              <div id='opening-elo'></div>
+              Game result for this opening:
+              <div id='opening-winrate'></div>
+              Opening moves:
+              <div id='opening-moves'></div>
+            </div>
           </div>
           <div id='opening-controller'>
             <div id='opening-buttons'></div>
             <select id='opening-selector'></select>
+            <button id='opening-random'>Show a random opening!</button>
           </div>
         </div>
       </div>
@@ -58,9 +67,16 @@
         <div id='flow-controller' class='grid' style='margin-right: auto; padding-left: 10px;'>
           <div id='elo-bar'></div>
           <div>
-            <button id='heatmap-button'>Select a piece</button>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="game-mode" tabindex="0" checked>
+                <label class="onoffswitch-label" for="game-mode">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+
             <div id='flow-options' style='justify-content: center; padding-top:10px;'>
-              Game result:
+              Game outcome:
               <label class='block'><input type='radio' name='winner' value='all' checked></option>all</label>
               <label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
               <label class='block'><input type='radio' name='winner' value='white'></option>white wins</label>

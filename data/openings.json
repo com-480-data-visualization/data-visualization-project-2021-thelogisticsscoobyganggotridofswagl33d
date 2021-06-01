@@ -197,6 +197,7 @@
   "winner_white":53.65,
   "winner_black":41.15,
   "draw":5.21,
+  "opening_moves":"d3, Nf6, e4",
   "nb_games":192,
   "states":[
    {
@@ -357,6 +358,7 @@
   "winner_white":57.14,
   "winner_black":42.86,
   "draw":0.0,
+  "opening_moves":"Nh3",
   "nb_games":14,
   "states":[
    {
@@ -441,6 +443,7 @@
   "winner_white":33.33,
   "winner_black":50.0,
   "draw":16.67,
+  "opening_moves":"d4, d5, Qd3",
   "nb_games":6,
   "states":[
    {
@@ -613,6 +616,7 @@
   "winner_white":65.38,
   "winner_black":30.77,
   "draw":3.85,
+  "opening_moves":"a3",
   "nb_games":26,
   "states":[
    {
@@ -692,6 +696,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"d4, Na6",
   "nb_games":1,
   "states":[
    {
@@ -820,6 +825,7 @@
   "winner_white":68.75,
   "winner_black":25.0,
   "draw":6.25,
+  "opening_moves":"e4, f6",
   "nb_games":16,
   "states":[
    {
@@ -934,6 +940,7 @@
   "winner_white":50.0,
   "winner_black":0.0,
   "draw":50.0,
+  "opening_moves":"e4, e5, Bc4, Nf6, f3",
   "nb_games":2,
   "states":[
    {
@@ -1157,6 +1164,7 @@
   "winner_white":33.33,
   "winner_black":44.44,
   "draw":22.22,
+  "opening_moves":"d4, Nf6, c4, c5, d5, b5",
   "nb_games":9,
   "states":[
    {
@@ -1413,6 +1421,7 @@
   "winner_white":62.5,
   "winner_black":37.5,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, c4, c5, d5, b5, cxb5, a6, b6",
   "nb_games":8,
   "states":[
    {
@@ -1763,6 +1772,7 @@
   "winner_white":33.33,
   "winner_black":66.67,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, c4, c5, d5, b5, Nd2",
   "nb_games":3,
   "states":[
    {
@@ -2110,6 +2120,7 @@
   "winner_white":40.0,
   "winner_black":47.69,
   "draw":12.31,
+  "opening_moves":"Nf3, Nf6, d4, e6, c4, c5, d5, exd5, cxd5, d6, Nc3, g6, e4, Bg7, h3",
   "nb_games":65,
   "states":[
    {
@@ -2806,6 +2817,7 @@
   "winner_white":38.22,
   "winner_black":52.23,
   "draw":9.55,
+  "opening_moves":"e4, d5, f4",
   "nb_games":157,
   "states":[
    {
@@ -3275,6 +3287,7 @@
   "winner_white":57.59,
   "winner_black":37.15,
   "draw":5.26,
+  "opening_moves":"Nc3, e5, e4, Nf6, Bc4, Nc6, d3",
   "nb_games":323,
   "states":[
    {
@@ -3613,6 +3626,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, Nc3, d5, e4, dxe4, Bg5",
   "nb_games":56,
   "states":[
    {
@@ -3898,6 +3912,7 @@
   "winner_white":60.0,
   "winner_black":40.0,
   "draw":0.0,
+  "opening_moves":"d4, d5, e4, dxe4, Nc3, Nc6, f3, Nf6",
   "nb_games":5,
   "states":[
    {
@@ -4219,6 +4234,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, Nf3, e6, c4, c5",
   "nb_games":10,
   "states":[
    {
@@ -4471,6 +4487,7 @@
   "winner_white":75.0,
   "winner_black":25.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, Nf3, c5, d5, e6, c4, b5, dxe6, fxe6, cxb5, d5",
   "nb_games":4,
   "states":[
    {
@@ -4924,6 +4941,7 @@
   "winner_white":40.0,
   "winner_black":50.0,
   "draw":10.0,
+  "opening_moves":"c4, e6, d4, Nf6, Nf3, Bb4+, Bd2, Bxd2+",
   "nb_games":10,
   "states":[
    {
@@ -5252,6 +5270,7 @@
   "winner_white":53.85,
   "winner_black":46.15,
   "draw":0.0,
+  "opening_moves":"d4, g5",
   "nb_games":13,
   "states":[
    {
@@ -5389,6 +5408,7 @@
   "winner_white":20.0,
   "winner_black":80.0,
   "draw":0.0,
+  "opening_moves":"c4, Nf6, d4, e5, dxe5, Ng4, Nf3",
   "nb_games":25,
   "states":[
    {
@@ -5672,6 +5692,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, f4",
   "nb_games":4,
   "states":[
    {
@@ -6415,6 +6436,7 @@
   "winner_white":49.25,
   "winner_black":45.06,
   "draw":5.7,
+  "opening_moves":"Nc3, c6, e4, d5",
   "nb_games":597,
   "states":[
    {
@@ -6600,6 +6622,7 @@
   "winner_white":80.0,
   "winner_black":0.0,
   "draw":20.0,
+  "opening_moves":"e4, h6",
   "nb_games":5,
   "states":[
    {
@@ -6718,6 +6741,7 @@
   "winner_white":83.33,
   "winner_black":16.67,
   "draw":0.0,
+  "opening_moves":"c4, e6, g3, d5, Bg2, dxc4, Qa4+, Nd7, Qxc4, Ngf6, d4",
   "nb_games":6,
   "states":[
    {
@@ -7297,6 +7321,7 @@
   "winner_white":45.88,
   "winner_black":54.12,
   "draw":0.0,
+  "opening_moves":"e4, e5, d4",
   "nb_games":170,
   "states":[
    {
@@ -7445,6 +7470,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"e4, e5, d4, exd4",
   "nb_games":2,
   "states":[
    {
@@ -7633,6 +7659,7 @@
   "winner_white":44.44,
   "winner_black":55.56,
   "draw":0.0,
+  "opening_moves":"h3",
   "nb_games":9,
   "states":[
    {
@@ -7737,6 +7764,7 @@
   "winner_white":38.46,
   "winner_black":61.54,
   "draw":0.0,
+  "opening_moves":"Nf3, Nf6, e3, e6, d4, d5",
   "nb_games":26,
   "states":[
    {
@@ -7993,6 +8021,7 @@
   "winner_white":0.0,
   "winner_black":100.0,
   "draw":0.0,
+  "opening_moves":"a4, e5, h4",
   "nb_games":8,
   "states":[
    {
@@ -8144,6 +8173,7 @@
   "winner_white":40.0,
   "winner_black":60.0,
   "draw":0.0,
+  "opening_moves":"a3, d5, h3, e5",
   "nb_games":5,
   "states":[
    {
@@ -8328,6 +8358,7 @@
   "winner_white":75.0,
   "winner_black":25.0,
   "draw":0.0,
+  "opening_moves":"e4, c6, d4, d6, Nc3, Nf6",
   "nb_games":4,
   "states":[
    {
@@ -8602,6 +8633,7 @@
   "winner_white":38.46,
   "winner_black":53.85,
   "draw":7.69,
+  "opening_moves":"e4, e5, d4, exd4, c3",
   "nb_games":26,
   "states":[
    {
@@ -8832,6 +8864,7 @@
   "winner_white":77.78,
   "winner_black":22.22,
   "draw":0.0,
+  "opening_moves":"e4, e5, d4, exd4, c3, dxc3, Bc4, cxb2, Bxb2",
   "nb_games":18,
   "states":[
    {
@@ -9191,6 +9224,7 @@
   "winner_white":72.73,
   "winner_black":27.27,
   "draw":0.0,
+  "opening_moves":"e4, e5, d4, exd4, c3, dxc3, Bc4, cxb2, Bxb2, Bb4+",
   "nb_games":22,
   "states":[
    {
@@ -9562,6 +9596,7 @@
   "winner_white":25.0,
   "winner_black":75.0,
   "draw":0.0,
+  "opening_moves":"e4, e5, d4, exd4, c3, d5",
   "nb_games":4,
   "states":[
    {
@@ -9808,6 +9843,7 @@
   "winner_white":0.0,
   "winner_black":100.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, Nf3, Ne4",
   "nb_games":1,
   "states":[
    {
@@ -10000,6 +10036,7 @@
   "winner_white":50.0,
   "winner_black":41.67,
   "draw":8.33,
+  "opening_moves":"e4, f5",
   "nb_games":12,
   "states":[
    {
@@ -10237,6 +10274,7 @@
   "winner_white":49.6,
   "winner_black":45.6,
   "draw":4.8,
+  "opening_moves":"Nc3, f5, d4",
   "nb_games":125,
   "states":[
    {
@@ -10405,6 +10443,7 @@
   "winner_white":45.45,
   "winner_black":50.0,
   "draw":4.55,
+  "opening_moves":"Nf3, Nf6, d4, g6",
   "nb_games":22,
   "states":[
    {
@@ -10657,6 +10696,7 @@
   "winner_white":61.11,
   "winner_black":37.5,
   "draw":1.39,
+  "opening_moves":"Nf3, d5, e4, e5",
   "nb_games":72,
   "states":[
    {
@@ -10905,6 +10945,7 @@
   "winner_white":50.0,
   "winner_black":48.53,
   "draw":1.47,
+  "opening_moves":"c4, e6, d4, b6",
   "nb_games":68,
   "states":[
    {
@@ -11805,6 +11846,7 @@
   "winner_white":54.86,
   "winner_black":41.11,
   "draw":4.03,
+  "opening_moves":"Nf3, Nc6, c4, e5, Nc3",
   "nb_games":720,
   "states":[
    {
@@ -12064,6 +12106,7 @@
   "winner_white":60.0,
   "winner_black":33.33,
   "draw":6.67,
+  "opening_moves":"d4, e5",
   "nb_games":45,
   "states":[
    {
@@ -12197,6 +12240,7 @@
   "winner_white":80.95,
   "winner_black":14.29,
   "draw":4.76,
+  "opening_moves":"d4, e5, dxe5, Nc6, Nf3, Bc5",
   "nb_games":21,
   "states":[
    {
@@ -12445,6 +12489,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, e5, d5",
   "nb_games":4,
   "states":[
    {
@@ -12633,6 +12678,7 @@
   "winner_white":40.48,
   "winner_black":59.52,
   "draw":0.0,
+  "opening_moves":"Nf3, e5, d4",
   "nb_games":42,
   "states":[
    {
@@ -13149,6 +13195,7 @@
   "winner_white":52.16,
   "winner_black":43.78,
   "draw":4.05,
+  "opening_moves":"Nc3, Nf6, e4, e5, d4, Nc6, Nf3, exd4",
   "nb_games":370,
   "states":[
    {
@@ -13472,6 +13519,7 @@
   "winner_white":87.5,
   "winner_black":12.5,
   "draw":0.0,
+  "opening_moves":"d4, e6, e4, c5, d5",
   "nb_games":8,
   "states":[
    {
@@ -15098,6 +15146,7 @@
   "winner_white":48.8,
   "winner_black":46.25,
   "draw":4.96,
+  "opening_moves":"Nc3, Nf6, d4, d5, Bg5, e6, e4, Be7, e5, Nfd7, Bxe7, Qxe7, f4",
   "nb_games":1412,
   "states":[
    {
@@ -15600,6 +15649,7 @@
   "winner_white":38.1,
   "winner_black":52.38,
   "draw":9.52,
+  "opening_moves":"f3",
   "nb_games":21,
   "states":[
    {
@@ -15786,6 +15836,7 @@
   "winner_white":42.59,
   "winner_black":51.85,
   "draw":5.56,
+  "opening_moves":"Nf3, Nc6, e4, e5, Bc4, Bc5",
   "nb_games":108,
   "states":[
    {
@@ -16035,6 +16086,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"h3, e5, a3",
   "nb_games":1,
   "states":[
    {
@@ -16198,6 +16250,7 @@
   "winner_white":70.59,
   "winner_black":29.41,
   "draw":0.0,
+  "opening_moves":"e4, h5",
   "nb_games":17,
   "states":[
    {
@@ -16347,6 +16400,7 @@
   "winner_white":27.03,
   "winner_black":67.57,
   "draw":5.41,
+  "opening_moves":"g4",
   "nb_games":37,
   "states":[
    {
@@ -16486,6 +16540,7 @@
   "winner_white":55.74,
   "winner_black":40.98,
   "draw":3.28,
+  "opening_moves":"Nf3, Nf6, d4, g6, c4, Bg7, Nc3, d5, cxd5, Nxd5, e4, Nxc3, bxc3",
   "nb_games":61,
   "states":[
    {
@@ -16965,6 +17020,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"e4, b6, d4, Ba6",
   "nb_games":5,
   "states":[
    {
@@ -17156,6 +17212,7 @@
   "winner_white":72.73,
   "winner_black":27.27,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, Qe7",
   "nb_games":11,
   "states":[
    {
@@ -17342,6 +17399,7 @@
   "winner_white":83.33,
   "winner_black":16.67,
   "draw":0.0,
+  "opening_moves":"e4, Nh6",
   "nb_games":6,
   "states":[
    {
@@ -17663,6 +17721,7 @@
   "winner_white":52.63,
   "winner_black":44.98,
   "draw":2.39,
+  "opening_moves":"d4, e6",
   "nb_games":209,
   "states":[
    {
@@ -17954,6 +18013,7 @@
   "winner_white":44.13,
   "winner_black":52.51,
   "draw":3.35,
+  "opening_moves":"Nf3, e5, g3",
   "nb_games":179,
   "states":[
    {
@@ -18419,6 +18479,7 @@
   "winner_white":38.56,
   "winner_black":55.17,
   "draw":6.27,
+  "opening_moves":"Nf3, Nf6, d4, c5",
   "nb_games":319,
   "states":[
    {
@@ -18602,6 +18663,7 @@
   "winner_white":0.0,
   "winner_black":100.0,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, Nc6, Nxe5",
   "nb_games":3,
   "states":[
    {
@@ -19796,6 +19858,7 @@
   "winner_white":49.24,
   "winner_black":45.97,
   "draw":4.79,
+  "opening_moves":"Nh3, e5, e4, Nc6, Bc4, Nf6, Ng5, d5",
   "nb_games":981,
   "states":[
    {
@@ -20141,6 +20204,7 @@
   "winner_white":20.69,
   "winner_black":72.41,
   "draw":6.9,
+  "opening_moves":"h4",
   "nb_games":29,
   "states":[
    {
@@ -20225,6 +20289,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, e6, c4, Bb4+",
   "nb_games":6,
   "states":[
    {
@@ -20446,6 +20511,7 @@
   "winner_white":48.78,
   "winner_black":48.78,
   "draw":2.44,
+  "opening_moves":"e4, e5, f4",
   "nb_games":41,
   "states":[
    {
@@ -20604,6 +20670,7 @@
   "winner_white":41.67,
   "winner_black":41.67,
   "draw":16.67,
+  "opening_moves":"e4, e5, f4, d5, d4",
   "nb_games":12,
   "states":[
    {
@@ -20828,6 +20895,7 @@
   "winner_white":30.0,
   "winner_black":60.0,
   "draw":10.0,
+  "opening_moves":"e4, e5, f4, d5, exd5, exf4, Nf3",
   "nb_games":10,
   "states":[
    {
@@ -21228,6 +21296,7 @@
   "winner_white":65.85,
   "winner_black":32.52,
   "draw":1.63,
+  "opening_moves":"e4, e5, f4, Nc6, Bc4, exf4",
   "nb_games":123,
   "states":[
    {
@@ -21483,6 +21552,7 @@
   "winner_white":87.5,
   "winner_black":12.5,
   "draw":0.0,
+  "opening_moves":"e4, e5, f4, Bc5, Nf3, d6, fxe5",
   "nb_games":8,
   "states":[
    {
@@ -21807,6 +21877,7 @@
   "winner_white":51.16,
   "winner_black":41.86,
   "draw":6.98,
+  "opening_moves":"e4, Nc6, f4, e5",
   "nb_games":43,
   "states":[
    {
@@ -21990,6 +22061,7 @@
   "winner_white":66.67,
   "winner_black":33.33,
   "draw":0.0,
+  "opening_moves":"c4, Nf6, g3, g6, Bg2, Bg7, Nf3, O-O, Nc3, d6, O-O, e5, d4, Nbd7, e4",
   "nb_games":3,
   "states":[
    {
@@ -22632,6 +22704,7 @@
   "winner_white":50.0,
   "winner_black":32.95,
   "draw":17.05,
+  "opening_moves":"Nf3, Nf6, g3, d5",
   "nb_games":88,
   "states":[
    {
@@ -23009,6 +23082,7 @@
   "winner_white":48.22,
   "winner_black":45.69,
   "draw":6.09,
+  "opening_moves":"Nf3, Nf6, c4, d6, Nc3, g6, d4, Bg7, g3, O-O, Bg2, Nbd7",
   "nb_games":197,
   "states":[
    {
@@ -23644,6 +23718,7 @@
   "winner_white":56.28,
   "winner_black":41.53,
   "draw":2.19,
+  "opening_moves":"Nf3, Nc6, g3, e5, e4",
   "nb_games":183,
   "states":[
    {
@@ -23876,6 +23951,7 @@
   "winner_white":94.44,
   "winner_black":5.56,
   "draw":0.0,
+  "opening_moves":"e4",
   "nb_games":18,
   "states":[
    {
@@ -24871,6 +24947,7 @@
   "winner_white":47.98,
   "winner_black":48.09,
   "draw":3.93,
+  "opening_moves":"Nc3, e5, e4, Nf6, f3",
   "nb_games":917,
   "states":[
    {
@@ -25098,6 +25175,7 @@
   "winner_white":38.46,
   "winner_black":61.54,
   "draw":0.0,
+  "opening_moves":"b3, e5, e4",
   "nb_games":13,
   "states":[
    {
@@ -25254,6 +25332,7 @@
   "winner_white":60.0,
   "winner_black":40.0,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, f5",
   "nb_games":10,
   "states":[
    {
@@ -25443,6 +25522,7 @@
   "winner_white":55.56,
   "winner_black":44.44,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, f5, exf5",
   "nb_games":9,
   "states":[
    {
@@ -25660,6 +25740,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, f5, Nxe5, Qf6, d4",
   "nb_games":4,
   "states":[
    {
@@ -25942,6 +26023,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"e4, Na6",
   "nb_games":3,
   "states":[
    {
@@ -26059,6 +26141,7 @@
   "winner_white":20.0,
   "winner_black":80.0,
   "draw":0.0,
+  "opening_moves":"d4, d6, e4, Nf6, f3",
   "nb_games":5,
   "states":[
    {
@@ -26293,6 +26376,7 @@
   "winner_white":20.0,
   "winner_black":65.0,
   "draw":15.0,
+  "opening_moves":"d4, Nf6, Bf4, g6, Nf3",
   "nb_games":20,
   "states":[
    {
@@ -26513,6 +26597,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"d4, Nc6, c4, Nf6",
   "nb_games":6,
   "states":[
    {
@@ -26796,6 +26881,7 @@
   "winner_white":38.83,
   "winner_black":60.19,
   "draw":0.97,
+  "opening_moves":"d3",
   "nb_games":103,
   "states":[
    {
@@ -26912,6 +26998,7 @@
   "winner_white":50.0,
   "winner_black":47.37,
   "draw":2.63,
+  "opening_moves":"d4, Nc6",
   "nb_games":38,
   "states":[
    {
@@ -27249,6 +27336,7 @@
   "winner_white":44.89,
   "winner_black":51.11,
   "draw":4.0,
+  "opening_moves":"Nc3, g6, e4, Bg7, d4, d6",
   "nb_games":225,
   "states":[
    {
@@ -27506,6 +27594,7 @@
   "winner_white":66.67,
   "winner_black":22.22,
   "draw":11.11,
+  "opening_moves":"Nf3, Nf6, c4, g6, g3, Bg7, Bg2, O-O, O-O, Nc6, d4, d5",
   "nb_games":9,
   "states":[
    {
@@ -28115,6 +28204,7 @@
   "winner_white":47.13,
   "winner_black":45.86,
   "draw":7.01,
+  "opening_moves":"c4, Nf6, Nc3, e6, d4, Bb4, e3, O-O, Nf3, c5",
   "nb_games":157,
   "states":[
    {
@@ -28663,6 +28753,7 @@
   "winner_white":46.34,
   "winner_black":48.78,
   "draw":4.88,
+  "opening_moves":"b3",
   "nb_games":164,
   "states":[
    {
@@ -28941,6 +29032,7 @@
   "winner_white":67.5,
   "winner_black":29.5,
   "draw":3.0,
+  "opening_moves":"d4, Nc6, e4, e5",
   "nb_games":200,
   "states":[
    {
@@ -29145,6 +29237,7 @@
   "winner_white":50.0,
   "winner_black":41.67,
   "draw":8.33,
+  "opening_moves":"e4, Nc6, Nf3",
   "nb_games":24,
   "states":[
    {
@@ -29314,6 +29407,7 @@
   "winner_white":47.83,
   "winner_black":52.17,
   "draw":0.0,
+  "opening_moves":"Nf3, d5, b3",
   "nb_games":23,
   "states":[
    {
@@ -29499,6 +29593,7 @@
   "winner_white":48.72,
   "winner_black":48.72,
   "draw":2.56,
+  "opening_moves":"d4, c5",
   "nb_games":39,
   "states":[
    {
@@ -29615,6 +29710,7 @@
   "winner_white":25.0,
   "winner_black":75.0,
   "draw":0.0,
+  "opening_moves":"c4, Nf6, d4, d6, Nc3, c6",
   "nb_games":4,
   "states":[
    {
@@ -29900,6 +29996,7 @@
   "winner_white":59.46,
   "winner_black":35.14,
   "draw":5.41,
+  "opening_moves":"c4, d6, d4",
   "nb_games":37,
   "states":[
    {
@@ -30217,6 +30314,7 @@
   "winner_white":46.2,
   "winner_black":48.54,
   "draw":5.26,
+  "opening_moves":"e4, b6",
   "nb_games":171,
   "states":[
    {
@@ -30339,6 +30437,7 @@
   "winner_white":40.0,
   "winner_black":60.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, f3",
   "nb_games":10,
   "states":[
    {
@@ -30494,6 +30593,7 @@
   "winner_white":33.33,
   "winner_black":33.33,
   "draw":33.33,
+  "opening_moves":"e4, e5, Nf3, Nf6, d4, exd4",
   "nb_games":9,
   "states":[
    {
@@ -30826,6 +30926,7 @@
   "winner_white":41.18,
   "winner_black":52.94,
   "draw":5.88,
+  "opening_moves":"e4, e5, Nf3, Nf6",
   "nb_games":85,
   "states":[
    {
@@ -31697,6 +31798,7 @@
   "winner_white":57.31,
   "winner_black":38.64,
   "draw":4.05,
+  "opening_moves":"Nf3, d6, e4, e5",
   "nb_games":691,
   "states":[
    {
@@ -32165,6 +32267,7 @@
   "winner_white":54.17,
   "winner_black":39.58,
   "draw":6.25,
+  "opening_moves":"Nc3, Nf6, e4, d6, d4",
   "nb_games":288,
   "states":[
    {
@@ -32393,6 +32496,7 @@
   "winner_white":85.71,
   "winner_black":14.29,
   "draw":0.0,
+  "opening_moves":"d4, b5",
   "nb_games":14,
   "states":[
    {
@@ -32588,6 +32692,7 @@
   "winner_white":54.22,
   "winner_black":40.96,
   "draw":4.82,
+  "opening_moves":"b4",
   "nb_games":83,
   "states":[
    {
@@ -32732,6 +32837,7 @@
   "winner_white":45.45,
   "winner_black":53.03,
   "draw":1.52,
+  "opening_moves":"Nf3, Nc6, c3, e5, e4, Nf6",
   "nb_games":66,
   "states":[
    {
@@ -33002,6 +33108,7 @@
   "winner_white":40.91,
   "winner_black":59.09,
   "draw":0.0,
+  "opening_moves":"e4, e5, Bb5",
   "nb_games":22,
   "states":[
    {
@@ -33149,6 +33256,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"e4, c5, Nf3, g6, d4, Bg7, dxc5, Qa5+",
   "nb_games":1,
   "states":[
    {
@@ -33477,6 +33585,7 @@
   "winner_white":71.43,
   "winner_black":28.57,
   "draw":0.0,
+  "opening_moves":"d4, d5, c4",
   "nb_games":14,
   "states":[
    {
@@ -33876,6 +33985,7 @@
   "winner_white":54.94,
   "winner_black":41.5,
   "draw":3.56,
+  "opening_moves":"Nf3, d5, d4, Nf6, c4, dxc4, e3",
   "nb_games":253,
   "states":[
    {
@@ -34550,6 +34660,7 @@
   "winner_white":53.55,
   "winner_black":41.88,
   "draw":4.57,
+  "opening_moves":"Nf3, Nf6, d4, d5, Bg5, e6, e3, Be7, c4, O-O, Nc3",
   "nb_games":394,
   "states":[
    {
@@ -35219,6 +35330,7 @@
   "winner_white":60.56,
   "winner_black":36.25,
   "draw":3.19,
+  "opening_moves":"Nf3, Nc6, d4, d5, c4, Nf6, Nc3, dxc4",
   "nb_games":251,
   "states":[
    {
@@ -35538,6 +35650,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, c4, b6",
   "nb_games":4,
   "states":[
    {
@@ -35768,6 +35881,7 @@
   "winner_white":50.0,
   "winner_black":42.0,
   "draw":8.0,
+  "opening_moves":"Nf3, Nf6, c4, b6, g3, Bb7, Bg2, e6, O-O, Be7, d4",
   "nb_games":50,
   "states":[
    {
@@ -36315,6 +36429,7 @@
   "winner_white":65.89,
   "winner_black":30.23,
   "draw":3.88,
+  "opening_moves":"d4",
   "nb_games":129,
   "states":[
    {
@@ -37626,6 +37741,7 @@
   "winner_white":46.23,
   "winner_black":48.82,
   "draw":4.95,
+  "opening_moves":"Nc3, Nf6, d4, d5",
   "nb_games":1233,
   "states":[
    {
@@ -37820,6 +37936,7 @@
   "winner_white":64.29,
   "winner_black":35.71,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, Nc3, d5, f3",
   "nb_games":14,
   "states":[
    {
@@ -38126,6 +38243,7 @@
   "winner_white":60.87,
   "winner_black":33.7,
   "draw":5.43,
+  "opening_moves":"c4, d6, d4, e5",
   "nb_games":92,
   "states":[
    {
@@ -38376,6 +38494,7 @@
   "winner_white":48.57,
   "winner_black":40.0,
   "draw":11.43,
+  "opening_moves":"Nf3",
   "nb_games":70,
   "states":[
    {
@@ -38466,6 +38585,7 @@
   "winner_white":33.33,
   "winner_black":58.33,
   "draw":8.33,
+  "opening_moves":"Nc3, Nf6, d4, d5, Bg5",
   "nb_games":12,
   "states":[
    {
@@ -38722,6 +38842,7 @@
   "winner_white":54.76,
   "winner_black":40.48,
   "draw":4.76,
+  "opening_moves":"d4, g6, e4, Bg7",
   "nb_games":42,
   "states":[
    {
@@ -38904,6 +39025,7 @@
   "winner_white":100.0,
   "winner_black":0.0,
   "draw":0.0,
+  "opening_moves":"Nf3, c5, e3, Nc6, d4, e6, Bd3, Nf6, O-O, d5, b3, Bd6, Bb2, O-O",
   "nb_games":2,
   "states":[
    {
@@ -39676,6 +39798,7 @@
   "winner_white":57.94,
   "winner_black":38.49,
   "draw":3.57,
+  "opening_moves":"Nc3, e5, e4, Nf6, Nf3",
   "nb_games":252,
   "states":[
    {
@@ -40748,6 +40871,7 @@
   "winner_white":52.56,
   "winner_black":41.72,
   "draw":5.71,
+  "opening_moves":"Nc3, Nf6, Nf3, Nc6, e4, e5, Bb5, d6, d4, Bd7, Bxc6",
   "nb_games":858,
   "states":[
    {
@@ -41215,6 +41339,7 @@
   "winner_white":56.0,
   "winner_black":44.0,
   "draw":0.0,
+  "opening_moves":"c3",
   "nb_games":50,
   "states":[
    {
@@ -42009,6 +42134,7 @@
   "winner_white":50.0,
   "winner_black":46.37,
   "draw":3.63,
+  "opening_moves":"b4, d5, e4",
   "nb_games":716,
   "states":[
    {
@@ -42162,6 +42288,7 @@
   "winner_white":57.14,
   "winner_black":42.86,
   "draw":0.0,
+  "opening_moves":"e4, e5, Nf3, Nc6, d4, exd4, Bc4, Bb4+, c3, dxc3, bxc3",
   "nb_games":7,
   "states":[
    {
@@ -43036,6 +43163,7 @@
   "winner_white":53.98,
   "winner_black":42.8,
   "draw":3.23,
+  "opening_moves":"Nf3, Nc6, e4, e5, d4",
   "nb_games":465,
   "states":[
    {
@@ -43253,6 +43381,7 @@
   "winner_white":66.67,
   "winner_black":33.33,
   "draw":0.0,
+  "opening_moves":"d4, c5, d5, e5, e4, d6",
   "nb_games":3,
   "states":[
    {
@@ -43609,6 +43738,7 @@
   "winner_white":46.3,
   "winner_black":42.59,
   "draw":11.11,
+  "opening_moves":"Nf3, Nf6, d4, d5, c4, e6, Nc3, c6",
   "nb_games":108,
   "states":[
    {
@@ -46557,6 +46687,7 @@
   "winner_white":45.71,
   "winner_black":49.35,
   "draw":4.94,
+  "opening_moves":"Nc3, c5, e4, Nc6",
   "nb_games":2632,
   "states":[
    {
@@ -46977,6 +47108,7 @@
   "winner_white":46.25,
   "winner_black":46.25,
   "draw":7.5,
+  "opening_moves":"Nf3, Nf6, c4, c6, d4, d5, e3",
   "nb_games":240,
   "states":[
    {
@@ -47265,6 +47397,7 @@
   "winner_white":16.67,
   "winner_black":83.33,
   "draw":0.0,
+  "opening_moves":"d4, Nf6, c4, c6",
   "nb_games":6,
   "states":[
    {
@@ -47449,6 +47582,7 @@
   "winner_white":25.0,
   "winner_black":75.0,
   "draw":0.0,
+  "opening_moves":"Na3",
   "nb_games":4,
   "states":[
    {
@@ -47575,6 +47709,7 @@
   "winner_white":56.25,
   "winner_black":35.42,
   "draw":8.33,
+  "opening_moves":"e4, a6",
   "nb_games":48,
   "states":[
    {
@@ -47690,6 +47825,7 @@
   "winner_white":66.67,
   "winner_black":33.33,
   "draw":0.0,
+  "opening_moves":"d4, d5, f4, f5",
   "nb_games":3,
   "states":[
    {
@@ -47896,6 +48032,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"Nf3, c5, g3, Nf6, Bg2, Nc6, O-O, d5, d4, e6, c4, Be7, cxd5, exd5, Nc3, O-O, Bg5",
   "nb_games":26,
   "states":[
    {
@@ -48626,6 +48763,7 @@
   "winner_white":52.14,
   "winner_black":42.74,
   "draw":5.13,
+  "opening_moves":"Nc3, e5, Nf3, Nc6, e4, f5",
   "nb_games":117,
   "states":[
    {
@@ -48907,6 +49045,7 @@
   "winner_white":36.36,
   "winner_black":54.55,
   "draw":9.09,
+  "opening_moves":"Nf3, Nf6, d4",
   "nb_games":33,
   "states":[
    {
@@ -49083,6 +49222,7 @@
   "winner_white":53.33,
   "winner_black":36.67,
   "draw":10.0,
+  "opening_moves":"d4, Nf6, Bg5",
   "nb_games":30,
   "states":[
    {
@@ -49230,6 +49370,7 @@
   "winner_white":0.0,
   "winner_black":100.0,
   "draw":0.0,
+  "opening_moves":"d3, e5, Nd2",
   "nb_games":1,
   "states":[
    {
@@ -49434,6 +49575,7 @@
   "winner_white":37.93,
   "winner_black":56.9,
   "draw":5.17,
+  "opening_moves":"Nc3",
   "nb_games":58,
   "states":[
    {
@@ -49880,6 +50022,7 @@
   "winner_white":34.24,
   "winner_black":61.41,
   "draw":4.35,
+  "opening_moves":"e3",
   "nb_games":368,
   "states":[
    {
@@ -50095,6 +50238,7 @@
   "winner_white":53.28,
   "winner_black":44.53,
   "draw":2.19,
+  "opening_moves":"Nc3, Nf6, e4, e5, f4",
   "nb_games":137,
   "states":[
    {
@@ -50311,6 +50455,7 @@
   "winner_white":50.0,
   "winner_black":50.0,
   "draw":0.0,
+  "opening_moves":"Nf3, d6, d4, Bg4",
   "nb_games":2,
   "states":[
    {
@@ -50503,6 +50648,7 @@
   "winner_white":66.67,
   "winner_black":33.33,
   "draw":0.0,
+  "opening_moves":"e4, a5",
   "nb_games":12,
   "states":[
    {
@@ -50639,6 +50785,7 @@
   "winner_white":37.5,
   "winner_black":58.33,
   "draw":4.17,
+  "opening_moves":"a4",
   "nb_games":24,
   "states":[
    {
@@ -50737,6 +50884,7 @@
   "winner_white":45.0,
   "winner_black":55.0,
   "draw":0.0,
+  "opening_moves":"Nf3, Nf6, d4, e6, e3",
   "nb_games":20,
   "states":[
    {
@@ -51287,6 +51435,7 @@
   "winner_white":53.27,
   "winner_black":38.39,
   "draw":8.33,
+  "opening_moves":"Nc3, d5, Nf3",
   "nb_games":336,
   "states":[
    {
