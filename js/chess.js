@@ -10,7 +10,7 @@ function xy_to_chess(x, y) {
 function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
-let deploy = true
+let deploy = false
 let folder 
 
 if(deploy){
