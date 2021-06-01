@@ -881,6 +881,12 @@ h1, h2, h3, h4, h5, h6 {
   background: #eeabaa;
 }
 
+.btn.opening:hover, .btn.opening:active, .btn.opening:focus {
+  background: #eeabaa !important;
+  color: #fff;
+  outline: none !important;
+}
+
 .btn:hover, .btn:active, .btn:focus {
   background: #393e46 !important;
   color: #fff;
