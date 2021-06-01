@@ -13,13 +13,28 @@
     <div id='tutorial'>
       <div id='tutorial-header' class='header'>
         <h1>Chess tutorial</h1>
-        <h3>Click on a piece to find out how it moves</h3>
       </div>
       <div class='grid'>
+        <div>
+          <div style='padding: 10px;'>
+            <h2>The rules of chess</h2>
+            <p>The game of chess is played between two opponents who move their pieces alternately
+  on a square board called a chessboard. The objective of each player is to place the opponent’s king ‘under attack’ in such a way that the opponent has no legal move. The player who achieves this goal is said to have
+  ‘checkmated’ the opponent’s king and to have won the game. Leaving one’s own king
+  under attack, exposing one’s own king to attack and also ’capturing’ the opponent’s king
+  are not allowed. The opponent whose king has been checkmated has lost the game. If the position is such that neither player can possibly checkmate, the game is a draw.</p>
+            <p>Each of the 6 different kinds of pieces moves differently. Pieces cannot move through other pieces (though the knight can jump over other pieces), and can never move onto a square with one of their own pieces. However, they can be moved to take the place of an opponent's piece which is then captured. Pieces are generally moved into positions where they can capture other pieces (by landing on their square and then replacing them), defend their own pieces in case of capture, or control important squares in the game.</p>
+          </div>
+        </div>
         <div id='tutorial-chess-container' class='container'></div>
-        <div style='padding: 10px;'>
-          <div id='tutorial-info'>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div id='tutorial-pieces' class='grid'>
+          <svg id='tutorial-piece-selector' style='margin-left: 15px; margin-right: 15px;'></svg>
+          <div style='padding: 10px;'>
+            <div id='tutorial-info'>
+              <p>Click on a piece to see how it can move!</p>
+              <h3 id='piece-name'></h3>
+              <p id='piece-description'></p>
+            </div>
           </div>
         </div>
       </div>
