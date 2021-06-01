@@ -27,6 +27,7 @@
 }
 /* Buttons Colors */ 
 
+/* Openings */
 .btn.btn-primary.opening {
     background:#ab5555;
     color: #fff;
@@ -46,6 +47,7 @@
     outline: none !important;
 }
 
+/* Tutorial */
 .btn.btn-primary.tutorial {
     background:#018fba;
     color: #fff;

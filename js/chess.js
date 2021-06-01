@@ -10,9 +10,14 @@ function xy_to_chess(x, y) {
 function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
+let deploy = true
+let folder 
+if(deploy){
+  folder = '/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
+}else{
+  folder = '/'
+}
 
-
-let folder = '/'
 
 class Chessboard {
 
