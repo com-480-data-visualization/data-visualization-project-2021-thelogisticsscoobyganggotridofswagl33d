@@ -1,4 +1,4 @@
-function chess_to_xy(pos) {
+  function chess_to_xy(pos) {
   let letter = pos[0];
   let number = pos[1];
   return [letter.charCodeAt(0) - 'a'.charCodeAt(0), 8 - number];
@@ -12,7 +12,7 @@ function clamp(x, m, M) {
 }
 
 
-let folder = '/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/'
+let folder = '/'
 
 class Chessboard {
 
@@ -174,32 +174,26 @@ class Chessboard {
     /*
     THIS PART ALLOWS TO DRAG A PIECE, MAYBE UNNECESSARY
     let self_ = this;
-
     function dragged(piece) {
       d3.select(this)
         .raise()
         .attr("x", clamp(d3.event.x, 0, self_.size) - 0.35 * self_.tileSize)
         .attr("y", clamp(d3.event.y, 0, self_.size) - 0.35 * self_.tileSize);
     }
-
     function dragended(piece) {
       let position = self_.xy_screen_to_colrow(d3.event.x, d3.event.y);
       let [x, y] = self_.centerPiece(position);
-
       if (position != self_.state[piece]) {
         let victim = self_.capture(position);
         if (victim != null) {
           d3.select("#" + victim).remove();
         }
       }
-
       d3.select(this)
         .attr("x", x)
         .attr("y", y);
-
       self_.movePiece(piece, position);
     }
-
     this.enter.call(
       d3.drag()
         .on("drag", dragged)
@@ -270,12 +264,6 @@ class Chessboard {
     if (this.flowInterval != null) {
       this.flowInterval.stop();
     }
-    this.svg.selectAll('.flow').remove();
-    this.svg.selectAll('.heat').remove();
-
-    // Hiding all pieces except the selected one
-    this.svg.selectAll('.piece').attr('opacity', 0.1);
-    this.svg.select('#' + piece).attr('opacity', 1);
 
     let lineGenerator = d3.line()
         .x(d => d[0])
@@ -336,11 +324,6 @@ class Chessboard {
     if (this.flowInterval != null) {
       this.flowInterval.stop()
     }
-    this.svg.selectAll('.flow').remove();
-    this.svg.selectAll('.heat').remove();
-    colorbar.selectAll('#color-axis').remove();
-    colorbar.selectAll('#color-gradient').remove();
-    colorbar.selectAll('#colorbar-label').remove();
 
     // Computing the heatmap
     let heatmap = {}
@@ -362,71 +345,57 @@ class Chessboard {
     Object.keys(heatmap).forEach(pos => {
       heatmap[pos] = colorScale(heatmap[pos] == 0 ? 0.5 : heatmap[pos]);
     })
-    /*this.heatmapGroup
+
+    let barHeight = 0.97 * this.size;
+    let yScale = d3.scaleLog()
+        .domain([1, M])
+        .range([barHeight-5, 0])
+
+    colorbar.append('text')
+        .attr('id', 'colorbar-label')
+        .attr('fill', 'white')
+        .attr('font-size', 12)
+        .attr('x', 20)
+        .attr('y', 15)
+        .text('# of games');
+    colorbar.append('g')
+        .attr('transform', `translate(40, ${this.size - barHeight})`)
+        .attr('id', 'color-axis')
+        .attr('class', 'axisWhite')
+        .call(d3.axisLeft(yScale).tickFormat(d3.format(".1s")))
+
+    let lines = [];
+    for (let i = 0.0; i < barHeight; i++) {
+      lines.push(i / barHeight);
+    }
+    colorbar.append('g')
+        .attr('id', 'color-gradient')
+        .attr('transform', `translate(40, ${this.size - barHeight})`)
+        .selectAll('rect')
+        .data(lines)
+        .enter()
+          .append('rect')
+          .attr('x', 0)
+          .attr('y', d => d * barHeight)
+          .attr('width', 50)
+          .attr('height', 1)
+          .attr('stroke', 'none')
+          .attr('fill', d => d3.interpolateViridis(1 - d))
+
+    this.heatmapGroup
         .selectAll('.heat')
         .data(Object.keys(heatmap))
         .enter()
         .append('rect')
             .lower()
             .attr('class', 'heat')
-            .attr('width', pos => Math.sqrt(heatmap[pos]) * this.tileSize)
-            .attr('height', pos => Math.sqrt(heatmap[pos]) * this.tileSize)
-            .attr("x", pos => this.centerPosition(pos, Math.sqrt(heatmap[pos]))[0])
-            .attr("y", pos => this.centerPosition(pos, Math.sqrt(heatmap[pos]))[1])
-            .attr('fill', 'red')//pos => heatmap[pos] < 0.1 ? 'none' : d3.interpolateViridis(heatmap[pos]))
-            .attr("stroke-width", 0)
-            */
-
-      let barHeight = 0.97 * this.size;
-      let yScale = d3.scaleLog()
-          .domain([1, M])
-          .range([barHeight-5, 0])
-
-      colorbar.append('text')
-          .attr('id', 'colorbar-label')
-          .attr('fill', 'white')
-          .attr('font-size', 12)
-          .attr('x', 20)
-          .attr('y', 15)
-          .text('# of games');
-      colorbar.append('g')
-          .attr('transform', `translate(40, ${this.size - barHeight})`)
-          .attr('id', 'color-axis')
-          .attr('class', 'axisWhite')
-          .call(d3.axisLeft(yScale).tickFormat(d3.format(".1s")))
-
-      let lines = [];
-      for (let i = 0.0; i < barHeight; i++) {
-        lines.push(i / barHeight);
-      }
-      colorbar.append('g')
-          .attr('id', 'color-gradient')
-          .attr('transform', `translate(40, ${this.size - barHeight})`)
-          .selectAll('rect')
-          .data(lines)
-          .enter()
-            .append('rect')
-            .attr('x', 0)
-            .attr('y', d => d * barHeight)
-            .attr('width', 50)
-            .attr('height', 1)
-            .attr('stroke', 'none')
-            .attr('fill', d => d3.interpolateViridis(1 - d))
-
-      this.heatmapGroup
-          .selectAll('.heat')
-          .data(Object.keys(heatmap))
-          .enter()
-          .append('rect')
-              .lower()
-              .attr('class', 'heat')
-              .attr('width', pos => this.tileSize)
-              .attr('height', pos =>  this.tileSize)
-              .attr("x", pos => this.centerPosition(pos, 1)[0])
-              .attr("y", pos => this.centerPosition(pos, 1)[1])
-              .attr('fill', pos => d3.interpolateViridis(heatmap[pos]))
-              .attr('stroke', 'black')
-              .attr('stroke-width', 1)
+            .attr('width', pos => this.tileSize)
+            .attr('height', pos =>  this.tileSize)
+            .attr("x", pos => this.centerPosition(pos, 1)[0])
+            .attr("y", pos => this.centerPosition(pos, 1)[1])
+            .attr('fill', pos => d3.interpolateViridis(heatmap[pos]))
+            .attr('stroke', 'black')
+            .attr('stroke-width', 1)
   }
 }
 
@@ -443,6 +412,8 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
   let size = 0.4 * window.innerWidth;
 
+  let minELO = 816;
+  let maxELO = 2475;
 
   // OPENINGS
   let tutorial = new Chessboard('#tutorial-chess-container', size, "#0090bb", "#b2edff");
@@ -461,20 +432,157 @@ whenDocumentLoaded(() => {
       .text(d => d)
 
 
-    let curr = 0;
-    let states = data[selector.property("value")].states;
+    let openingInterval = undefined;
 
-    selector.on("change", () => {
+    function showOpeningStats(opening) {
+      d3.selectAll('#svg-elo').remove();
+      d3.selectAll('#svg-winrate').remove();
+
+      let info = data[opening];
+
+      d3.select('#opening-games')
+        .text(`This opening was played ${info.nb_games} times out of 20k games.`)
+
+      d3.select('#opening-moves')
+        .text(info.opening_moves)
+
+      let histogramHeight = 0.1 * window.innerHeight;
+      let winrateHeight = histogramHeight / 3;
+      let barsWidth = 0.25 * window.innerWidth;
+
+      let elo = d3.select('#opening-elo')
+          .append('svg')
+          .attr('id', 'svg-elo')
+          .attr('height', histogramHeight + 20)
+          .attr('width', barsWidth)
+
+      let hundred = (d) => Math.floor(d / 100) * 100;
+      let nBars = (hundred(maxELO) - hundred(minELO)) / 100 + 1;
+      let histogramScale = d3.scaleLinear()
+          .domain([hundred(minELO), hundred(maxELO) + 100])
+          .range([0, barsWidth])
+
+      let histogram = Array.from(Object.entries(_.groupBy(info.elo, hundred))).map(([e, l]) => [Number(e), l.length]);
+      let yMax = d3.max(histogram, d => d[1]);
+
+      elo.append('g')
+          .attr('id', 'eloHistogram')
+          .selectAll('.bar')
+          .data(histogram)
+          .enter()
+            .append('rect')
+              .attr('x', d => histogramScale(d[0]))
+              .attr('y', d => histogramHeight * (yMax - d[1]) / yMax)
+              .attr('width', barsWidth / nBars - 2)
+              .attr('height', d => histogramHeight * d[1] / yMax)
+              .attr('fill', 'steelblue');
+
+      let axis = d3.axisBottom(histogramScale)
+          .tickFormat(d3.format(".2s"))
+          .tickValues(_.range(nBars - 1).map(d => hundred(minELO) + 100 * (d+1)));
+
+      elo.append('g')
+          .attr('id', 'eloHistogramAxis')
+          .attr('transform', `translate(0, ${histogramHeight})`)
+          .attr('class', 'axisWhite')
+          .call(axis);
+
+
+      let openingWinrate = d3.select('#opening-winrate')
+          .append('svg')
+          .attr('id', 'svg-winrate')
+          .attr('height', winrateHeight)
+          .attr('width', barsWidth)
+
+      let b = barsWidth * info.winner_black / 100;
+      let d = barsWidth * info.draw / 100;
+      let w = barsWidth * info.winner_white / 100;
+
+      openingWinrate.append('rect')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', b)
+          .attr('height', winrateHeight)
+          .attr('fill', 'black');
+
+      openingWinrate.append('rect')
+          .attr('x', b)
+          .attr('y', 0)
+          .attr('width', d)
+          .attr('height', winrateHeight)
+          .attr('fill', '#606060');
+
+      openingWinrate.append('rect')
+          .attr('x', b + d)
+          .attr('y', 0)
+          .attr('width', w)
+          .attr('height', winrateHeight)
+          .attr('fill', 'white');
+
+      if (info.winner_black >= 10) {
+        openingWinrate.append('text')
+            .attr('x', b / 2)
+            .attr('y', winrateHeight / 2)
+            .attr('dominant-baseline', 'middle')
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#8c8a88')
+            .text(d3.format('.0%')(info.winner_black / 100))
+      }
+      if (info.draw >= 10) {
+        openingWinrate.append('text')
+            .attr('x', b + d / 2)
+            .attr('y', winrateHeight / 2)
+            .attr('dominant-baseline', 'middle')
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#8c8a88')
+            .text(d3.format('.0%')(info.draw / 100))
+      }
+      if (info.winner_white >= 10) {
+        openingWinrate.append('text')
+            .attr('x', b + d + w / 2)
+            .attr('y', winrateHeight / 2)
+            .attr('dominant-baseline', 'middle')
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#8c8a88')
+            .text(d3.format('.0%')(info.winner_white / 100))
+      }
+    }
+
+    let opening = selector.property("value");
+    let states = data[opening].states;
+    let curr = 0;
+    showOpeningStats(opening);
+
+    function showOpening(opening) {
+      states = data[opening].states;
       curr = 0;
-      states = data[selector.property("value")].states
       if (openingInterval != null) {
         openingInterval.stop();
         openingInterval = undefined;
       }
       openingBoard.reset()
+      showOpeningStats(opening);
+    }
+
+    selector.on("change", () => {
+      opening = selector.property("value");
+      showOpening(opening);
     })
 
-    let openingInterval = undefined;
+    d3.select('#opening-random')
+        .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", () => {
+            let randomOpening = _.sample(Object.keys(data));
+            let sel = selector.node()
+            for (let i=0; i<sel.length;i++) {
+                if (sel[i].childNodes[0].nodeValue === randomOpening){
+                    sel.selectedIndex = i;
+                    break;
+                }
+            }
+            showOpening(randomOpening)
+        })
 
     function back() {
       if (openingInterval == null && curr > 0) {
@@ -483,7 +591,6 @@ whenDocumentLoaded(() => {
         openingBoard.drawPieces();
       }
     }
-
     function next() {
       if (openingInterval == null && curr < states.length - 1) {
         curr += 1;
@@ -491,7 +598,6 @@ whenDocumentLoaded(() => {
         openingBoard.drawPieces();
       }
     }
-
     function play() {
       if (openingInterval == null) {
         if (curr < states.length - 1) {
@@ -517,39 +623,34 @@ whenDocumentLoaded(() => {
     let buttons = d3.select("#opening-buttons")
 
     buttons.append("button")
-      .attr("id", "button-back")
-      .attr("class", "btn btn-primary opening")
-      .text("back")
-      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
-      .on("click", back)
+        .attr("id", "button-back")
+        .attr("class", "btn btn-primary opening")
+        .text("back")
+        .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", back)
 
     buttons.append("button")
-      .attr("id", "button-play")
-      .attr("class", "btn btn-primary opening")
-      .style("margin-left", "10%")
-      .style("margin-right", "10%")
-      .text("play")
-      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
-      .on("click", play)
+        .attr("id", "button-play")
+        .attr("class", "btn btn-primary opening")
+        .text("play")
+        .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", play)
 
     buttons.append("button")
-      .attr("id", "button-next")
-      .attr("class", "btn btn-primary opening")
-      .text("next")
-      .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-      .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
-      .on("click", next)
+        .attr("id", "button-next")
+        .attr("class", "btn btn-primary opening")
+        .text("next")
+        .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
+        .on("click", next)
 
   })
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA");
-
-  flowBoard.enter.on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-      .on("mouseout", function(d){d3.select(this).style("cursor", null)});
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA")
 
   d3.json(folder + 'data/elo.json', function (error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
@@ -567,10 +668,9 @@ whenDocumentLoaded(() => {
         .attr('width', brushWidth + 40)
         .attr('height', size)
 
-    let minELO = 816;
-    let maxELO = 2475;
-
     let selectedElo = [minELO, maxELO];
+    let selectedPiece = undefined;
+    let mode = d3.select('#game-mode');
 
     let eloscale = d3.scaleLinear()
         .domain([minELO, maxELO])
@@ -578,9 +678,10 @@ whenDocumentLoaded(() => {
 
     let brush = d3.brushY()
         .extent([[0, 0], [brushWidth, brushHeight]])
-        .on('brush', function() {
+        .on('end', function() {
           let [y1, y2] = d3.event.selection;
           selectedElo = [eloscale.invert(y1), eloscale.invert(y2)]
+          setVizualization(selectedPiece);
         })
 
     let eloAxis = d3.axisRight()
@@ -596,6 +697,7 @@ whenDocumentLoaded(() => {
     // Drawing the histogram
     let maxY = d3.max(data, d => d.y)
     elobar.append('g')
+        .attr('transform', `translate(0, ${size - brushHeight - 1})`)
         .attr('id', 'eloHistogram')
         .selectAll('.bar')
         .data(data)
@@ -623,31 +725,47 @@ whenDocumentLoaded(() => {
         .call(brush)
         .call(brush.move, [0, brushHeight]);
 
-    flowBoard.enter.on("click", piece => {
+
+    function setVizualization(piece) {
+      if (piece == null) return;
+      selectedPiece = piece;
 
       colorbar.selectAll('#color-axis').remove();
       colorbar.selectAll('#color-gradient').remove();
       colorbar.selectAll('#colorbar-label').remove();
 
-      d3.json(folder + "data/flows/" + piece + '.json', function (error, data) {
-        let winner = d3.select('input[name="winner"]:checked').node().value;
-        d3.select('#heatmap-button')
-            .text('Show me the end position heatmap')
-        let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
-        flowBoard.showFlow(piece, filtered, progressbar)
+      // Hiding all pieces except the selected one
+      flowBoard.svg.selectAll('.piece').attr('opacity', 0.1);
+      flowBoard.svg.select('#' + selectedPiece).attr('opacity', 1);
 
-        d3.select('#heatmap-button')
-              .on('click', () => {
-                d3.json(folder + 'data/endposition/' + piece + '.json', function (error, data) {
-                  winner = d3.select('input[name="winner"]:checked').node().value;
-                  filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
-                  flowBoard.showHeatmap(piece, filtered, colorbar);
-                })
-              })
-              .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
-              .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
-      })
-    })
+      flowBoard.svg.selectAll('.flow').remove();
+      flowBoard.svg.selectAll('.heat').remove();
+
+      if (mode.node().checked) { // HEATMAP
+        d3.json(folder + 'data/endposition/' + selectedPiece + '.json', function (error, data) {
+          let winner = d3.select('input[name="winner"]:checked').node().value;
+          let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
+          flowBoard.showHeatmap(selectedPiece, filtered, colorbar);
+        })
+      }
+      else { // FLOW
+        d3.json(folder + "data/flows/" + selectedPiece + '.json', function (error, data) {
+          let winner = d3.select('input[name="winner"]:checked').node().value;
+          let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
+          flowBoard.showFlow(selectedPiece, filtered, progressbar)
+        })
+      }
+    }
+
+    flowBoard.enter
+        .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+        .on("mouseout", function(d){d3.select(this).style("cursor", null)})
+        .on("click", setVizualization)
+
+    d3.select('#flow-options').on('change', () => setVizualization(selectedPiece));
+    mode.on('change', () => setVizualization(selectedPiece));
+    //d3.selectAll('input[name="winner"]').on('change', () => setVizualization(selectedPiece));
+
   })
 
 });

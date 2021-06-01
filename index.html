@@ -54,6 +54,9 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="jquery-scroll-snap/jquery-scroll-snap.css">
 
+	<!-- Added Chess CSS -->
+	<link rel="stylesheet" href="css/chess.css">
+
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 
@@ -151,20 +154,32 @@
 						<h2 class="to-animate" style="color: #000;">Openings explorer</h2>
 						<div class="row">
 							<div class="subtext">
-								<h3 class="to-animate">Discover over 100 openings, and learn insights about them!</h3>
+								<h3 class="to-animate" style="color:#000">Discover over 100 openings, and learn insights about them!</h3>
 							</div>
 							<div class="subtext">
 								<div class="to-animate" style="float: center;" id="opening">
 									<div class='grid'>
-										<div id='opening-chess-container' class='mid'></div>
+										<div></div>
+										<div id='opening-chess-container' class='container'></div>
 										<div style='padding: 10px;'>
-											<div id='opening-controller'>
-  											<div id='opening-buttons'></div>
-  											<select id='opening-selector'></select>
+										  <div id='opening-info'>
+											<div id='opening-stats'>
+											  <div id='opening-games'></div>
+											  ELO histogram for this opening:
+											  <div id='opening-elo'></div>
+											  Game result for this opening:
+											  <div id='opening-winrate'></div>
+											  Opening moves:
+											  <div id='opening-moves'></div>
 											</div>
+										  </div>
+										  <div id='opening-controller'>
+											<div id='opening-buttons'></div>
+											<select id='opening-selector'></select>
+											<button id='opening-random'>Show a random opening!</button>
+										  </div>
 										</div>
-									</div>
-							    	</div>
+									  </div>
 							    	<div class="to-animate" style="float: center;" id="chess-container-opening"></div>
 							</div>
 						</div>
@@ -189,22 +204,29 @@
 								<div class="to-animate" style="float: center;" id="flow">
 									<p id='flow-info'>Select an ELO range and a chess piece!</p>
 									<div class='grid'>
-										<div id='heatmap-colorbar' style='padding-left: 80%;'></div>
-										<div id='flow-chess-container' class='mid'></div>
+										<div id='heatmap-colorbar' style='margin-left: auto; padding-right: 10px;'></div>
+										<div id='flow-chess-container' class='container'></div>
 										<div id='flow-controller' class='grid' style='margin-right: auto; padding-left: 10px;'>
-  										<div id='elo-bar'></div>
-  										<div>
-  											<button id='heatmap-button'>Select a piece</button>
-  											<div id='flow-options' style='justify-content: center; padding-top:10px;'>
-  												Game result:
-  												<label class='block'><input type='radio' name='winner' value='all' checked></option>all</label>
-  												<label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
-  												<label class='block'><input type='radio' name='winner' value='white'></option>white wins</label>
-  												<label class='block'><input type='radio' name='winner' value='draw'></option>draw</label>
-  											</div>
-  										</div>
+										  <div id='elo-bar'></div>
+										  <div>
+											<div class="onoffswitch">
+												<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="game-mode" tabindex="0" checked>
+												<label class="onoffswitch-label" for="game-mode">
+													<span class="onoffswitch-inner"></span>
+													<span class="onoffswitch-switch"></span>
+												</label>
+											</div>
+								
+											<div id='flow-options' style='justify-content: center; padding-top:10px;'>
+											  Game outcome:
+											  <label class='block'><input type='radio' name='winner' value='all' checked></option>all</label>
+											  <label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
+											  <label class='block'><input type='radio' name='winner' value='white'></option>white wins</label>
+											  <label class='block'><input type='radio' name='winner' value='draw'></option>draw</label>
+											</div>
+										  </div>
+										</div>
   									</div>
-									</div>
 								</div>
 							</div>
 						</div>
