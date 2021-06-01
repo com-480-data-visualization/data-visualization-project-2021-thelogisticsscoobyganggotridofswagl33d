@@ -421,8 +421,96 @@ whenDocumentLoaded(() => {
   let minELO = 816;
   let maxELO = 2475;
 
-  // OPENINGS
-  let tutorial = new Chessboard('#tutorial-chess-container', size, "#0090bb", "#b2edff");
+  // Tutorial
+  let tutorialBoard = new Chessboard('#tutorial-chess-container', size, "#0090bb", "#b2edff");
+
+  d3.select('#tutorial-pieces').style('margin-top', `${tutorialBoard.tileSize}px`)
+
+  d3.json(folder + 'data/tutorial.json', function (error, tutorialData) {
+
+    let tutorialTimer = undefined;
+
+    function tutorial(piece) {
+      if (tutorialTimer != null) {
+        tutorialTimer.stop();
+      }
+      function loop(i) {
+        if (i < tutorialData[piece].simulation.length) {
+          tutorialBoard.state = JSON.parse(JSON.stringify(tutorialData[piece].simulation[i]));
+          tutorialBoard.drawPieces();
+          tutorialTimer = d3.timeout(() => loop(i+1), 1000);
+        }
+        else {
+          tutorialBoard.state = {};
+          tutorialBoard.drawPieces();
+          tutorialTimer = d3.timeout(() => loop(0), 1000);
+        }
+      }
+      tutorialBoard.state = {};
+      tutorialBoard.drawPieces();
+      tutorialTimer = d3.timeout(() => loop(0), 300);
+    }
+
+
+    let pieceSelector = d3.select('#tutorial-piece-selector')
+        .attr('width', tutorialBoard.tileSize)
+        .attr('height', 6 * tutorialBoard.tileSize)
+
+    let pieces = ['bk-t', 'wq-t', 'br-t', 'wn-t', 'bb-t', 'wp-t'];
+
+    pieceSelector.append('g')
+      .selectAll('.tutorial-tile')
+      .data(pieces)
+      .enter()
+        .append("rect")
+        .attr('id', piece => `tile-${piece}`)
+        .attr("class", 'tutorial-tile')
+        .attr("fill", "none")
+        .attr("height", tutorialBoard.tileSize)
+        .attr("width", tutorialBoard.tileSize)
+        .attr('x', (piece, i) => tutorialBoard.centerPosition(`a${8-i}`, 1)[0])
+        .attr('y', (piece, i) => tutorialBoard.centerPosition(`a${8-i}`, 1)[1])
+        .attr('rx', 25)
+        .attr('ry', 25);
+
+
+    pieceSelector.append('g')
+        .attr('transform', 'translate(2, 2)')
+        .append('rect')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', tutorialBoard.tileSize - 4)
+          .attr('height', 6 * tutorialBoard.tileSize - 4)
+          .attr('rx', 20)
+          .attr('ry', 20)
+          .attr('fill', 'none')
+          .attr('stroke', '#0090bb')
+          .attr('stroke-width', '4px');
+
+    pieceSelector.append('g')
+      .selectAll('.tutorial-piece')
+      .data(pieces)
+      .enter()
+          .append("image")
+            .attr('id', piece => piece)
+            .attr("class", 'tutorial-piece')
+            .attr("href", piece => tutorialBoard.mapping(piece))
+            .attr("height", tutorialBoard.pieceProportion * tutorialBoard.tileSize)
+            .attr("width", tutorialBoard.pieceProportion * tutorialBoard.tileSize)
+            .attr('x', (piece, i) => tutorialBoard.centerPiece(`a${8-i}`)[0])
+            .attr('y', (piece, i) => tutorialBoard.centerPiece(`a${8-i}`)[1])
+            .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
+            .on("mouseout", function(d){d3.select(this).style("cursor", null)})
+            .on("click", piece => {
+                let pieceType = piece[1];
+                d3.select('#piece-name').text(`The ${tutorialData[pieceType].name}`);
+                d3.select('#piece-description').text(tutorialData[pieceType].description);
+                d3.selectAll('.tutorial-tile').attr('fill', 'none')
+                d3.select(`#tile-${piece}`).attr('fill', '#b2edff');
+                tutorial(pieceType);
+            })
+
+  })
 
   // OPENINGS
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
