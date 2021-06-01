@@ -1,3 +1,73 @@
+/* Buttons layout */
+
+#opening-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#button-play {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.opening-selector {
+    height: 50px;
+}
+
+.btn {
+    margin-bottom: 5%;
+    margin-top: 0%;
+}
+
+
+/* Stats layout */
+
+.stats-div-opening{
+    padding-bottom: 3%;
+    padding-top: 0%;
+}
+/* Buttons Colors */ 
+
+.btn.btn-primary.opening {
+    background:#ab5555;
+    color: #fff;
+    border: none !important;
+    border: 2px solid transparent !important;
+    width: 100%;
+}
+
+.btn.btn-primary.opening:hover, .btn.btn-primary.opening:active, .btn.btn-primary.opening:focus {
+    box-shadow: none;
+    background: #eeabaa;
+}
+
+.btn.opening:hover, .btn.opening:active, .btn.opening:focus {
+    background: #eeabaa !important;
+    color: #fff;
+    outline: none !important;
+}
+
+.btn.btn-primary.tutorial {
+    background:#018fba;
+    color: #fff;
+    border: none !important;
+    border: 2px solid transparent !important;
+}
+
+.btn.btn-primary.tutorial:hover, .btn.btn-primary.tutorial:active, .btn.btn-primary.tutorial:focus {
+    box-shadow: none;
+    background: #b1ecfe;
+}
+
+.btn.tutorial:hover, .btn.tutorial:active, .btn.tutorial:focus {
+    background: #018fba !important;
+    color: #fff;
+    outline: none !important;
+}
+
+
+
+/* Axes color CSS */
+
 .axisWhite line{
     stroke: white;
   }
@@ -9,7 +79,21 @@
   .axisWhite text{
     fill: white;
   }
+
+  .axisBlack line{
+    stroke: black;
+  }
   
+  .axisBlack path{
+    stroke: black;
+  }
+  
+  .axisBlack text{
+    fill: black;
+  }
+  
+
+  /* heatmap On/Off Switch CSS  */
   .onoffswitch {
       position: relative; width: 144px;
       -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;

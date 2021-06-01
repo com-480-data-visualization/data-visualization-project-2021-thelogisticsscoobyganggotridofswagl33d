@@ -849,6 +849,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: center;
 }
+
 .btn {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -872,24 +873,6 @@ h1, h2, h3, h4, h5, h6 {
 .btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
   box-shadow: none;
   background: #8C7676;
-}
-
-.btn.btn-primary.opening {
-  background:#ab5555;
-  color: #fff;
-  border: none !important;
-  border: 2px solid transparent !important;
-}
-
-.btn.btn-primary.opening:hover, .btn.btn-primary.opening:active, .btn.btn-primary.opening:focus {
-  box-shadow: none;
-  background: #eeabaa;
-}
-
-.btn.opening:hover, .btn.opening:active, .btn.opening:focus {
-  background: #eeabaa !important;
-  color: #fff;
-  outline: none !important;
 }
 
 .btn:hover, .btn:active, .btn:focus {

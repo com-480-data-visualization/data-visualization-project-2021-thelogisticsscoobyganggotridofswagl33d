@@ -163,21 +163,24 @@
 										<div id='opening-chess-container' class='container'></div>
 										<div style='padding: 10px;'>
 										  <div id='opening-info'>
-											<div id='opening-stats'>
-											  <div id='opening-games'></div>
+											<div id='opening-controller'>
+												<div style="font-weight: bold; font-size: 22px; color:black; padding-bottom: 3%;">Select and play an opening</div>
+												<div id='opening-buttons'></div>
+												<select id='opening-selector'></select>
+												<button id='opening-random'>Show me a random opening!</button>
+											  </div>
+											<div id='opening-stats' style="color:black;">
+											 <div id='opening-title' class="stats-div-opening"></div>
+											  <div id='opening-games' class="stats-div-opening"></div>
 											  ELO histogram for this opening:
-											  <div id='opening-elo'></div>
+											  <div id='opening-elo' class="stats-div-opening"></div>
 											  Game result for this opening:
-											  <div id='opening-winrate'></div>
+											  <div id='opening-winrate' class="stats-div-opening"></div>
 											  Opening moves:
-											  <div id='opening-moves'></div>
+											  <div id='opening-moves' class="stats-div-opening"></div>
 											</div>
 										  </div>
-										  <div id='opening-controller'>
-											<div id='opening-buttons'></div>
-											<select id='opening-selector'></select>
-											<button id='opening-random'>Show a random opening!</button>
-										  </div>
+							
 										</div>
 									  </div>
 							    	<div class="to-animate" style="float: center;" id="chess-container-opening"></div>
@@ -219,7 +222,7 @@
 								
 											<div id='flow-options' style='justify-content: center; padding-top:10px;'>
 											  Game outcome:
-											  <label class='block'><input type='radio' name='winner' value='all' checked></option>all</label>
+											  <label class='block btn btn-primary'><input type='radio' name='winner' value='all' checked></option>all</label>
 											  <label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
 											  <label class='block'><input type='radio' name='winner' value='white'></option>white wins</label>
 											  <label class='block'><input type='radio' name='winner' value='draw'></option>draw</label>

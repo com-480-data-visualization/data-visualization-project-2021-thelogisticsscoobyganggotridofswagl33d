@@ -422,7 +422,7 @@ whenDocumentLoaded(() => {
   let openingBoard = new Chessboard('#opening-chess-container', size, "#AA5454", "#EEAAAA");
 
   d3.json(folder + "data/openings.json", function (error, data) {
-    let selector = d3.select("#opening-selector").attr("class", "btn btn-primary opening")
+    let selector = d3.select("#opening-selector").attr("class", "btn btn-primary opening opening-selector")
 
     selector.selectAll(".opening")
       .data(Object.keys(data).sort(), d => d)
@@ -439,7 +439,7 @@ whenDocumentLoaded(() => {
       d3.selectAll('#svg-winrate').remove();
 
       let info = data[opening];
-
+      d3.select('#opening-title').text(`Statistics about the ${opening}`).style("font-weight", "bold").style("font-size", "22px")
       d3.select('#opening-games')
         .text(`This opening was played ${info.nb_games} times out of 20k games.`)
 
@@ -484,7 +484,7 @@ whenDocumentLoaded(() => {
       elo.append('g')
           .attr('id', 'eloHistogramAxis')
           .attr('transform', `translate(0, ${histogramHeight})`)
-          .attr('class', 'axisWhite')
+          .attr('class', 'axisBlack')
           .call(axis);
 
 
@@ -570,6 +570,7 @@ whenDocumentLoaded(() => {
     })
 
     d3.select('#opening-random')
+        .attr("class", "btn btn-primary opening")
         .on("mouseover", function(d){d3.select(this).style("cursor", "pointer")})
         .on("mouseout",  function(d){d3.select(this).style("cursor", null)})
         .on("click", () => {
