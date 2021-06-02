@@ -36,13 +36,25 @@
     width: 100%;
 }
 
-.btn.btn-primary.opening:hover, .btn.btn-primary.opening:active, .btn.btn-primary.opening:focus {
+.btn.btn-primary.opening:hover{
     box-shadow: none;
     background: #eeabaa;
 }
 
-.btn.opening:hover, .btn.opening:active, .btn.opening:focus {
+.btn.btn-primary.opening:active, .btn.btn-primary.opening:focus {
+    background: #ab5555 !important;
+    color: #fff;
+    outline: none !important;
+}
+
+.btn.opening:hover {
     background: #eeabaa !important;
+    color: #fff;
+    outline: none !important;
+}
+
+.btn.opening:active, .btn.opening:focus {
+    background: #ab5555 !important;
     color: #fff;
     outline: none !important;
 }
