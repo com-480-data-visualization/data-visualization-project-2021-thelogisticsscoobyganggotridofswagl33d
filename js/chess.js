@@ -328,25 +328,30 @@ class Chessboard {
     let scale = d3.scalePow().exponent(-0.05).domain([1, sampleSize]).range([maxStroke, minStroke])
     let strokeWidth = scale(flows.length)
 
+    function inverseSigmoid(x) {
+      let t = 0.1 * (x - 10);
+      return 200 * (1 - Math.exp(t) / (Math.exp(t) + Math.exp(-t)))
+    }
+
     let i = 0;
     let callback = () => {
       if (i < Ts.length) {
-        console.time(`t = ${Ts[i]}`)
+        //console.time(`t = ${Ts[i]}`)
         timeIndexedFlows[Ts[i]].forEach(l => {
           this.flowGroup
             .append('path')
             .attr('class', 'flow')
-            .attr('stroke', '#38dde0')
+            .attr('stroke', '#2ab5b7')
             .attr('stroke-width', strokeWidth)
-            .attr('opacity', 0.1)
+            .attr('opacity', 0.15)
             .attr('fill', 'none')
             .attr('z-index', 0)
             .attr('d', lineGenerator(l.map(e => this.centerPosition(e).map(c => c + jitter()))))
         })
 
         progressbar.text(`move ${Ts[i]} / ${T}`)
-        console.timeEnd(`t = ${Ts[i]}`)
-        this.flowInterval = d3.timeout(callback, 200 / Math.sqrt(Ts[i] + 1));
+        //console.timeEnd(`t = ${Ts[i]}`)
+        this.flowInterval = d3.timeout(callback, inverseSigmoid(Ts[i]));
         i++;
       }
     }
@@ -619,7 +624,7 @@ whenDocumentLoaded(() => {
         .attr('y', d => histogramHeight * (yMax - d[1]) / yMax)
         .attr('width', barsWidth / nBars - 2)
         .attr('height', d => histogramHeight * d[1] / yMax)
-        .attr('fill', '#4b9dea');
+        .attr('fill', '#2ab5b7');
 
       let axis = d3.axisBottom(histogramScale)
         .tickFormat(d3.format(".2s"))
@@ -872,7 +877,7 @@ whenDocumentLoaded(() => {
       .attr('y', d => eloscale(d.x))
       .attr('width', d => d.y / maxY * brushWidth)
       .attr('height', d => brushHeight / data.length - 1)
-      .attr('fill', '#4b9dea')
+      .attr('fill', '#2ab5b7')
 
     elobar.append('g')
       .append('text')
