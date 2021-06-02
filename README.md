@@ -75,6 +75,13 @@ Our first prototype can be found [here](https://com-480-data-visualization.githu
 
 **80% of the final grade**
 
+The website can be found [here](https://com-480-data-visualization.github.io/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/).
+No installation is required: it runs directly on github pages.
+We use the libraries d3 and lodash for the visualizations.
+The HTML template we use also loads some other libraries like JQuery.
+
+It has been tested for the resolutions 1920x1080, 1920x1200 and 1366x768.
+
 
 ## Late policy
 
