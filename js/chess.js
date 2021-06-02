@@ -774,6 +774,7 @@ whenDocumentLoaded(() => {
           }
         }
         showOpening(randomOpening)
+        openingBoard.reset();
         play();
       })
 
