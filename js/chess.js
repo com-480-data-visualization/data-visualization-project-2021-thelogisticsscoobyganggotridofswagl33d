@@ -270,6 +270,7 @@ class Chessboard {
     if (this.flowInterval != null) {
       this.flowInterval.stop();
     }
+    this.svg.selectAll('.heat').remove();
 
     let lineGenerator = d3.line()
         .x(d => d[0])
@@ -356,6 +357,10 @@ class Chessboard {
     let yScale = d3.scaleLog()
         .domain([1, M])
         .range([barHeight-5, 0])
+    
+    colorbar.selectAll('#color-axis').remove();
+    colorbar.selectAll('#color-gradient').remove();
+    colorbar.selectAll('#colorbar-label').remove();
 
     colorbar.append('text')
         .attr('id', 'colorbar-label')
@@ -387,7 +392,7 @@ class Chessboard {
           .attr('height', 1)
           .attr('stroke', 'none')
           .attr('fill', d => d3.interpolateViridis(1 - d))
-
+    
     this.heatmapGroup
         .selectAll('.heat')
         .data(Object.keys(heatmap))
@@ -745,8 +750,8 @@ whenDocumentLoaded(() => {
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#545454", "#AAAAAA")
-
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#cc9200", "#ffda7f")
+  
   d3.json(folder + 'data/elo.json', function (error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
         .append('svg')
@@ -825,16 +830,11 @@ whenDocumentLoaded(() => {
       if (piece == null) return;
       selectedPiece = piece;
 
-      colorbar.selectAll('#color-axis').remove();
-      colorbar.selectAll('#color-gradient').remove();
-      colorbar.selectAll('#colorbar-label').remove();
-
       // Hiding all pieces except the selected one
       flowBoard.svg.selectAll('.piece').attr('opacity', 0.1);
       flowBoard.svg.select('#' + selectedPiece).attr('opacity', 1);
 
       flowBoard.svg.selectAll('.flow').remove();
-      flowBoard.svg.selectAll('.heat').remove();
 
       if (mode.node().checked) { // HEATMAP
         d3.json(folder + 'data/endposition/' + selectedPiece + '.json', function (error, data) {
@@ -845,6 +845,10 @@ whenDocumentLoaded(() => {
       }
       else { // FLOW
         d3.json(folder + "data/flows/" + selectedPiece + '.json', function (error, data) {
+	  
+          colorbar.selectAll('#color-axis').remove();
+          colorbar.selectAll('#color-gradient').remove();
+          colorbar.selectAll('#colorbar-label').remove();
           let winner = d3.select('input[name="winner"]:checked').node().value;
           let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
           flowBoard.showFlow(selectedPiece, filtered, progressbar)
