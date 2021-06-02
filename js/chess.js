@@ -458,7 +458,7 @@ function whenDocumentLoaded(action) {
 
 
 whenDocumentLoaded(() => {
-  let size = 0.4 * window.innerWidth;
+  let size = Math.min(0.4 * window.innerWidth, 0.7 * window.innerHeight);
 
   let minELO = 816;
   let maxELO = 2475;
@@ -809,7 +809,7 @@ whenDocumentLoaded(() => {
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#cc9200", "#ffda7f")
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#ffbf66", "#ffdfb2")
 
   d3.json(folder + 'data/elo.json', function(error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
