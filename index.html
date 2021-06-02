@@ -82,6 +82,7 @@
 							<li><a href="#" data-nav-section="tutorial"><span>Tutorial</span></a></li>
 							<li><a href="#" data-nav-section="openings"><span>Openings</span></a></li>
 							<li><a href="#" data-nav-section="flow"><span>Flow</span></a></li>
+							<li><a href="#" data-nav-section="about"><span>About us</span></a></li>
 						</ul>
 					</div>
 				</nav>
@@ -133,27 +134,33 @@
 						<div class="col-md-12 section-heading text-center">
 							<h2 class="to-animate" style="font-weight: bold;">Chess tutorial</h2>
 							<div class="subtext">
-								<h3 class="to-animate">Click on a piece to find out how it moves</h3>
+								<h3 class="to-animate">Learn the rules of chess!</h3>
 							</div>
 							<div class="row">
 								<div class="subtext">
 									<div class="to-animate" style="float: center;" id="chess-container-tutorial">
 										<div class='grid'>
-											<div>
+											<div style='margin-left: 5vw;'>
 												<div style='padding: 10px;'>
 													<h2>The rules of chess</h2>
-													<p>The game of chess is played between two opponents who move their pieces alternately
-														on a square board called a chessboard. The objective of each player is to place the opponent’s king ‘under attack’ in such a way that the opponent has no legal move. The player who achieves this goal is said to have
-														‘checkmated’ the opponent’s king and to have won the game. Leaving one’s own king
-														under attack, exposing one’s own king to attack and also ’capturing’ the opponent’s king
-														are not allowed. The opponent whose king has been checkmated has lost the game. If the position is such that neither player can possibly checkmate, the game is a draw.</p>
-													<p>Each of the 6 different kinds of pieces moves differently. Pieces cannot move through other pieces (though the knight can jump over other pieces), and can never move onto a square with one of their own pieces. However,
-														they can be moved to take the place of an opponent's piece which is then captured. Pieces are generally moved into positions where they can capture other pieces (by landing on their square and then replacing them), defend
-														their own pieces in case of capture, or control important squares in the game.</p>
+													<p>
+														The game of chess is played between two opponents who move their pieces alternately on a square board called a chessboard.
+														The objective of each player is to place the opponent’s king 'under attack' in such a way that the opponent has no legal move.
+														The player who achieves this goal is said to have 'checkmated' the opponent’s king and to have won the game.
+														Leaving one’s own king under attack, exposing one’s own king to attack and also 'capturing' the opponent’s king are not allowed.
+														The opponent whose king has been checkmated has lost the game.
+														If the position is such that neither player can possibly checkmate, the game is a draw.
+													</p>
+													<p>
+														Each of the 6 different kinds of pieces moves differently.
+														Pieces cannot move through other pieces (though the knight can jump over other pieces), and can never move onto a square with one of their own pieces.
+														However, they can be moved to take the place of an opponent's piece which is then captured.
+														Pieces are generally moved into positions where they can capture other pieces (by landing on their square and then replacing them), defend their own pieces in case of capture, or control important squares in the game.
+													</p>
 												</div>
 											</div>
 											<div id='tutorial-chess-container' class='container'></div>
-											<div id='tutorial-pieces' class='grid'>
+											<div id='tutorial-pieces' class='grid' style='margin-right: 5vw;'>
 												<svg id='tutorial-piece-selector' style='margin-left: 15px; margin-right: 15px;'></svg>
 												<div style='padding: 10px;'>
 													<div id='tutorial-info'>
@@ -169,27 +176,32 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
 
-		<section id="fh5co-openings" data-section="openings" style="background-color:gainsboro;">
+		<section id="fh5co-openings" data-section="openings">
 			<div class="fh5co-services">
 				<div class="container snap">
 					<div class="row">
 						<div class="col-md-12 section-heading text-center">
-							<h2 class="to-animate" style="color: #000; font-weight: bold;">Openings explorer</h2>
+							<h2 class="to-animate" style="font-weight: bold;">Openings explorer</h2>
 							<div class="row">
 								<div class="subtext">
-									<h3 class="to-animate" style="color:#000">Discover over 100 openings, and learn insights about them!</h3>
+									<h3 class="to-animate">Discover over 100 openings, and learn insights about them!</h3>
 								</div>
 								<div class="subtext">
 									<div class="to-animate" style="float: center;" id="opening">
 										<div class='grid'>
-											<div></div>
+											<div style='margin-left: 5vw; padding: 10px;'>
+												<h2>What are chess openings?</h2>
+												<p>In chess, a winning game plan starts with the first move. The objective in the opening of a chess game is to reach a good position. The principles of opening play follow the general principles for positional play.</p>
+												<p>The key for both sides is that White moves first. White spends the first part of the game trying to convert this temporary advantage into something more lasting. Black tries to eliminate White's temporary advantage.</p>
+												<p>The initial moves have been studied and mapped since the first Pawn was pushed hundreds of years ago. Here are tools to help you understand better this critical part of a chess game.</p>
+												<p>It doesn't matter how creative you may be in the middle game or endgame if you lose in the opening. Avoid the quick knockout and get a comfortable game. Maybe even deliver a quick knockout yourself! </p>
+											</div>
 											<div id='opening-chess-container' class='container'></div>
-											<div style='padding-right: 20px; padding-left:0px'>
+											<div style='padding: 10px; margin-right: 5vw;'>
 												<div id='opening-info'>
 													<div id='opening-controller'>
 														<div style="font-weight: bold; font-size: 22px; color:black; padding-bottom: 3%;">Select and play an opening</div>
@@ -197,12 +209,12 @@
 														<select id='opening-selector'></select>
 														<button id='opening-random'>Show me a random opening!</button>
 													</div>
-													<div id='opening-stats' style="color:black;">
+													<div id='opening-stats'>
 														<div id='opening-title' class="stats-div-opening"></div>
 														<div id='opening-games' class="stats-div-opening"></div>
-														ELO histogram for this opening:
+														ELO histogram:
 														<div id='opening-elo' class="stats-div-opening"></div>
-														Game result for this opening:
+														Game outcome:
 														<div id='opening-winrate' class="stats-div-opening"></div>
 														Opening moves:
 														<div id='opening-moves' class="stats-div-opening"></div>
@@ -216,9 +228,9 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
+			</div>
 		</section>
 
 		<section id="fh5co-flow" data-section="flow">
@@ -234,9 +246,28 @@
 								<div class="subtext">
 									<div class="to-animate" style="float: center;" id="flow">
 										<div class='grid'>
-											<div id='heatmap-colorbar' style='margin-left: auto; padding-right: 10px;'></div>
+											<div style='margin-left: 5vw; display: grid; grid-template-columns: auto 1fr;'>
+												<div style='padding: 10px;'>
+													<h2>How does it work?</h2>
+													<p>
+														With this visualisation, you can better understand the way the pieces move in a game of chess.
+														You can filter our dataset by specifying an ELO (player level) range, as well as the outcome of the game.
+														Then, depending on the selected visualisation mode, you will see similar information displayed in a different way.
+													</p>
+													<p>
+														In flow mode, you watch the piece's movement over time.
+														Each coloured segment between two tiles represents a game where the piece moved from one tile to the other.
+														The thicker and more saturated a "flow" is, the more often the piece has made the corresponding move.
+													</p>
+													<p>
+														In heatmap mode, you can see how often a piece finishes the game in a certain position.
+														If the piece was captured, it does not contribute to the heatmap.
+													</p>
+												</div>
+												<div id='heatmap-colorbar' style='margin-left: auto;'></div>
+											</div>
 											<div id='flow-chess-container' class='container'></div>
-											<div id='flow-controller' class='grid' style='margin-right: auto; padding-left: 10px;'>
+											<div id='flow-controller' class='grid' style='margin-right: 5vw; padding-left: 10px;'>
 												<div id='elo-bar'></div>
 												<div>
 													<p id='flow-info'>Select an ELO range and a chess piece!</p>
@@ -250,10 +281,10 @@
 
 													<div id='flow-options' style='justify-content: center; padding-top:10px;'>
 														Game outcome:
-														<label class='block btn btn-primary'><input type='radio' name='winner' value='all' checked></option>all</label>
-														<label class='block'><input type='radio' name='winner' value='black'></option>black wins</label>
-														<label class='block'><input type='radio' name='winner' value='white'></option>white wins</label>
-														<label class='block'><input type='radio' name='winner' value='draw'></option>draw</label>
+														<label class='block'><input type='radio' name='winner' value='all' checked></option> all</label>
+														<label class='block'><input type='radio' name='winner' value='black'></option> black wins</label>
+														<label class='block'><input type='radio' name='winner' value='white'></option> white wins</label>
+														<label class='block'><input type='radio' name='winner' value='draw'></option> draw</label>
 													</div>
 												</div>
 											</div>
@@ -263,30 +294,36 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</section>
 
 
-
-		<div id="fh5co-footer" role="contentinfo">
-			<div class="container snap">
-				<div class="row">
-					<div class="to-animate text-center" style="margin: 20%; padding-top: 2%;">
-						<h3 class="section-title" style="font-weight: bold;">About Us</h3>
-						<p> Once upon a time, Marie, Luã and Damien were part of the logistics ScoobyGang and its leader Swagl33d.
-							Upon taking COM-480 they split up to look for clues and unfortunatly our friendly group got rid of Swagl33d. They formed their new team TheLogisticsScoobyGangGotRidOfSwagl33d!
-						</p>
-						<p> Made stronger by this new alliance they brought this chess visualizaton to life, in order to catch bad guys and explore the vast world of Chess. </p>
-						<p class="copy-right">&copy; 2015 Twist Free Template. <br>All Rights Reserved. <br>
-							Original template designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
-							Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a>
-						</p>
+		<section id="fh5co-flow" data-section="about">
+			<div class="fh5co-services">
+				<div class="container snap">
+					<div class="row">
+						<div class="col-md-12 section-heading text-center">
+							<div class="row">
+								<div class="subtext">
+									<div class="to-animate text-center" style="padding-top: 2%;">
+										<h3 class="section-title" style="font-weight: bold;">About Us</h3>
+										<p> Once upon a time, Marie, Luã and Damien were part of the logistics ScoobyGang and its leader Swagl33d.
+											Upon taking COM-480 they split up to look for clues and unfortunatly our friendly group got rid of Swagl33d. They formed their new team TheLogisticsScoobyGangGotRidOfSwagl33d!
+										</p>
+										<p> Made stronger by this new alliance they brought this chess visualizaton to life, in order to catch bad guys and explore the vast world of Chess. </p>
+										<p class="copy-right">&copy; 2015 Twist Free Template. <br>All Rights Reserved. <br>
+											Original template designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
+											Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 		<!-- <div id="map" class="fh5co-map"></div> -->
 	</div>
 

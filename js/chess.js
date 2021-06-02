@@ -11,7 +11,7 @@ function xy_to_chess(x, y) {
 function clamp(x, m, M) {
   return Math.min(Math.max(x, m), M);
 }
-let deploy = true
+let deploy = false
 let folder
 
 if (deploy) {
@@ -384,6 +384,7 @@ class Chessboard {
     })
 
     let barHeight = 0.97 * this.size;
+    let barWidth = this.size / 10;
     let yScale = d3.scaleLog()
       .domain([1, M])
       .range([barHeight - 5, 0])
@@ -396,9 +397,12 @@ class Chessboard {
       .attr('id', 'colorbar-label')
       .attr('fill', 'white')
       .attr('font-size', 12)
-      .attr('x', 20)
-      .attr('y', 15)
+      .attr('dominant-baseline', 'middle')
+      .attr('text-anchor', 'middle')
+      .attr('x', 20 + barWidth /  2)
+      .attr('y', (this.size - barHeight) / 2)
       .text('# of games');
+
     colorbar.append('g')
       .attr('transform', `translate(40, ${this.size - barHeight})`)
       .attr('id', 'color-axis')
@@ -418,7 +422,7 @@ class Chessboard {
       .append('rect')
       .attr('x', 0)
       .attr('y', d => d * barHeight)
-      .attr('width', 50)
+      .attr('width', barWidth)
       .attr('height', 1)
       .attr('stroke', 'none')
       .attr('fill', d => d3.interpolateViridis(1 - d))
@@ -579,9 +583,9 @@ whenDocumentLoaded(() => {
       d3.selectAll('#svg-winrate').remove();
 
       let info = data[opening];
-      d3.select('#opening-title').text(`Statistics about the ${opening}`).style("font-weight", "bold").style("font-size", "22px")
+      d3.select('#opening-title').text(`The ${opening}`).style("font-weight", "bold").style("font-size", "22px")
       d3.select('#opening-games')
-        .text(`This opening was played ${info.nb_games} times out of 20k games.`)
+        .text(`Played in ${info.nb_games} games out of 20k.`)
 
       d3.select('#opening-moves')
         .text(info.opening_moves)
@@ -624,7 +628,7 @@ whenDocumentLoaded(() => {
       elo.append('g')
         .attr('id', 'eloHistogramAxis')
         .attr('transform', `translate(0, ${histogramHeight})`)
-        .attr('class', 'axisBlack')
+        .attr('class', 'axisWhite')
         .call(axis);
 
 
@@ -643,7 +647,7 @@ whenDocumentLoaded(() => {
         .attr('y', 0)
         .attr('width', b)
         .attr('height', winrateHeight)
-        .attr('fill', 'black');
+        .attr('fill', '#262626');
 
       openingWinrate.append('rect')
         .attr('x', b)
@@ -809,7 +813,7 @@ whenDocumentLoaded(() => {
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#ffbf66", "#ffdfb2")
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#005900", "#b0cc7a")
 
   d3.json(folder + 'data/elo.json', function(error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
@@ -876,8 +880,10 @@ whenDocumentLoaded(() => {
       .attr('class', 'eloLabel')
       .attr('fill', 'white')
       .attr('font-size', 12)
-      .attr('x', 10)
-      .attr('y', 15)
+      .attr('dominant-baseline', 'middle')
+      .attr('text-anchor', 'middle')
+      .attr('x', brushWidth / 2)
+      .attr('y', (size - brushHeight) / 2)
       .text('ELO');
 
     // Drawing the brush
