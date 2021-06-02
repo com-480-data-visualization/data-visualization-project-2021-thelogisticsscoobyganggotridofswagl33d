@@ -298,7 +298,6 @@ class Chessboard {
       this.flowInterval.stop();
     }
     this.svg.selectAll('.heat').remove();
-    this.svg.selectAll('.flow').remove();
 
     let lineGenerator = d3.line()
       .x(d => d[0])
@@ -320,6 +319,7 @@ class Chessboard {
         delete timeIndexedFlows[key]
       }
     }
+    this.svg.selectAll('.flow').remove();
     // A list with all time steps where there is a change for this piece
     let Ts = Object.keys(timeIndexedFlows);
     let T = Ts[Ts.length - 1];
@@ -356,7 +356,7 @@ class Chessboard {
       }
     }
 
-    this.flowInterval = d3.timeout(callback, 100);
+    this.flowInterval = d3.timeout(callback, 200);
   }
 
   showHeatmap(piece, data, colorbar) {
@@ -943,7 +943,6 @@ whenDocumentLoaded(() => {
 
     d3.select('#flow-options').on('change', () => setVizualization(selectedPiece));
     d3.select('#game-mode').on('change', () => setVizualization(selectedPiece));
-    //d3.selectAll('input[name="winner"]').on('change', () => setVizualization(selectedPiece));
 
   })
 
