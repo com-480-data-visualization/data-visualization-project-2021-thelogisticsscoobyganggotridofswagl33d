@@ -336,7 +336,7 @@ class Chessboard {
           this.flowGroup
             .append('path')
             .attr('class', 'flow')
-            .attr('stroke', 'cyan')
+            .attr('stroke', '#38dde0')
             .attr('stroke-width', strokeWidth)
             .attr('opacity', 0.1)
             .attr('fill', 'none')
@@ -619,7 +619,7 @@ whenDocumentLoaded(() => {
         .attr('y', d => histogramHeight * (yMax - d[1]) / yMax)
         .attr('width', barsWidth / nBars - 2)
         .attr('height', d => histogramHeight * d[1] / yMax)
-        .attr('fill', 'steelblue');
+        .attr('fill', '#4b9dea');
 
       let axis = d3.axisBottom(histogramScale)
         .tickFormat(d3.format(".2s"))
@@ -813,7 +813,7 @@ whenDocumentLoaded(() => {
 
 
   // FLOWS
-  let flowBoard = new Chessboard('#flow-chess-container', size, "#005900", "#b0cc7a")
+  let flowBoard = new Chessboard('#flow-chess-container', size, "#b48766", "#f0d9b7")
 
   d3.json(folder + 'data/elo.json', function(error, data) {
     let colorbar = d3.select('#heatmap-colorbar')
@@ -833,7 +833,6 @@ whenDocumentLoaded(() => {
 
     let selectedElo = [minELO, maxELO];
     let selectedPiece = undefined;
-    let mode = d3.select('#game-mode');
 
     let eloscale = d3.scaleLinear()
       .domain([minELO, maxELO])
@@ -873,7 +872,7 @@ whenDocumentLoaded(() => {
       .attr('y', d => eloscale(d.x))
       .attr('width', d => d.y / maxY * brushWidth)
       .attr('height', d => brushHeight / data.length - 1)
-      .attr('fill', 'steelblue')
+      .attr('fill', '#4b9dea')
 
     elobar.append('g')
       .append('text')
@@ -904,13 +903,14 @@ whenDocumentLoaded(() => {
 
       flowBoard.svg.selectAll('.flow').remove();
 
-      if (mode.node().checked) { // HEATMAP
+      let mode = d3.select('input[name="game-mode"]:checked').node().value
+      if (mode == 'heatmap') { // HEATMAP
         d3.json(folder + 'data/endposition/' + selectedPiece + '.json', function(error, data) {
           let winner = d3.select('input[name="winner"]:checked').node().value;
           let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : []);
           flowBoard.showHeatmap(selectedPiece, filtered, colorbar);
         })
-      } else { // FLOW
+      } else if (mode == 'flow') { // FLOW
         d3.json(folder + "data/flows/" + selectedPiece + '.json', function(error, data) {
 
           colorbar.selectAll('#color-axis').remove();
@@ -921,6 +921,9 @@ whenDocumentLoaded(() => {
           let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
           flowBoard.showFlow(selectedPiece, filtered, progressbar)
         })
+      }
+      else {
+        console.log(`Error: mode ${mode}`)
       }
     }
 
@@ -934,7 +937,7 @@ whenDocumentLoaded(() => {
       .on("click", setVizualization)
 
     d3.select('#flow-options').on('change', () => setVizualization(selectedPiece));
-    mode.on('change', () => setVizualization(selectedPiece));
+    d3.select('#game-mode').on('change', () => setVizualization(selectedPiece));
     //d3.selectAll('input[name="winner"]').on('change', () => setVizualization(selectedPiece));
 
   })

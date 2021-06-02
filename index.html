@@ -250,12 +250,11 @@
 												<div style='padding: 10px;'>
 													<h2>How does it work?</h2>
 													<p>
-														With this visualisation, you can better understand the way the pieces move in a game of chess.
+														With this visualisation, you can better understand the patterns that emerge for the pieces in a game of chess.
 														You can filter our dataset by specifying an ELO (player level) range, as well as the outcome of the game.
-														Then, depending on the selected visualisation mode, you will see similar information displayed in a different way.
 													</p>
 													<p>
-														In flow mode, you watch the piece's movement over time.
+														In flow mode, you watch the piece's movement move by move.
 														Each coloured segment between two tiles represents a game where the piece moved from one tile to the other.
 														The thicker and more saturated a "flow" is, the more often the piece has made the corresponding move.
 													</p>
@@ -267,25 +266,26 @@
 												<div id='heatmap-colorbar' style='margin-left: auto;'></div>
 											</div>
 											<div id='flow-chess-container' class='container'></div>
-											<div id='flow-controller' class='grid' style='margin-right: 5vw; padding-left: 10px;'>
-												<div id='elo-bar'></div>
-												<div>
-													<p id='flow-info'>Select an ELO range and a chess piece!</p>
-													<div class="onoffswitch">
-														<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="game-mode" tabindex="0" checked>
-														<label class="onoffswitch-label" for="game-mode">
-															<span class="onoffswitch-inner"></span>
-															<span class="onoffswitch-switch"></span>
-														</label>
-													</div>
-
-													<div id='flow-options' style='justify-content: center; padding-top:10px;'>
+											<div id='flow-controller' style='margin-right: 5vw; display: grid; grid-template-columns: 1fr auto;'>
+												<div id='elo-bar' style='margin-right: auto;'></div>
+												<div style='justify-content: center;'>
+													<fieldset>
+														<div id='game-mode' class="toggle">
+															<input type="radio" name="game-mode" value="flow" id="sizeDimensions" checked/>
+															<label for="sizeDimensions">Flow mode</label>
+															<input type="radio" name="game-mode" value="heatmap" id="sizeWeight"/>
+															<label for="sizeWeight">Heatmap mode</label>
+														</div>
+													</fieldset>
+													<div id='flow-options' style='padding-top:10px;'>
 														Game outcome:
 														<label class='block'><input type='radio' name='winner' value='all' checked></option> all</label>
 														<label class='block'><input type='radio' name='winner' value='black'></option> black wins</label>
 														<label class='block'><input type='radio' name='winner' value='white'></option> white wins</label>
 														<label class='block'><input type='radio' name='winner' value='draw'></option> draw</label>
 													</div>
+													Flow progress:
+													<p id='flow-info' style='width: 100%'></p>
 												</div>
 											</div>
 										</div>
@@ -298,32 +298,26 @@
 			</div>
 		</section>
 
-
 		<section id="fh5co-flow" data-section="about">
-			<div class="fh5co-services">
-				<div class="container snap">
-					<div class="row">
-						<div class="col-md-12 section-heading text-center">
-							<div class="row">
-								<div class="subtext">
-									<div class="to-animate text-center" style="padding-top: 2%;">
-										<h3 class="section-title" style="font-weight: bold;">About Us</h3>
-										<p> Once upon a time, Marie, Luã and Damien were part of the logistics ScoobyGang and its leader Swagl33d.
-											Upon taking COM-480 they split up to look for clues and unfortunatly our friendly group got rid of Swagl33d. They formed their new team TheLogisticsScoobyGangGotRidOfSwagl33d!
-										</p>
-										<p> Made stronger by this new alliance they brought this chess visualizaton to life, in order to catch bad guys and explore the vast world of Chess. </p>
-										<p class="copy-right">&copy; 2015 Twist Free Template. <br>All Rights Reserved. <br>
-											Original template designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
-											Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
+			<div id="fh5co-footer" role="contentinfo">
+			<div class="container snap">
+				<div class="row">
+					<div class="to-animate text-center" style="margin: 20%; padding-top: 2%;">
+						<h3 class="section-title" style="font-weight: bold;">About Us</h3>
+						<p> Once upon a time, Marie, Luã and Damien were part of the logistics ScoobyGang and its leader Swagl33d.
+							Upon taking COM-480 they split up to look for clues and unfortunately our friendly group got rid of Swagl33d. They formed their new team TheLogisticsScoobyGangGotRidOfSwagl33d!
+						</p>
+						<p> Made stronger by this new alliance they brought this chess visualizaton to life, in order to catch bad guys and explore the vast world of Chess. </p>
+						<p>You can find the source code for this page in our <a href="https://github.com/com-480-data-visualization/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/tree/gh-pages">Github repository</a>.</p>
+						<p class="copy-right">&copy; 2015 Twist Free Template. <br>All Rights Reserved. <br>
+							Original template designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a>
+							Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a>
+						</p>
 					</div>
 				</div>
 			</div>
 		</section>
+	</div>
 		<!-- <div id="map" class="fh5co-map"></div> -->
 	</div>
 
