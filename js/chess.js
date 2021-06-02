@@ -595,7 +595,7 @@ whenDocumentLoaded(() => {
       d3.select('#opening-moves')
         .text(info.opening_moves)
 
-      let histogramHeight = 0.1 * window.innerHeight;
+      let histogramHeight = 0.07 * window.innerHeight;
       let winrateHeight = histogramHeight / 3;
       let barsWidth = 0.25 * window.innerWidth;
 
