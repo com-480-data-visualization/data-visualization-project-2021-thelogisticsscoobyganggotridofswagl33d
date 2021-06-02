@@ -588,7 +588,7 @@ whenDocumentLoaded(() => {
       d3.selectAll('#svg-winrate').remove();
 
       let info = data[opening];
-      d3.select('#opening-title').text(`The ${opening}`).style("font-weight", "bold").style("font-size", "22px")
+      d3.select('#opening-title').text(`The ${opening}`)
       d3.select('#opening-games')
         .text(`Played in ${info.nb_games} games out of 20k.`)
 
@@ -718,26 +718,6 @@ whenDocumentLoaded(() => {
       showOpening(opening);
     })
 
-    d3.select('#opening-random')
-      .attr("class", "btn btn-primary opening")
-      .on("mouseover", function(d) {
-        d3.select(this).style("cursor", "pointer")
-      })
-      .on("mouseout", function(d) {
-        d3.select(this).style("cursor", null)
-      })
-      .on("click", () => {
-        let randomOpening = _.sample(Object.keys(data));
-        let sel = selector.node()
-        for (let i = 0; i < sel.length; i++) {
-          if (sel[i].childNodes[0].nodeValue === randomOpening) {
-            sel.selectedIndex = i;
-            break;
-          }
-        }
-        showOpening(randomOpening)
-      })
-
     function back() {
       if (openingInterval == null && curr > 0) {
         curr -= 1;
@@ -775,6 +755,27 @@ whenDocumentLoaded(() => {
         }, 750);
       }
     }
+
+    d3.select('#opening-random')
+      .attr("class", "btn btn-primary opening")
+      .on("mouseover", function(d) {
+        d3.select(this).style("cursor", "pointer")
+      })
+      .on("mouseout", function(d) {
+        d3.select(this).style("cursor", null)
+      })
+      .on("click", () => {
+        let randomOpening = _.sample(Object.keys(data));
+        let sel = selector.node()
+        for (let i = 0; i < sel.length; i++) {
+          if (sel[i].childNodes[0].nodeValue === randomOpening) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+        showOpening(randomOpening)
+        play();
+      })
 
     let buttons = d3.select("#opening-buttons")
 
