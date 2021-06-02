@@ -14,7 +14,7 @@
 }
 
 .btn {
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     margin-top: 0%;
 }
 
@@ -25,7 +25,7 @@
     padding-bottom: 3%;
     padding-top: 0%;
 }
-/* Buttons Colors */ 
+/* Buttons Colors */
 
 /* Openings */
 .btn.btn-primary.opening {
@@ -88,11 +88,11 @@
 .axisWhite line{
     stroke: white;
   }
-  
+
   .axisWhite path{
     stroke: white;
   }
-  
+
   .axisWhite text{
     fill: white;
   }
@@ -100,15 +100,15 @@
   .axisBlack line{
     stroke: black;
   }
-  
+
   .axisBlack path{
     stroke: black;
   }
-  
+
   .axisBlack text{
     fill: black;
   }
-  
+
 
   /* heatmap On/Off Switch CSS  */
   .onoffswitch {
