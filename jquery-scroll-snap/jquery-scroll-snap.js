@@ -38,7 +38,6 @@
             ( direction == 'down' && scroll <= $( this ).offset().top + ( windowHeight / 3 ) )
           )
         ){
-          $( 'body:not( .lock-scroll )' ).addClass( 'lock-scroll' );
           scrollTo = $( this ).offset().top;
         }
       } );
@@ -48,7 +47,6 @@
           { scrollTop: scrollTo },
           settings.speed,
           function(){
-            $( 'body.lock-scroll' ).removeClass( 'lock-scroll' );
             /*setTimeout( function(){
               $( 'body.lock-scroll' ).removeClass( 'lock-scroll' );
             }, 600 );*/
