@@ -88,7 +88,7 @@ It has been tested for the resolutions 1920x1080, 1920x1200 and 1366x768.
 Our screencast can be found **here** TODO
 
 ### Process book
-Our process book can be found **here** TODO
+Our process book can be found [here](https://github.com/com-480-data-visualization/data-visualization-project-2021-thelogisticsscoobyganggotridofswagl33d/blob/master/Clear%20chess%20process%20book.pdf)
 
 
 ## Late policy
