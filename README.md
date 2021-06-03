@@ -76,7 +76,10 @@ Our first prototype can be found [here](https://com-480-data-visualization.githu
 **80% of the final grade**
 
 ### Data
-The dataset and the processed data that we use in our visualizations can be found in the folder `data`.
+The dataset that we used consisting of chess games is in the file `games.csv`.
+
+The processed data that we use in our visualizations can be found in the folder `data`.
+
 The notebook `Preprocessing.ipynb` contains the code we use to transform the data.
 
 ### Website
