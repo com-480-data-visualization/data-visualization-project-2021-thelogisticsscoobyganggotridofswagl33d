@@ -926,12 +926,12 @@ whenDocumentLoaded(() => {
           flowBoard.showHeatmap(selectedPiece, filtered, colorbar);
         })
       } else if (mode == 'flow') { // FLOW
+        flowBoard.svg.selectAll('.flow').remove();
+        colorbar.selectAll('#color-axis').remove();
+        colorbar.selectAll('#color-gradient').remove();
+        colorbar.selectAll('#colorbar-label').remove();
+        
         d3.json(folder + "data/flows/" + selectedPiece + '.json', function(error, data) {
-
-          colorbar.selectAll('#color-axis').remove();
-          colorbar.selectAll('#color-gradient').remove();
-          colorbar.selectAll('#colorbar-label').remove();
-
           let winner = d3.select('input[name="winner"]:checked').node().value;
           let filtered = data.flatMap(game => (selectedElo[0] <= game.ELO && game.ELO <= selectedElo[1] && (winner == "all" || winner == game.win)) ? [game] : [])
           flowBoard.showFlow(selectedPiece, filtered, progressbar)
