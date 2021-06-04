@@ -298,6 +298,7 @@ class Chessboard {
       this.flowInterval.stop();
     }
     this.svg.selectAll('.heat').remove();
+    this.svg.selectAll('.flow').remove();
 
     let lineGenerator = d3.line()
       .x(d => d[0])
@@ -319,7 +320,6 @@ class Chessboard {
         delete timeIndexedFlows[key]
       }
     }
-    this.svg.selectAll('.flow').remove();
     // A list with all time steps where there is a change for this piece
     let Ts = Object.keys(timeIndexedFlows);
     let T = Ts[Ts.length - 1];
@@ -353,6 +353,9 @@ class Chessboard {
         //console.timeEnd(`t = ${Ts[i]}`)
         this.flowInterval = d3.timeout(callback, inverseSigmoid(Ts[i]));
         i++;
+      }
+      else {
+        this.flowInterval = undefined;
       }
     }
 
