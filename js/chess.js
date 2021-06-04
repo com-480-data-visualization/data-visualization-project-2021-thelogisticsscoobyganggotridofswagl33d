@@ -296,6 +296,7 @@ class Chessboard {
     // Removing anything created previously
     if (this.flowInterval != null) {
       this.flowInterval.stop();
+      this.flowInterval = undefined;
     }
     this.svg.selectAll('.heat').remove();
     this.svg.selectAll('.flow').remove();
@@ -351,7 +352,9 @@ class Chessboard {
 
         progressbar.text(`move ${Ts[i]} / ${T}`)
         //console.timeEnd(`t = ${Ts[i]}`)
-        this.flowInterval = d3.timeout(callback, inverseSigmoid(Ts[i]));
+        if (this.flowInterval != null) {
+          this.flowInterval = d3.timeout(callback, inverseSigmoid(Ts[i]));
+        }
         i++;
       }
       else {
@@ -365,7 +368,8 @@ class Chessboard {
   showHeatmap(piece, data, colorbar) {
     // Removing anything created previously
     if (this.flowInterval != null) {
-      this.flowInterval.stop()
+      this.flowInterval.stop();
+      this.flowInterval = undefined;
     }
     this.svg.selectAll('.flow').remove();
 
