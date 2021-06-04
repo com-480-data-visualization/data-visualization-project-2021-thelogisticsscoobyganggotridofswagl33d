@@ -336,7 +336,7 @@ class Chessboard {
 
     let i = 0;
     let callback = () => {
-      if (i < Ts.length) {
+      if (i < Ts.length && this.flowInterval != null) {
         //console.time(`t = ${Ts[i]}`)
         timeIndexedFlows[Ts[i]].forEach(l => {
           this.flowGroup
